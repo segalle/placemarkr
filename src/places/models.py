@@ -16,9 +16,9 @@ class PlaceMarker(models.Model):
     address = models.CharField(max_length=200)
     lat = models.FloatField()
     lng = models.FloatField()
-    
+
     class Meta:
-        unique_together = (("place" , "city" , "address" , "lat" , "lng"),)
-    
+        unique_together = (("place", "city", "address", "lat", "lng"),)
+
     def __unicode__(self):
         return self.unique_together
