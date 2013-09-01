@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from places.models import Place, PlaceMarker
 import json
 import os
+from django.db.utils import IntegrityError
 
 
 class Command(BaseCommand):
@@ -16,14 +17,19 @@ class Command(BaseCommand):
         with open(args[0], 'r') as f:
             result = json.load(f)
         for i in result:
+            marker = PlaceMarker()
             try:
-                marker = PlaceMarker()
                 marker.place = Place.objects.get(vendor_id=i['id'])
-                marker.city = i['city']
-                marker.address = i['address']
-                marker.lat = i['lat']
-                marker.lng = i['lng']
-                marker.save()
-                print "%s ,%s saved successfully" % (marker.address, marker.city) 
             except Place.DoesNotExist:
                 print "%s place id doesn't exist" % i['id']
+                continue
+            marker.city = i['city']
+            marker.address = i['address']
+            marker.lat = i['lat']
+            marker.lng = i['lng']
+            try:
+                marker.save()
+                print "%s ,%s saved successfully" % (marker.address, marker.city)
+            except IntegrityError:
+                print "%s ,%s record is not unique" % (marker.address, marker.city)
+                continue

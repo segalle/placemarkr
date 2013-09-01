@@ -2,5 +2,6 @@
 	{ "id" : 2 , "city" : "jerusalem" , "address" : "golomb 15" , "lat" : 5.7 , "lng" : 6},
 	{ "id" : 2 , "city" : "jerusalem" , "address" : "hertsel 3" , "lat" : 5.7 , "lng" : 6},
 	{ "id" : 3 , "city" : "jerusalem" , "address" : "hashmonaim 18" , "lat" : 5.7 , "lng" : 6 },
+	{ "id" : 3 , "city" : "Tel-Aviv" , "address" : "hashmonaim 18" , "lat" : 5.7 , "lng" : 6 },
 	{ "id" : 3 , "city" : "jerusalem" , "address" : "hashmonaim 18" , "lat" : 5.7 , "lng" : 6 }
 ]
