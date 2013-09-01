@@ -1,7 +1,8 @@
 from django.core.management.base import BaseCommand, CommandError
-from places.models import Place , PlaceMarker
+from places.models import Place, PlaceMarker
 import json
 import os
+
 
 class Command(BaseCommand):
     args = '<filename>'
@@ -17,12 +18,12 @@ class Command(BaseCommand):
         for i in result:
             try:
                 marker = PlaceMarker()
+                marker.place = Place.objects.get(vendor_id=i['id'])
                 marker.city = i['city']
                 marker.address = i['address']
-                marker.place = Place.objects.get(vendor_id=i['id'])
                 marker.lat = i['lat']
                 marker.lng = i['lng']
                 marker.save()
-                print "%s ,%s saved successfully" %(marker.address ,marker.city ) 
+                print "%s ,%s saved successfully" % (marker.address, marker.city) 
             except Place.DoesNotExist:
                 print "%s place id doesn't exist" % i['id']
