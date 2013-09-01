@@ -17,10 +17,10 @@ class Command(BaseCommand):
         for i in result:
             try:
                 place = Place.objects.get(vendor_id=i['id'])
-                print place
+                print "place id #%s already exist... skipping" %i["id"]
             except Place.DoesNotExist:
                 place = Place()
                 place.vendor_id = i["id"]
                 place.data = json.dumps(i)
                 place.save()
-                print "place id #%s added" %i["id"]:
+                print "place id #%s added" %i["id"]
