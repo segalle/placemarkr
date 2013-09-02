@@ -7,13 +7,13 @@
 		<td>ID</td>
 		<td>Number of markers</td>
 	</tr>
-	{% for i in all %}
+	{% for p in places %}
 	<tr>
 		<td>
-			{{i.id}}
+			{{p.vendor_id}}
 		</td>
 		<td>
-			{{i.num_marker}}
+			{{p.placemarks.count}}
 		</td>
 	</tr>
 	{% endfor %}

@@ -11,7 +11,7 @@ class Place(models.Model):
 
 
 class Placemark(models.Model):
-    place = models.ForeignKey(Place)
+    place = models.ForeignKey(Place, related_name='placemarks')
     city = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
     lat = models.FloatField()
@@ -20,5 +20,3 @@ class Placemark(models.Model):
     class Meta:
         unique_together = (("place", "city", "address", "lat", "lng"),)
 
-    def __unicode__(self):
-        return self.unique_together
