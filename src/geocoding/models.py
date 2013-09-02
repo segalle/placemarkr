@@ -17,7 +17,8 @@ def geo_code(address, locality):
     except CacheItem.DoesNotExist:
         payload = {"components": u"locality:{0}".format(locality), "address": address, "sensor": "false"}
         r = requests.get("http://maps.googleapis.com/maps/api/geocode/json", params=payload)
+        print "geocoding"
         if r.status_code != 200:
             raise Exception("Http error #%d : %s" % (r.status_code, r.url))
-        CacheItem.objects.create(address=address, locality=locality, result=r.text())
+        CacheItem.objects.create(address=address, locality=locality, result=r.text)
         return r.json()
