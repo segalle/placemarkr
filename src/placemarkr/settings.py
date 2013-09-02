@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'django_extensions',
     'places',
+    'geocoding',
 )
 
 # A sample logging configuration. The only tangible logging
