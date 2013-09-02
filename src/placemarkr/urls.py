@@ -7,6 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'places.views.home', name='home'),
+    url(r'^place/(?P<id>\d+)/$', 'places.views.place', name='place'),
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

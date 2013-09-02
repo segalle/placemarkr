@@ -10,7 +10,7 @@
 	{% for p in places %}
 	<tr>
 		<td>
-			{{p.vendor_id}}
+			<a href="{% url 'place' p.id%}">{{p.vendor_id}}</a>
 		</td>
 		<td>
 			{{p.placemarks.count}}
