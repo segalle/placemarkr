@@ -1,8 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% for place in places %}
-<h4>{{place.vendor_id}}</h4>
-{% endfor %}
+
+<table>
+	<tr>
+		<td>ID</td>
+		<td>Number of markers</td>
+	</tr>
+	{% for i in all %}
+	<tr>
+		<td>
+			{{i.id}}
+		</td>
+		<td>
+			{{i.num_marker}}
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+
 
 {% endblock %}
