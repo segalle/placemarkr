@@ -10,7 +10,7 @@ class Place(models.Model):
         return self.data
 
 
-class PlaceMarker(models.Model):
+class Placemark(models.Model):
     place = models.ForeignKey(Place)
     city = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
