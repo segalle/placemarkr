@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import auth
 import datetime
 
 
@@ -20,3 +21,11 @@ class Placemark(models.Model):
     class Meta:
         unique_together = (("place", "city", "address", "lat", "lng"),)
 
+class Votes:
+    placemark = models.ForeignKey(Placemark, related_name='votes')
+    created_on = models.DateTimeField()
+    user = models.ForeignKey(auth.models.User)
+    vote = models.BooleanField();
+
+    class Meta:
+        unique_together = (('placemark', 'user'),)

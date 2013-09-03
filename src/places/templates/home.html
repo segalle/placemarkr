@@ -1,23 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
+{% load staticfiles %}
+<script src="{% static "jquery-1.10.2.js" %}"></script>
+<link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
 
-
-<table>
-	<tr>
-		<td>ID</td>
-		<td>Number of markers</td>
-	</tr>
+<ul class="list-group">
 	{% for p in places %}
-	<tr>
-		<td>
-			<a href="{% url 'place' p.id%}">{{p.vendor_id}}</a>
-		</td>
-		<td>
-			{{p.placemarks.count}}
-		</td>
-	</tr>
-	{% endfor %}
-</table>
+	<li class="list-group-item">  		
+   			<a href="{% url 'place' p.id%}">{{p.vendor_id}}</a>
+   			<span class="badge">{{p.placemarks.count}}</span>
+ 	</li>
+ 	{% endfor %}
+</ul>
 
-
+<script src="{% static "dist/js/bootstrap.min.js" %}"></script> -->
 {% endblock %}
+

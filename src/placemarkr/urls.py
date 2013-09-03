@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'places.views.home', name='home'),
     url(r'^place/(?P<id>\d+)/$', 'places.views.place', name='place'),
+    url(r'^login/$', 'places.views.login_user', name='login_user'),
+    url(r'^logout/$', 'places.views.logout_user', name='logout_user'),
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
