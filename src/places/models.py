@@ -21,11 +21,11 @@ class Placemark(models.Model):
     class Meta:
         unique_together = (("place", "city", "address", "lat", "lng"),)
 
-class Votes:
+class Vote:
     placemark = models.ForeignKey(Placemark, related_name='votes')
-    created_on = models.DateTimeField()
+    created_on = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(auth.models.User)
-    vote = models.BooleanField();
+    possitive = models.BooleanField();
 
     class Meta:
         unique_together = (('placemark', 'user'),)

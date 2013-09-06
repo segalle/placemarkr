@@ -57,7 +57,7 @@ function initialize() {
 	$('#jsontitle').click(function() {
 		$("#jsoncontent").toggle();
 	});
-	$("div[id^='place']").hover(function() {
+	$("li[id^='place']").hover(function() {
 		current = $("li").index(this);
 		Placemarkr['markers'][current].setAnimation(google.maps.Animation.BOUNCE);
 		
