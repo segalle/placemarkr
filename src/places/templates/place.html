@@ -8,7 +8,8 @@
 <script src="{% static "mapgenerator.js" %}"></script>
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
 <script>
-	var places = [];
+	Placemarkr.placemarks = {{placemarks|safe}};
+	var id = {{id}};
 </script>
 <div align="center">
 <div class="panel panel-default">
@@ -17,15 +18,10 @@
 <table width=100%>
 	<tr>
 		<td valign="top" align="right" width="200px">
-			<h3>נקודת עניין מספר {{place.id}}</h3>
+			<h3 id='title'></h3>
 			<p id="jsontitle">Json content</p>
-			<div id="jsoncontent" >{{place.data}}</div>
-			<ul class="nav nav-pills nav-stacked">
-				{% for mark in place.placemarks.iterator %}
-				<script>places.push([{{mark.lng}},{{mark.lat}},"{{mark.address}}","{{mark.city}}"]);</script>
-				<li id=place_{{forloop.counter}}><a href="#">{{forloop.counter}}. {{mark.city}}, {{mark.address}}</a></li>
-				{% endfor %}
-			</ul>
+			<div id="jsoncontent" ><!-- {{place.data}} --></div>
+			<ul class="nav nav-pills nav-stacked" id="mainlist"></ul>
 		</td>
 		<td width="30px"></td>
 		<td valign="top" width="300px"><div id="map_canvas"></div></td>
