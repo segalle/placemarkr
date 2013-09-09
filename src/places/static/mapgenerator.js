@@ -17,8 +17,8 @@ function showInfoWindow(marker) {
 	}
 	infowindow = new google.maps.InfoWindow({});
 
-	var s = Mustache.render("<div><p>{{address}}, {{city}}</p>" + "<button class='btn btn-default vote votefor' value='True'>נכון</button>" +
-	 "<button class='btn btn-default vote voteagainst' value='False'>לא נכון</button>"+
+	var s = Mustache.render("<div><p>{{address}}, {{city}}</p>" + "<button id='votefor' class='btn btn-default vote votefor' value='True'>נכון</button>" +
+	 "<button id='voteagainst' class='btn btn-default vote voteagainst' value='False'>לא נכון</button>"+
 	 "<span id='loading' class='hide'>Loading...</span></div>" 
 	 , marker.place);
 	 
@@ -34,18 +34,21 @@ function showInfoWindow(marker) {
 		else{
 			el.find('.voteagainst').attr('disabled', 'disabled');
 		}
-	}
+	};
 	el.find(".vote").on("click", function() {
 		$('#loading').removeClass('hide');
-		$('.vote').addClass('hide');
+		button = $(this).attr('id');
 		$.post('/vote/', {
 			id : marker.place.id,
 			positive : $(this).val()
 		}, function(resp) {
-			$('.vote').removeClass('hide');
 			if (resp == "OK"){
-				$('.loading').text("Vote Recieved")
-				// $('.votefor')
+				console.log("OK");
+				$('#loading').text("Vote Recieved");
+				$("[id=button]").attr('disabled', 'disabled');   //ASK UDI!
+			}
+			else{
+				$('#loading').text("Already voted for");
 			}
 		});
 

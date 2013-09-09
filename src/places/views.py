@@ -65,7 +65,10 @@ def vote(request):
         return HttpResponse("Wrong request method")
     placemark = Placemark.objects.get(id=int(request.POST['id']))
     if Vote.objects.filter(user=request.user, placemark=placemark).exists():
-        return HttpResponse("exists")
+        currentvote = Vote.objects.get(user=request.user, placemark=placemark)
+        currentvote.positive = request.POST['positive'] == 'True'
+        currentvote.save()
+        return HttpResponse("Updated")
     newvote = Vote()
     newvote.placemark = placemark
     newvote.user = request.user
