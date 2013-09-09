@@ -48,12 +48,9 @@ function showInfoWindow(marker) {
 				$("[id=button]").attr('disabled', 'disabled');   //ASK UDI!
 			}
 			else{
-				$('#loading').text("Already voted for");
+				$('#loading').text("Updated");
 			}
 		});
-
-	
-	
 	});
 	return marker;
 }
@@ -85,24 +82,43 @@ function foreignInfoWindow(marker, fulladdress) {
 	}
 	infowindow = new google.maps.InfoWindow({});
 
-	var s = Mustache.render("<p>{{address}}, {{locality}}?</p>" + "<button class='btn btn-default vote' value='True'>נכון</button>" + "<button class='btn btn-default remove' value='False'>הסר</button>", fulladdress);
+	var s = Mustache.render("<div><p>{{address}}, {{locality}}?</p>" + "<button class='btn btn-default vote' value='True'>נכון</button>" + 
+	"<button class='btn btn-default remove' value='False'>הסר</button>"+
+	"<span id='loading' class='hide'>Loading...</span></div>", fulladdress);
 
-	infowindow.setContent(s);
+	var el = $(s);
+	
+	infowindow.setContent(el.get(0));
 	infowindow.open(map, marker);
 
-	$("body").on("click", ".vote", function() {
+	el.find(".vote").on("click", function() {
+		$('#loading').removeClass('hide');
 		$.post('/addplacemark/', {
 			place : Placemarkr.id,
 			city : fulladdress["locality"],
 			address : fulladdress["address"],
 			lat : marker.getPosition().lat(),
 			lng : marker.getPosition().lng()
+		}, function(resp){  //if got response 200 from server
+			if (resp == "OK"){
+				$('#loading').text("Marker Created Successfuly");
+				$('button').addClass('hide');
+			}
+			else {
+				$('#loading').text("Marker already exists");
+			}
 		});
-
-		// $('#False').after("<div class='progress progress-striped active'>"+
-		// "<div class='progress-bar'  role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>" +
-		// "</div></div>");
 	});
+	
+	el.find('.remove').on("click",function(){
+		var idx = ForeignPlacemarkr.markers.indexOf(marker);
+		console.log(idx);
+		ForeignPlacemarkr.markers.splice(idx,1);
+		console.log(ForeignPlacemarkr);
+		marker.setMap(null);
+		$('#foreignlist li').eq(idx).remove();
+	});
+	
 	return marker;
 }
 
@@ -206,6 +222,7 @@ function initialize() {
 	$("#search").click(function() {
 		console.log("search");
 		codeAddress();
+		console.log(ForeignPlacemarkr)
 	});
 
 }
