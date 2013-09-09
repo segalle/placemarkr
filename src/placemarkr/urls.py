@@ -10,7 +10,8 @@ urlpatterns = patterns('',
     url(r'^place/(?P<id>\d+)/$', 'places.views.place', name='place'),
     url(r'^login/$', 'places.views.login_user', name='login_user'),
     url(r'^logout/$', 'places.views.logout_user', name='logout_user'),
-#     url(r'^addvote/(?P<id>\d+)/$', 'places.views.addvote', name='addvote'),
+    url(r'^vote/$', 'places.views.vote', name='vote'),
+    url(r'^addplacemark/$', 'places.views.addplacemark', name='addplacemark'),
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

@@ -1,4 +1,3 @@
-from django.db.models.aggregates import Count
 from django.http import *
 from django.shortcuts import render
 from places.models import Place, Placemark, Vote
@@ -38,14 +37,19 @@ def home(request):
 @login_required(login_url='/login/')
 def place(request, id):
     l = []
-    for p in Placemark.objects.all():
+    for pm in Placemark.objects.filter(place__id=int(id)):
+        try:
+            vote = Vote.objects.get(placemark=pm, user=request.user)
+        except Vote.DoesNotExist:
+            vote = None
         l.append(
              {
-              'id': p.place.id,
-              'city': p.city,
-              'address': p.address,
-              'lat': p.lat,
-              'lng': p.lng
+              'id': pm.id,
+              'city': pm.city,
+              'address': pm.address,
+              'lat': pm.lat,
+              'lng': pm.lng,
+              'vote': vote.positive if vote else None
              }
         )
     context = {
@@ -54,12 +58,33 @@ def place(request, id):
                }
     return render(request, 'place.html', context)
 
+
 @login_required(login_url='/login/')
-def savevote(request, id):
-    if request.user.is_authenticated():
-        newvote = Vote()
-        newvote.placemark = Vote.placemark
-        newvote.user = request.user.username
-        newvote.possitive = request.possitive
-        return "ok"
-    return "error"
+def vote(request):
+    if not request.method == 'POST':
+        return HttpResponse("Wrong request method")
+    placemark = Placemark.objects.get(id=int(request.POST['id']))
+    if Vote.objects.filter(user=request.user, placemark=placemark).exists():
+        return HttpResponse("exists")
+    newvote = Vote()
+    newvote.placemark = placemark
+    newvote.user = request.user
+    newvote.positive = request.POST['positive'] == 'True'
+    newvote.save()
+    return HttpResponse("OK")
+
+
+@login_required(login_url='/login/')
+def addplacemark(request):
+    if not request.method == 'POST':
+        return HttpResponse("Wrong request method")
+    if Placemark.objects.filter(place__id=request.POST['place'], address=request.POST['address'], city=request.POST['city'], lat=request.POST['lat'], lng=request.POST['lng']).exists():
+        return HttpResponse("exists")
+    newplacemark = Placemark();
+    newplacemark.place_id = int(request.POST['place'])
+    newplacemark.city = request.POST['city']
+    newplacemark.address = request.POST['address']
+    newplacemark.lat = float(request.POST['lat'])
+    newplacemark.lng = float(request.POST['lng'])
+    newplacemark.save()
+    return HttpResponse("OK")

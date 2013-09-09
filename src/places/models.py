@@ -17,6 +17,7 @@ class Placemark(models.Model):
     address = models.CharField(max_length=200)
     lat = models.FloatField()
     lng = models.FloatField()
+    user = models.ForeignKey(auth.models.User, null=True, blank=True)
 
     class Meta:
         unique_together = (("place", "city", "address", "lat", "lng"),)
@@ -25,7 +26,7 @@ class Vote(models.Model):
     placemark = models.ForeignKey(Placemark, related_name='votes')
     created_on = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(auth.models.User)
-    possitive = models.BooleanField();
+    positive = models.BooleanField();
 
     class Meta:
         unique_together = (('placemark', 'user'),)

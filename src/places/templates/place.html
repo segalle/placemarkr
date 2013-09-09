@@ -3,13 +3,14 @@
 {% load staticfiles %}
 
 <script src="{% static "jquery-1.10.2.js" %}"></script>
+<script src="{% static "csrf.js" %}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=visualization"></script>
 <script src="{% static "mustache.js" %}"></script>
 <script src="{% static "mapgenerator.js" %}"></script>
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
 <script>
 	Placemarkr.placemarks = {{placemarks|safe}};
-	var id = {{id}};
+	Placemarkr.id = {{id}};
 </script>
 <div align="center">
 <div class="panel panel-default">
@@ -22,6 +23,25 @@
 			<p id="jsontitle">Json content</p>
 			<div id="jsoncontent" ><!-- {{place.data}} --></div>
 			<ul class="nav nav-pills nav-stacked" id="mainlist"></ul>
+			<ul class="nav nav-pills nav-stacked" id="foreignlist"></ul>
+			<div id="newaddress">
+				מצא כתובת חדשה:
+				<form method="post">
+					<table>
+						<tr>
+							<td>כתובת:</td>
+							<td><input type="text" id="address" name="address"/></td>
+						</tr>
+						<tr>
+							<td>עיר:</td>
+							<td><input type="text" id="city" name="city" /><br></td>
+						</tr>
+						<tr><td align="center" colspan="2"><input type="button" id="search" value="חפש"/></td></tr>
+					</table>
+					
+					
+				</form>
+			</div>
 		</td>
 		<td width="30px"></td>
 		<td valign="top" width="300px"><div id="map_canvas"></div></td>

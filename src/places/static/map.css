@@ -17,3 +17,7 @@ table{
 	alignment-adjust: cener;
 	/*background-color: blue;*/
 }
+
+.hide{
+	display: none;
+}
