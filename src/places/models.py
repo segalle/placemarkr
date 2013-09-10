@@ -24,7 +24,7 @@ class Place(models.Model):
             geometry_dic["coordinates"] = [placemark.lng, placemark.lng]
 
             feature_dic = {}
-            feature_dic["properties"] = self.data
+            feature_dic["properties"] = json.loads(self.data)
             feature_dic["type"] = "Feature"
             feature_dic["geometry"] = geometry_dic
 
