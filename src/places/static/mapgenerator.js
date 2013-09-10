@@ -45,14 +45,12 @@ function showInfoWindow(marker) {
 				console.log("OK", this);
 				$('#loading').text("Vote Recieved");
 				$(button).attr('disabled', 'disabled');   
-				infowindow.close();
-				infowindow.open(map, marker);
 			}
 			else{
 				$('#loading').text("Updated");
-				infowindow.close();
-				infowindow.open(map, marker);
 			}
+			infowindow.close();
+			infowindow.open(map, marker);
 		});
 	});
 	return marker;
@@ -63,10 +61,11 @@ function doMarker(place) {
 	var marker = new google.maps.Marker({
 		map : map,
 		position : inlatlng,
-		clickable : true
+		clickable : true,
+		icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+place['forcount']+'|FF0000|000000'
 	});
 
-	var litem = $(Mustache.render('<li class="place list-group-item"><a href="#">{{address}}, {{city}}</a></li>', place));
+	var litem = $(Mustache.render('<li class="place list-group-item"><a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', place));
 	litem.data("marker", marker);
 	marker.place = place;
 	marker.litem = litem;
@@ -110,6 +109,8 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 			else {
 				$('#loading').text("Marker already exists");
 			}
+			infowindow.close();
+			infowindow.open(map, marker);
 		});
 	});
 	
@@ -129,10 +130,11 @@ function createForeignMarker(result, fulladdress) {
 	var marker = new google.maps.Marker({
 		map : map,
 		position : result.geometry.location,
-		clickable : true
+		clickable : true,
+		icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+fulladdress['forcount']+'|006400|ffffff'
 	});
 
-	var litem = $(Mustache.render('<li class="foreignplace list-group-item"><a href="#">{{address}}, {{city}}</a></li>', fulladdress));
+	var litem = $(Mustache.render('<li class="foreignplace list-group-item"><a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', fulladdress));
 	litem.data("marker", marker);
 	litem.data("fulladdress", fulladdress);
 	marker.place = result;
@@ -156,9 +158,12 @@ function codeAddress() {
 	}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			map.setCenter(results[0].geometry.location);
+			var forcount = 1;
 			for (var i = 0; i < results.length; i++) {
+				fulladdress["forcount"] = forcount;
 				var marker = createForeignMarker(results[i], fulladdress);
 				ForeignPlacemarkr.markers.push(marker);
+				forcount += 1;
 			};
 		} else {
 			alert("Geocode was not successful for the following reason: " + status);
@@ -178,9 +183,12 @@ function initialize() {
 
 	map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
+	var forcount = 1;
 	for (var i = 0; i < Placemarkr.placemarks.length; i++) {
+		places[i]['forcount'] = forcount;
 		var marker = doMarker(places[i]);
 		Placemarkr.markers.push(marker);
+		forcount += 1;
 	}
 
 	$('#jsontitle').click(function() {
@@ -222,9 +230,10 @@ function initialize() {
 		foreignInfoWindow(marker, fulladdress, $(this));
 	});
 
-	$("#search").click(function() {
+	$("#searchform").submit(function() {
 		console.log("search");
 		codeAddress();
+		return false;
 	});
 
 }

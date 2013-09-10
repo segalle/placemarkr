@@ -32,7 +32,7 @@
     {
         "city": "\u05d9\u05e8\u05db\u05d0", 
         "id": 1006, 
-        "address": "\u05d9\u05e8\u05db\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05d9\u05ea\u05d9\u05e8", 
@@ -42,12 +42,12 @@
     {
         "city": "\u05db\u05d0\u05d1\u05d5\u05dc", 
         "id": 1008, 
-        "address": "\u05db\u05d0\u05d1\u05d5\u05dc"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05d0\u05d1\u05d5\u05dc", 
         "id": 1009, 
-        "address": "\u05db\u05d0\u05d1\u05d5\u05dc"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05d0\u05d5\u05db\u05d1 \u05d0\u05d1\u05d5 \u05d0\u05dc-\u05d4\u05d9\u05d2'\u05d0", 
@@ -57,7 +57,7 @@
     {
         "city": "\u05db\u05d0\u05de\u05e0\u05d4", 
         "id": 1011, 
-        "address": "\u05db\u05d0\u05de\u05e0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05d1\u05e8\u05d9", 
@@ -87,7 +87,7 @@
     {
         "city": "\u05db\u05e0\u05e3", 
         "id": 1018, 
-        "address": "\u05db\u05e0\u05e3"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e0\u05e8\u05ea \u05de\u05d5\u05e9\u05d1\u05d4", 
@@ -102,12 +102,12 @@
     {
         "city": "\u05db\u05e1\u05d9\u05d9\u05e4\u05d4", 
         "id": 1021, 
-        "address": "\u05db\u05e1\u05d9\u05d9\u05e4\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e1\u05e8\u05d0", 
         "id": 1022, 
-        "address": "\u05db\u05e1\u05e8\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e2\u05d1\u05d9\u05d4-\u05d8\u05d1\u05d0\u05e9-\u05d7\u05d2'\u05d0\u05d2'\u05e8\u05d4", 
@@ -147,7 +147,7 @@
     {
         "city": "\u05db\u05e4\u05e8 \u05d4\u05de\u05db\u05d1\u05d9", 
         "id": 1030, 
-        "address": "\u05db\u05e4\u05e8 \u05d4\u05de\u05db\u05d1\u05d9"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e4\u05e8 \u05d4\u05e8\u05d0\"\u05d4", 
@@ -157,7 +157,7 @@
     {
         "city": "\u05db\u05e4\u05e8 \u05d5\u05d9\u05ea\u05e7\u05d9\u05df", 
         "id": 1032, 
-        "address": "\u05db\u05e4\u05e8 \u05d5\u05d9\u05ea\u05e7\u05d9\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e4\u05e8 \u05d5\u05e8\u05d3\u05d9\u05dd", 
@@ -197,7 +197,7 @@
     {
         "city": "\u05db\u05e4\u05e8 \u05d9\u05d0\u05e1\u05d9\u05e3", 
         "id": 1040, 
-        "address": "\u05db\u05e4\u05e8 \u05d9\u05d0\u05e1\u05d9\u05e3"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e4\u05e8 \u05d9\u05d5\u05d1\u05dc", 
@@ -217,37 +217,37 @@
     {
         "city": "\u05db\u05e4\u05e8 \u05db\u05de\u05d0", 
         "id": 1044, 
-        "address": "\u05db\u05e4\u05e8 \u05db\u05de\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e4\u05e8 \u05db\u05e0\u05d0", 
         "id": 1045, 
-        "address": "\u05db\u05e4\u05e8 \u05db\u05e0\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e4\u05e8 \u05db\u05e0\u05d0", 
         "id": 1046, 
-        "address": "\u05db\u05e4\u05e8 \u05db\u05e0\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e4\u05e8 \u05db\u05e0\u05d0", 
         "id": 1047, 
-        "address": "\u05db\u05e4\u05e8 \u05db\u05e0\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e4\u05e8 \u05de\u05e0\u05d3\u05d0", 
         "id": 1048, 
-        "address": "\u05db\u05e4\u05e8 \u05de\u05e0\u05d3\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e4\u05e8 \u05de\u05e0\u05d3\u05d0", 
         "id": 1049, 
-        "address": "\u05db\u05e4\u05e8 \u05de\u05e0\u05d3\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e4\u05e8 \u05de\u05e0\u05d3\u05d0", 
         "id": 1050, 
-        "address": "\u05db\u05e4\u05e8 \u05de\u05e0\u05d3\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e4\u05e8 \u05de\u05e1\u05e8\u05d9\u05e7", 
@@ -347,12 +347,12 @@
     {
         "city": "\u05db\u05e4\u05e8 \u05ea\u05d1\u05d5\u05e8", 
         "id": 1070, 
-        "address": "\u05db\u05e4\u05e8 \u05ea\u05d1\u05d5\u05e8"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e8\u05de\u05d9 \u05d9\u05d5\u05e1\u05e3", 
         "id": 1071, 
-        "address": "\u05db\u05e8\u05de\u05d9 \u05d9\u05d5\u05e1\u05e3"
+        "address": ""
     }, 
     {
         "city": "\u05db\u05e8\u05de\u05d9\u05d0\u05dc", 
@@ -482,12 +482,12 @@
     {
         "city": "\u05dc\u05e7\u05d9\u05d9\u05d4", 
         "id": 1097, 
-        "address": "\u05dc\u05e7\u05d9\u05d9\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05dc\u05e7\u05d9\u05d9\u05d4", 
         "id": 1098, 
-        "address": "\u05dc\u05e7\u05d9\u05d9\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05d0\u05d5\u05e8", 
@@ -502,7 +502,7 @@
     {
         "city": "\u05de\u05d1\u05d5\u05e2\u05d9\u05dd", 
         "id": 1101, 
-        "address": "\u05de\u05d1\u05d5\u05e2\u05d9\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05d1\u05e9\u05e8\u05ea  \u05e6\u05d9\u05d5\u05df", 
@@ -512,12 +512,12 @@
     {
         "city": "\u05de\u05d2'\u05d3\u05dc \u05db\u05e8\u05d5\u05dd", 
         "id": 1103, 
-        "address": "\u05de\u05d2'\u05d3\u05dc \u05db\u05e8\u05d5\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05d2'\u05d3\u05dc \u05e9\u05de\u05e1", 
         "id": 1104, 
-        "address": "\u05de\u05d2'\u05d3\u05dc \u05e9\u05de\u05e1"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05d2\u05d0\u05e8", 
@@ -557,12 +557,12 @@
     {
         "city": "\u05de\u05d2\u05d3\u05dc", 
         "id": 1112, 
-        "address": "\u05de\u05d2\u05d3\u05dc"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05d2\u05d3\u05dc \u05d4\u05e2\u05de\u05e7", 
         "id": 1113, 
-        "address": "\u05de\u05d2\u05d3\u05dc \u05d4\u05e2\u05de\u05e7"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05d2\u05d3\u05dc \u05d4\u05e2\u05de\u05e7", 
@@ -662,12 +662,12 @@
     {
         "city": "\u05de\u05d5\u05e1\u05de\u05d5\u05e1", 
         "id": 1133, 
-        "address": "\u05de\u05d5\u05e1\u05de\u05d5\u05e1"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05d5\u05e7\u05d9\u05d9\u05d1\u05dc\u05d4", 
         "id": 1134, 
-        "address": "\u05de\u05d5\u05e7\u05d9\u05d9\u05d1\u05dc\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05d5\u05e8\u05df", 
@@ -692,7 +692,7 @@
     {
         "city": "\u05de\u05d6\u05e8\u05e2\u05d4", 
         "id": 1139, 
-        "address": "\u05de\u05d6\u05e8\u05e2\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05d7\u05d5\u05dc\u05d4", 
@@ -712,7 +712,7 @@
     {
         "city": "\u05de\u05d9\u05e1\u05e8", 
         "id": 1143, 
-        "address": "\u05de\u05d9\u05e1\u05e8"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05d9\u05e8\u05d1", 
@@ -742,7 +742,7 @@
     {
         "city": "\u05de\u05e0\u05d7\u05de\u05d9\u05d4", 
         "id": 1149, 
-        "address": "\u05de\u05e0\u05d7\u05de\u05d9\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05e0\u05e8\u05d4", 
@@ -752,7 +752,7 @@
     {
         "city": "\u05de\u05e0\u05e9\u05d9\u05ea \u05d6\u05d1\u05d3\u05d4", 
         "id": 1151, 
-        "address": "\u05de\u05e0\u05e9\u05d9\u05ea \u05d6\u05d1\u05d3\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05e1\u05d3", 
@@ -772,7 +772,7 @@
     {
         "city": "\u05de\u05e1\u05e2\u05d3\u05d4", 
         "id": 1155, 
-        "address": "\u05de\u05e1\u05e2\u05d3\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05e2\u05d2\u05df \u05de\u05d9\u05db\u05d0\u05dc", 
@@ -782,7 +782,7 @@
     {
         "city": "\u05de\u05e2\u05d5\u05d5\u05d9\u05d4", 
         "id": 1157, 
-        "address": "\u05de\u05e2\u05d5\u05d5\u05d9\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05e2\u05d5\u05d6 \u05d7\u05d9\u05d9\u05dd", 
@@ -802,7 +802,7 @@
     {
         "city": "\u05de\u05e2\u05d9\u05dc\u05d9\u05d0", 
         "id": 1161, 
-        "address": "\u05de\u05e2\u05d9\u05dc\u05d9\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05e2\u05dc\u05d4 \u05d0\u05d3\u05d5\u05de\u05d9\u05dd", 
@@ -847,7 +847,7 @@
     {
         "city": "\u05de\u05e2\u05dc\u05d5\u05ea", 
         "id": 1170, 
-        "address": "\u05de\u05e2\u05dc\u05d5\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05e2\u05dc\u05d5\u05ea \u05ea\u05e8\u05e9\u05d9\u05d7\u05d0", 
@@ -877,7 +877,7 @@
     {
         "city": "\u05de\u05e6\u05e4\u05d4 \u05e2\u05d3\u05d9", 
         "id": 1176, 
-        "address": "\u05de\u05e6\u05e4\u05d4 \u05e2\u05d3\u05d9"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05e6\u05e4\u05d4 \u05e8\u05de\u05d5\u05df", 
@@ -932,7 +932,7 @@
     {
         "city": "\u05de\u05e9\u05d4\u05d3", 
         "id": 1187, 
-        "address": "\u05de\u05e9\u05d4\u05d3"
+        "address": ""
     }, 
     {
         "city": "\u05de\u05e9\u05d5\u05d0\u05d5\u05ea \u05d9\u05e6\u05d7\u05e7", 
@@ -1017,7 +1017,7 @@
     {
         "city": "\u05e0\u05d5\u05d2'\u05d9\u05d3\u05d0\u05ea", 
         "id": 1204, 
-        "address": "\u05e0\u05d5\u05d2'\u05d9\u05d3\u05d0\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05d5\u05d4 \u05de\u05d5\u05e0\u05e1\u05d5\u05df", 
@@ -1047,7 +1047,7 @@
     {
         "city": "\u05e0\u05d5\u05e4\u05d9\u05ea", 
         "id": 1210, 
-        "address": "\u05e0\u05d5\u05e4\u05d9\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05d7\u05dc \u05e2\u05d5\u05d6", 
@@ -1057,12 +1057,12 @@
     {
         "city": "\u05e0\u05d7\u05dc\u05d9\u05dd", 
         "id": 1212, 
-        "address": "\u05e0\u05d7\u05dc\u05d9\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05d7\u05e3", 
         "id": 1213, 
-        "address": "\u05e0\u05d7\u05e3"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05d7\u05e9\u05d5\u05dc\u05d9\u05dd", 
@@ -1077,12 +1077,12 @@
     {
         "city": "\u05e0\u05d9\u05d9\u05d3\u05ea", 
         "id": 1216, 
-        "address": "\u05e0\u05d9\u05d9\u05d3\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05d9\u05df", 
         "id": 1217, 
-        "address": "\u05e0\u05d9\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05d9\u05e6\u05df", 
@@ -1167,37 +1167,37 @@
     {
         "city": "\u05e0\u05e6\u05e8\u05ea", 
         "id": 1234, 
-        "address": "\u05e0\u05e6\u05e8\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05e6\u05e8\u05ea", 
         "id": 1235, 
-        "address": "\u05e0\u05e6\u05e8\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05e6\u05e8\u05ea", 
         "id": 1236, 
-        "address": "\u05e0\u05e6\u05e8\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05e6\u05e8\u05ea", 
         "id": 1237, 
-        "address": "\u05e0\u05e6\u05e8\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05e6\u05e8\u05ea", 
         "id": 1238, 
-        "address": "\u05e0\u05e6\u05e8\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05e6\u05e8\u05ea", 
         "id": 1239, 
-        "address": "\u05e0\u05e6\u05e8\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05e6\u05e8\u05ea", 
         "id": 1240, 
-        "address": "\u05e0\u05e6\u05e8\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e0\u05e6\u05e8\u05ea \u05e2\u05d9\u05dc\u05d9\u05ea", 
@@ -1312,7 +1312,7 @@
     {
         "city": "\u05e1\u05d2'\u05d5\u05e8", 
         "id": 1263, 
-        "address": "\u05e1\u05d2'\u05d5\u05e8"
+        "address": ""
     }, 
     {
         "city": "\u05e1\u05d3\u05dc\u05d4", 
@@ -1322,7 +1322,7 @@
     {
         "city": "\u05e1\u05d5\u05dc\u05dd", 
         "id": 1265, 
-        "address": "\u05e1\u05d5\u05dc\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e1\u05d5\u05e1\u05d9\u05d0", 
@@ -1352,7 +1352,7 @@
     {
         "city": "\u05e1\u05de\u05d9\u05e2", 
         "id": 1271, 
-        "address": "\u05e1\u05de\u05d9\u05e2"
+        "address": ""
     }, 
     {
         "city": "\u05e1\u05e4\u05d9\u05e8", 
@@ -1367,12 +1367,12 @@
     {
         "city": "\u05e2\u05d1\u05dc\u05d9\u05df", 
         "id": 1274, 
-        "address": "\u05e2\u05d1\u05dc\u05d9\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05d1\u05dc\u05d9\u05df", 
         "id": 1275, 
-        "address": "\u05e2\u05d1\u05dc\u05d9\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05d1\u05e8\u05d5\u05df", 
@@ -1417,22 +1417,22 @@
     {
         "city": "\u05e2\u05d9\u05dc\u05d5\u05d8", 
         "id": 1284, 
-        "address": "\u05e2\u05d9\u05dc\u05d5\u05d8"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05d9\u05df \u05d0\u05d1\u05e8\u05d4\u05d9\u05dd", 
         "id": 1285, 
-        "address": "\u05e2\u05d9\u05df \u05d0\u05d1\u05e8\u05d4\u05d9\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05d9\u05df \u05d0\u05dc \u05d0\u05e1\u05d3", 
         "id": 1286, 
-        "address": "\u05e2\u05d9\u05df \u05d0\u05dc \u05d0\u05e1\u05d3"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05d9\u05df \u05d0\u05e1\u05d4\u05dc\u05d4", 
         "id": 1287, 
-        "address": "\u05e2\u05d9\u05df \u05d0\u05e1\u05d4\u05dc\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05d9\u05df \u05d2\u05d1", 
@@ -1472,7 +1472,7 @@
     {
         "city": "\u05e2\u05d9\u05df \u05d4\u05e9\u05d5\u05e4\u05d8", 
         "id": 1295, 
-        "address": "\u05e2\u05d9\u05df \u05d4\u05e9\u05d5\u05e4\u05d8"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05d9\u05df \u05d4\u05e9\u05dc\u05d5\u05e9\u05d4", 
@@ -1502,12 +1502,12 @@
     {
         "city": "\u05e2\u05d9\u05df \u05de\u05d0\u05d4\u05dc", 
         "id": 1301, 
-        "address": "\u05e2\u05d9\u05df \u05de\u05d0\u05d4\u05dc"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05d9\u05df \u05de\u05d0\u05d4\u05dc", 
         "id": 1302, 
-        "address": "\u05e2\u05d9\u05df \u05de\u05d0\u05d4\u05dc"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05d9\u05df \u05e0\u05e7\u05d5\u05d1\u05d0", 
@@ -1517,7 +1517,7 @@
     {
         "city": "\u05e2\u05d9\u05df \u05e7\u05e0\u05d9\u05d0", 
         "id": 1304, 
-        "address": "\u05e2\u05d9\u05df \u05e7\u05e0\u05d9\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05d9\u05df \u05e9\u05de\u05e8", 
@@ -1632,32 +1632,32 @@
     {
         "city": "\u05e2\u05e8\u05d0\u05d1\u05d4", 
         "id": 1327, 
-        "address": "\u05e2\u05e8\u05d0\u05d1\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05e8\u05d0\u05d1\u05d4", 
         "id": 1328, 
-        "address": "\u05e2\u05e8\u05d0\u05d1\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05e8\u05d0\u05d1\u05d4", 
         "id": 1329, 
-        "address": "\u05e2\u05e8\u05d0\u05d1\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05e8\u05d0\u05d1\u05d4", 
         "id": 1330, 
-        "address": "\u05e2\u05e8\u05d0\u05d1\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05e8\u05d0\u05de\u05e9\u05d4", 
         "id": 1331, 
-        "address": "\u05e2\u05e8\u05d0\u05de\u05e9\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05e8\u05d1 \u05d0\u05dc \u05e0\u05e2\u05d9\u05dd", 
         "id": 1332, 
-        "address": "\u05e2\u05e8\u05d1 \u05d0\u05dc \u05e0\u05e2\u05d9\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05e8\u05d3", 
@@ -1672,7 +1672,7 @@
     {
         "city": "\u05e2\u05e8\u05d4", 
         "id": 1335, 
-        "address": "\u05e2\u05e8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05e8\u05d5\u05d2\u05d5\u05ea", 
@@ -1682,17 +1682,17 @@
     {
         "city": "\u05e2\u05e8\u05d5\u05e2\u05e8", 
         "id": 1337, 
-        "address": "\u05e2\u05e8\u05d5\u05e2\u05e8"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05e8\u05d5\u05e2\u05e8", 
         "id": 1338, 
-        "address": "\u05e2\u05e8\u05d5\u05e2\u05e8"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05e8\u05e2\u05e8\u05d4", 
         "id": 1339, 
-        "address": "\u05e2\u05e8\u05e2\u05e8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e2\u05e9\u05e8\u05ea", 
@@ -1737,7 +1737,7 @@
     {
         "city": "\u05e4\u05e1\u05d5\u05d8\u05d4", 
         "id": 1348, 
-        "address": "\u05e4\u05e1\u05d5\u05d8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e4\u05e7\u05d9\u05e2\u05d9\u05df (\u05d1\u05d5\u05e7\u05d9\u05d9\u05e2\u05d4)", 
@@ -1942,7 +1942,7 @@
     {
         "city": "\u05e7\u05d1\u05d5\u05e6\u05ea \u05d9\u05d1\u05e0\u05d4", 
         "id": 1389, 
-        "address": "\u05e7\u05d1\u05d5\u05e6\u05ea \u05d9\u05d1\u05e0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e7\u05d3\u05d5\u05de\u05d9\u05dd", 
@@ -1962,7 +1962,7 @@
     {
         "city": "\u05e7\u05d3\u05de\u05ea \u05e6\u05d1\u05d9", 
         "id": 1393, 
-        "address": "\u05e7\u05d3\u05de\u05ea \u05e6\u05d1\u05d9"
+        "address": ""
     }, 
     {
         "city": "\u05e7\u05d3\u05e8\u05d9\u05dd", 
@@ -1992,12 +1992,12 @@
     {
         "city": "\u05e7\u05dc\u05e0\u05e1\u05d5\u05d0\u05d4", 
         "id": 1399, 
-        "address": "\u05e7\u05dc\u05e0\u05e1\u05d5\u05d0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e7\u05dc\u05e0\u05e1\u05d5\u05d0\u05d4", 
         "id": 1400, 
-        "address": "\u05e7\u05dc\u05e0\u05e1\u05d5\u05d0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e7\u05e6\u05d9\u05e8", 
@@ -2212,7 +2212,7 @@
     {
         "city": "\u05e8\u05d0\u05de\u05d4", 
         "id": 1443, 
-        "address": "\u05e8\u05d0\u05de\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e8\u05d0\u05e9 \u05d4\u05e0\u05e7\u05e8\u05d4", 
@@ -2232,7 +2232,7 @@
     {
         "city": "\u05e8\u05d0\u05e9 \u05e4\u05d9\u05e0\u05d4", 
         "id": 1447, 
-        "address": "\u05e8\u05d0\u05e9 \u05e4\u05d9\u05e0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e8\u05d0\u05e9\u05d5\u05df \u05dc\u05e6\u05d9\u05d5\u05df", 
@@ -2332,7 +2332,7 @@
     {
         "city": "\u05e8\u05d5\u05de\u05d0\u05e0\u05d4", 
         "id": 1467, 
-        "address": "\u05e8\u05d5\u05de\u05d0\u05e0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e8\u05d5\u05de\u05ea \u05d4\u05d9\u05d9\u05d1", 
@@ -2372,22 +2372,22 @@
     {
         "city": "\u05e8\u05d9\u05d7\u05e0\u05d9\u05d4", 
         "id": 1475, 
-        "address": "\u05e8\u05d9\u05d7\u05e0\u05d9\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e8\u05d9\u05d9\u05e0\u05d4", 
         "id": 1476, 
-        "address": "\u05e8\u05d9\u05d9\u05e0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e8\u05d9\u05d9\u05e0\u05d4", 
         "id": 1477, 
-        "address": "\u05e8\u05d9\u05d9\u05e0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e8\u05d9\u05d9\u05e0\u05d4", 
         "id": 1478, 
-        "address": "\u05e8\u05d9\u05d9\u05e0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05e8\u05db\u05e1\u05d9\u05dd", 
@@ -2407,7 +2407,7 @@
     {
         "city": "\u05e8\u05de\u05d5\u05ea", 
         "id": 1482, 
-        "address": "\u05e8\u05de\u05d5\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05e8\u05de\u05d5\u05ea \u05de\u05e0\u05e9\u05d4", 
@@ -2492,7 +2492,7 @@
     {
         "city": "\u05e8\u05de\u05ea \u05d4\u05e9\u05d5\u05e4\u05d8", 
         "id": 1499, 
-        "address": "\u05e8\u05de\u05ea \u05d4\u05e9\u05d5\u05e4\u05d8"
+        "address": ""
     }, 
     {
         "city": "\u05e8\u05de\u05ea \u05d4\u05e9\u05e8\u05d5\u05df", 
@@ -2517,7 +2517,7 @@
     {
         "city": "\u05e8\u05de\u05ea \u05d9\u05e9\u05d9", 
         "id": 1505, 
-        "address": "\u05e8\u05de\u05ea \u05d9\u05e9\u05d9"
+        "address": ""
     }, 
     {
         "city": "\u05e8\u05de\u05ea \u05e0\u05d2\u05d1", 
@@ -2582,7 +2582,7 @@
     {
         "city": "\u05e9\u05d2\u05d1 \u05e9\u05dc\u05d5\u05dd", 
         "id": 1519, 
-        "address": "\u05e9\u05d2\u05d1 \u05e9\u05dc\u05d5\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e9\u05d3\u05d4 \u05d0\u05d9\u05dc\u05df", 
@@ -2727,7 +2727,7 @@
     {
         "city": "\u05e9\u05e2\u05d1", 
         "id": 1548, 
-        "address": "\u05e9\u05e2\u05d1"
+        "address": ""
     }, 
     {
         "city": "\u05e9\u05e2\u05dc\u05d1\u05d9\u05dd", 
@@ -2757,27 +2757,27 @@
     {
         "city": "\u05e9\u05e4\u05e8\u05e2\u05dd", 
         "id": 1554, 
-        "address": "\u05e9\u05e4\u05e8\u05e2\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e9\u05e4\u05e8\u05e2\u05dd", 
         "id": 1555, 
-        "address": "\u05e9\u05e4\u05e8\u05e2\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e9\u05e4\u05e8\u05e2\u05dd", 
         "id": 1556, 
-        "address": "\u05e9\u05e4\u05e8\u05e2\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e9\u05e4\u05e8\u05e2\u05dd", 
         "id": 1557, 
-        "address": "\u05e9\u05e4\u05e8\u05e2\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e9\u05e4\u05e8\u05e2\u05dd", 
         "id": 1558, 
-        "address": "\u05e9\u05e4\u05e8\u05e2\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e9\u05e7\u05d3", 
@@ -2927,7 +2927,7 @@
     {
         "city": "\u05ea\u05e4\u05e8\u05d7", 
         "id": 1589, 
-        "address": "\u05ea\u05e4\u05e8\u05d7"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d5\u05e8 \u05d4\u05e0\u05e8", 
@@ -2982,7 +2982,7 @@
     {
         "city": "\u05d2\u05d9\u05e0\u05d5\u05ea \u05e9\u05d5\u05de\u05e8\u05d5\u05df", 
         "id": 1600, 
-        "address": "\u05d2\u05d9\u05e0\u05d5\u05ea \u05e9\u05d5\u05de\u05e8\u05d5\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05d3\u05d5\u05dc\u05d1", 
@@ -3057,7 +3057,7 @@
     {
         "city": "\u05d1\u05e0\u05d9 \u05e0\u05e6\u05e8\u05d9\u05dd", 
         "id": 1615, 
-        "address": "\u05d1\u05e0\u05d9 \u05e0\u05e6\u05e8\u05d9\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05e4\u05e7\u05d9\u05e2\u05d9\u05df (\u05d1\u05d5\u05e7\u05d9\u05d9\u05e2\u05d4)", 
@@ -3072,27 +3072,27 @@
     {
         "city": "\u05d0\u05d1\u05d5 \u05e1\u05e0\u05d0\u05df", 
         "id": 596, 
-        "address": "\u05d0\u05d1\u05d5 \u05e1\u05e0\u05d0\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d1\u05d5 \u05e1\u05e0\u05d0\u05df", 
         "id": 597, 
-        "address": "\u05d0\u05d1\u05d5 \u05e1\u05e0\u05d0\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d1\u05d5 \u05e1\u05e0\u05d0\u05df", 
         "id": 598, 
-        "address": "\u05d0\u05d1\u05d5 \u05e1\u05e0\u05d0\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d1\u05d5\u05db\u05e3", 
         "id": 599, 
-        "address": "\u05d0\u05d1\u05d5\u05db\u05e3"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d1\u05d5\u05e7\u05e8\u05d9\u05e0\u05d0\u05ea", 
         "id": 600, 
-        "address": "\u05d0\u05d1\u05d5\u05e7\u05e8\u05d9\u05e0\u05d0\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d1\u05df \u05d9\u05d4\u05d5\u05d3\u05d4", 
@@ -3127,7 +3127,7 @@
     {
         "city": "\u05d0\u05d3\u05de\u05d9\u05ea", 
         "id": 608, 
-        "address": "\u05d0\u05d3\u05de\u05d9\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d5\u05dd \u05d0\u05dc-\u05d2\u05e0\u05dd", 
@@ -3162,12 +3162,12 @@
     {
         "city": "\u05d0\u05d5\u05dd \u05d0\u05dc\u05e7\u05d5\u05d8\u05d5\u05e3", 
         "id": 615, 
-        "address": "\u05d0\u05d5\u05dd \u05d0\u05dc\u05e7\u05d5\u05d8\u05d5\u05e3"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d5\u05de\u05e9\u05e8\u05e4\u05d4", 
         "id": 616, 
-        "address": "\u05d0\u05d5\u05de\u05e9\u05e8\u05e4\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d5\u05e4\u05e7\u05d9\u05dd", 
@@ -3227,7 +3227,7 @@
     {
         "city": "\u05d0\u05d7\u05d5\u05d6\u05ea \u05d1\u05e8\u05e7", 
         "id": 629, 
-        "address": "\u05d0\u05d7\u05d5\u05d6\u05ea \u05d1\u05e8\u05e7"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d7\u05d9\u05d4\u05d5\u05d3", 
@@ -3242,7 +3242,7 @@
     {
         "city": "\u05d0\u05d9\u05d1\u05d8\u05d9\u05df", 
         "id": 632, 
-        "address": "\u05d0\u05d9\u05d1\u05d8\u05d9\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d9\u05d9\u05dc", 
@@ -3282,7 +3282,7 @@
     {
         "city": "\u05d0\u05d9\u05dc\u05ea", 
         "id": 640, 
-        "address": "\u05d0\u05d9\u05dc\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05d9\u05de\u05d5\u05e0\u05d9\u05dd", 
@@ -3292,22 +3292,22 @@
     {
         "city": "\u05d0\u05db\u05e1\u05d0\u05dc", 
         "id": 642, 
-        "address": "\u05d0\u05db\u05e1\u05d0\u05dc"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05db\u05e1\u05d0\u05dc", 
         "id": 643, 
-        "address": "\u05d0\u05db\u05e1\u05d0\u05dc"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05dc \u05d0\u05d8\u05e8\u05e9", 
         "id": 644, 
-        "address": "\u05d0\u05dc \u05d0\u05d8\u05e8\u05e9"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05dc\u05d4\u05d5\u05d0\u05e9\u05dc\u05d4", 
         "id": 645, 
-        "address": "\u05d0\u05dc\u05d4\u05d5\u05d0\u05e9\u05dc\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05dc\u05d5\u05de\u05d4", 
@@ -3322,7 +3322,7 @@
     {
         "city": "\u05d0\u05dc\u05d5\u05df \u05d4\u05d2\u05dc\u05d9\u05dc", 
         "id": 648, 
-        "address": "\u05d0\u05dc\u05d5\u05df \u05d4\u05d2\u05dc\u05d9\u05dc"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05dc\u05d5\u05df \u05de\u05d5\u05e8\u05d4", 
@@ -3372,12 +3372,12 @@
     {
         "city": "\u05d0\u05dc\u05e2\u05d6\u05d6\u05de\u05d4", 
         "id": 658, 
-        "address": "\u05d0\u05dc\u05e2\u05d6\u05d6\u05de\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05dc\u05e2\u05e1\u05dd", 
         "id": 659, 
-        "address": "\u05d0\u05dc\u05e2\u05e1\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05d0\u05dc\u05e4\u05d9 \u05de\u05e0\u05e9\u05d4", 
@@ -3612,12 +3612,12 @@
     {
         "city": "\u05d1\u05d5\u05e2\u05d9\u05d9\u05e0\u05d4", 
         "id": 708, 
-        "address": "\u05d1\u05d5\u05e2\u05d9\u05d9\u05e0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d1\u05d5\u05e7\u05e2\u05ea\u05d4", 
         "id": 709, 
-        "address": "\u05d1\u05d5\u05e7\u05e2\u05ea\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d1\u05d9\u05e6\u05e8\u05d5\u05df", 
@@ -3652,12 +3652,12 @@
     {
         "city": "\u05d1\u05d9\u05ea \u05d2'\u05d0\u05df", 
         "id": 716, 
-        "address": "\u05d1\u05d9\u05ea \u05d2'\u05d0\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05d1\u05d9\u05ea \u05d2'\u05d0\u05df", 
         "id": 717, 
-        "address": "\u05d1\u05d9\u05ea \u05d2'\u05d0\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05d1\u05d9\u05ea \u05d2\u05d5\u05d1\u05e8\u05d9\u05df", 
@@ -3817,7 +3817,7 @@
     {
         "city": "\u05d1\u05e0\u05d9 \u05d3\u05e8\u05d5\u05dd", 
         "id": 749, 
-        "address": "\u05d1\u05e0\u05d9 \u05d3\u05e8\u05d5\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05d1\u05e0\u05d9 \u05d9\u05d4\u05d5\u05d3\u05d4", 
@@ -3837,7 +3837,7 @@
     {
         "city": "\u05d1\u05e2\u05e0\u05d4", 
         "id": 753, 
-        "address": "\u05d1\u05e2\u05e0\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d1\u05e7\u05d4", 
@@ -3862,7 +3862,7 @@
     {
         "city": "\u05d1\u05e7\u05d5\u05e2", 
         "id": 758, 
-        "address": "\u05d1\u05e7\u05d5\u05e2"
+        "address": ""
     }, 
     {
         "city": "\u05d1\u05e7\u05e2\u05d5\u05ea", 
@@ -3877,7 +3877,7 @@
     {
         "city": "\u05d1\u05e8\u05d8\u05e2\u05d4", 
         "id": 761, 
-        "address": "\u05d1\u05e8\u05d8\u05e2\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d1\u05e8\u05e2\u05dd", 
@@ -3927,7 +3927,7 @@
     {
         "city": "\u05d2'\u05d3\u05d9\u05d3\u05d4-\u05de\u05db\u05e8", 
         "id": 771, 
-        "address": "\u05d2'\u05d3\u05d9\u05d3\u05d4-\u05de\u05db\u05e8"
+        "address": ""
     }, 
     {
         "city": "\u05d2'\u05d5\u05dc\u05e1", 
@@ -3942,17 +3942,17 @@
     {
         "city": "\u05d2'\u05e1\u05e8 \u05d0\u05dc \u05d6\u05e8\u05e7\u05d0", 
         "id": 774, 
-        "address": "\u05d2'\u05e1\u05e8 \u05d0\u05dc \u05d6\u05e8\u05e7\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05d2'\u05e1\u05e8 \u05d0\u05dc \u05d6\u05e8\u05e7\u05d0", 
         "id": 775, 
-        "address": "\u05d2'\u05e1\u05e8 \u05d0\u05dc \u05d6\u05e8\u05e7\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05d2'\u05ea", 
         "id": 776, 
-        "address": "\u05d2'\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05d2'\u05ea", 
@@ -3962,7 +3962,7 @@
     {
         "city": "\u05d2'\u05ea", 
         "id": 778, 
-        "address": "\u05d2'\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05d2\u05d1\u05d9\u05dd", 
@@ -3987,7 +3987,7 @@
     {
         "city": "\u05d2\u05d1\u05e2\u05ea \u05d1\u05e8\u05e0\u05e8", 
         "id": 783, 
-        "address": "\u05d2\u05d1\u05e2\u05ea \u05d1\u05e8\u05e0\u05e8"
+        "address": ""
     }, 
     {
         "city": "\u05d2\u05d1\u05e2\u05ea \u05d4\u05e9\u05dc\u05d5\u05e9\u05d4", 
@@ -4092,7 +4092,7 @@
     {
         "city": "\u05d2\u05d5\u05e9 \u05d7\u05dc\u05d1", 
         "id": 804, 
-        "address": "\u05d2\u05d5\u05e9 \u05d7\u05dc\u05d1"
+        "address": ""
     }, 
     {
         "city": "\u05d2\u05d6\u05d9\u05ea", 
@@ -4232,12 +4232,12 @@
     {
         "city": "\u05d3\u05d9\u05e8 \u05d0\u05dc \u05d0\u05e1\u05d3", 
         "id": 832, 
-        "address": "\u05d3\u05d9\u05e8 \u05d0\u05dc \u05d0\u05e1\u05d3"
+        "address": ""
     }, 
     {
         "city": "\u05d3\u05d9\u05e8 \u05d0\u05dc \u05d0\u05e1\u05d3", 
         "id": 833, 
-        "address": "\u05d3\u05d9\u05e8 \u05d0\u05dc \u05d0\u05e1\u05d3"
+        "address": ""
     }, 
     {
         "city": "\u05d3\u05dc\u05d9\u05d4", 
@@ -4267,7 +4267,7 @@
     {
         "city": "\u05d3\u05e8\u05d9\u05d2'\u05d0\u05ea", 
         "id": 839, 
-        "address": "\u05d3\u05e8\u05d9\u05d2'\u05d0\u05ea"
+        "address": ""
     }, 
     {
         "city": "\u05d4\u05d2\u05d5\u05e9\u05e8\u05d9\u05dd", 
@@ -4307,7 +4307,7 @@
     {
         "city": "\u05d4\u05d6\u05d5\u05e8\u05e2", 
         "id": 847, 
-        "address": "\u05d4\u05d6\u05d5\u05e8\u05e2"
+        "address": ""
     }, 
     {
         "city": "\u05d4\u05d6\u05d5\u05e8\u05e2\u05d9\u05dd", 
@@ -4372,12 +4372,12 @@
     {
         "city": "\u05d5\u05d0\u05d3\u05d9 \u05d0\u05dc\u05e0\u05e2\u05dd", 
         "id": 861, 
-        "address": "\u05d5\u05d0\u05d3\u05d9 \u05d0\u05dc\u05e0\u05e2\u05dd"
+        "address": ""
     }, 
     {
         "city": "\u05d5\u05d0\u05d3\u05d9 \u05e1\u05dc\u05d0\u05de\u05d4", 
         "id": 862, 
-        "address": "\u05d5\u05d0\u05d3\u05d9 \u05e1\u05dc\u05d0\u05de\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d6\u05d1\u05d3\u05d9\u05d0\u05dc", 
@@ -4402,12 +4402,12 @@
     {
         "city": "\u05d6\u05dc\u05e4\u05d4", 
         "id": 867, 
-        "address": "\u05d6\u05dc\u05e4\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d6\u05e8\u05d6\u05d9\u05e8", 
         "id": 868, 
-        "address": "\u05d6\u05e8\u05d6\u05d9\u05e8"
+        "address": ""
     }, 
     {
         "city": "\u05d7\u05d3\u05e8\u05d4", 
@@ -4507,7 +4507,7 @@
     {
         "city": "\u05d7\u05d5\u05e8\u05d4", 
         "id": 890, 
-        "address": "\u05d7\u05d5\u05e8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d7\u05d5\u05e8\u05d4", 
@@ -4517,12 +4517,12 @@
     {
         "city": "\u05d7\u05d5\u05e8\u05e4\u05d9\u05e9", 
         "id": 892, 
-        "address": "\u05d7\u05d5\u05e8\u05e4\u05d9\u05e9"
+        "address": ""
     }, 
     {
         "city": "\u05d7\u05d5\u05e8\u05e4\u05d9\u05e9", 
         "id": 893, 
-        "address": "\u05d7\u05d5\u05e8\u05e4\u05d9\u05e9"
+        "address": ""
     }, 
     {
         "city": "\u05d7\u05d9\u05e1\u05e4\u05d9\u05df", 
@@ -4612,7 +4612,7 @@
     {
         "city": "\u05d7\u05e0\u05d9\u05ea\u05d4", 
         "id": 911, 
-        "address": "\u05d7\u05e0\u05d9\u05ea\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d7\u05e4\u05e6\u05d9\u05d1\u05d4", 
@@ -4672,32 +4672,32 @@
     {
         "city": "\u05d8\u05d5\u05d1\u05d0", 
         "id": 923, 
-        "address": "\u05d8\u05d5\u05d1\u05d0"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05d5\u05e8\u05e2\u05d0\u05df", 
         "id": 924, 
-        "address": "\u05d8\u05d5\u05e8\u05e2\u05d0\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05d5\u05e8\u05e2\u05d0\u05df", 
         "id": 925, 
-        "address": "\u05d8\u05d5\u05e8\u05e2\u05d0\u05df"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05d9\u05d9\u05d1\u05d4", 
         "id": 926, 
-        "address": "\u05d8\u05d9\u05d9\u05d1\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05d9\u05d9\u05d1\u05d4", 
         "id": 927, 
-        "address": "\u05d8\u05d9\u05d9\u05d1\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05d9\u05d9\u05d1\u05d4", 
         "id": 928, 
-        "address": "\u05d8\u05d9\u05d9\u05d1\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05d9\u05d9\u05d1\u05d4 (\u05d1\u05e2\u05de\u05e7)", 
@@ -4717,17 +4717,17 @@
     {
         "city": "\u05d8\u05d9\u05e8\u05d4", 
         "id": 933, 
-        "address": "\u05d8\u05d9\u05e8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05d9\u05e8\u05d4", 
         "id": 934, 
-        "address": "\u05d8\u05d9\u05e8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05d9\u05e8\u05ea \u05d9\u05d4\u05d5\u05d3\u05d4", 
         "id": 935, 
-        "address": "\u05d8\u05d9\u05e8\u05ea \u05d9\u05d4\u05d5\u05d3\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05d9\u05e8\u05ea \u05db\u05e8\u05de\u05dc", 
@@ -4752,27 +4752,27 @@
     {
         "city": "\u05d8\u05de\u05e8\u05d4", 
         "id": 940, 
-        "address": "\u05d8\u05de\u05e8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05de\u05e8\u05d4", 
         "id": 941, 
-        "address": "\u05d8\u05de\u05e8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05de\u05e8\u05d4", 
         "id": 942, 
-        "address": "\u05d8\u05de\u05e8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05de\u05e8\u05d4", 
         "id": 943, 
-        "address": "\u05d8\u05de\u05e8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05de\u05e8\u05d4", 
         "id": 944, 
-        "address": "\u05d8\u05de\u05e8\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d8\u05de\u05e8\u05d4 (\u05d9\u05d6\u05e8\u05e2\u05d0\u05dc)", 
@@ -4782,7 +4782,7 @@
     {
         "city": "\u05d9\u05d0\u05e0\u05d5\u05d7", 
         "id": 946, 
-        "address": "\u05d9\u05d0\u05e0\u05d5\u05d7"
+        "address": ""
     }, 
     {
         "city": "\u05d9\u05d1\u05e0\u05d0\u05dc", 
@@ -4817,7 +4817,7 @@
     {
         "city": "\u05d9\u05d2\u05d5\u05e8", 
         "id": 953, 
-        "address": "\u05d9\u05d2\u05d5\u05e8"
+        "address": ""
     }, 
     {
         "city": "\u05d9\u05d3 \u05d1\u05d9\u05e0\u05d9\u05de\u05d9\u05df", 
@@ -4872,12 +4872,12 @@
     {
         "city": "\u05d9\u05de\u05d4", 
         "id": 964, 
-        "address": "\u05d9\u05de\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d9\u05e1\u05d5\u05d3 \u05d4\u05de\u05e2\u05dc\u05d4", 
         "id": 965, 
-        "address": "\u05d9\u05e1\u05d5\u05d3 \u05d4\u05de\u05e2\u05dc\u05d4"
+        "address": ""
     }, 
     {
         "city": "\u05d9\u05e1\u05e2\u05d5\u05e8", 
@@ -4887,12 +4887,12 @@
     {
         "city": "\u05d9\u05e4\u05d9\u05e2", 
         "id": 967, 
-        "address": "\u05d9\u05e4\u05d9\u05e2"
+        "address": ""
     }, 
     {
         "city": "\u05d9\u05e4\u05d9\u05e2", 
         "id": 968, 
-        "address": "\u05d9\u05e4\u05d9\u05e2"
+        "address": ""
     }, 
     {
         "city": "\u05d9\u05e4\u05e2\u05ea", 

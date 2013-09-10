@@ -39,7 +39,7 @@ class Command(BaseCommand):
                     counter[geo_result["status"]] +=1
                     continue
     
-                print "results for: %s ,%s" % (i['address'], i['city'])
+                print "results for station #%s" % (i['id'])
     
                 for l in geo_result["results"]:
                     marker = Placemark()
