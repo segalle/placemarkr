@@ -17,6 +17,7 @@ class Command(BaseCommand):
             raise CommandError("file %s doesn't exist" % args[0])
 
         fullgeojson = {"type": "FeatureCollection", "features": []}
+        # the following line calls export_feature() twice for every p.  Check out filter().
         fullgeojson["features"] = [Place.export_feature(p) for p in Place.objects.all() if Place.export_feature(p) != None]
 
         fullpath = os.path.join(args[0], 'full.geojson')
