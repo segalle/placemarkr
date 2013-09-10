@@ -95,4 +95,11 @@ def addplacemark(request):
     newplacemark.lat = float(request.POST['lat'])
     newplacemark.lng = float(request.POST['lng'])
     newplacemark.save()
+
+    newvote = Vote()
+    newvote.placemark = newplacemark
+    newvote.user = request.user
+    newvote.positive = 'True'
+    newvote.save()
+    
     return HttpResponse("OK")
