@@ -8,7 +8,7 @@ from places.models import Place, Placemark, Vote
 class PlacesTest(TestCase):
     def setUp(self):
         User.objects.create_user("segalle", email=None, password="1234")
-
+        User.objects.create_user("moshe", email=None, password="1234")
         p = Place()
         p.vendor_id = 1000
         p.data = {
@@ -74,7 +74,7 @@ class PlacesTest(TestCase):
         response1 = c.post('/vote/', {'id': str(self.pm1.id), 'positive': 'True'})
 
         self.assertEqual(response.content, "OK")
-        self.assertEqual(response1.content, "exists")
+        self.assertEqual(response1.content, "Updated")
         
     def test_request_method(self):
         c = Client()
@@ -124,3 +124,44 @@ class PlacesTest(TestCase):
                             })
         
         self.assertEqual(response3.content, "OK")
+        
+    def test_leading_placemark(self):
+        c = Client()
+        c.login(username="segalle", password="1234")
+        response = c.post('/vote/', {'id': str(self.pm.id), 'positive': 'True'})
+        response = c.post('/vote/', {'id': str(self.pm1.id), 'positive': 'True'})
+        response = c.post('/vote/', {'id': str(self.pm2.id), 'positive': 'false'})
+        c.logout()
+        
+        c.login(username="moshe", password="1234")
+        response = c.post('/vote/', {'id': str(self.pm.id), 'positive': 'True'})
+        response = c.post('/vote/', {'id': str(self.pm1.id), 'positive': 'false'})
+        response = c.post('/vote/', {'id': str(self.pm2.id), 'positive': 'false'})
+        c.logout()
+        
+        place = Place.objects.get(vendor_id=1000)
+
+        leading = Place.get_leading_placemark(place)
+        self.assertEqual(leading.id,1)
+        
+    def test_export_feature(self):
+        
+        c = Client()
+        c.login(username="segalle", password="1234")
+        response = c.post('/vote/', {'id': str(self.pm.id), 'positive': 'True'})
+        response = c.post('/vote/', {'id': str(self.pm1.id), 'positive': 'True'})
+        response = c.post('/vote/', {'id': str(self.pm2.id), 'positive': 'false'})
+        c.logout()
+        
+        c.login(username="moshe", password="1234")
+        response = c.post('/vote/', {'id': str(self.pm.id), 'positive': 'True'})
+        response = c.post('/vote/', {'id': str(self.pm1.id), 'positive': 'false'})
+        response = c.post('/vote/', {'id': str(self.pm2.id), 'positive': 'false'})
+        c.logout()
+        
+        place = Place.objects.get(vendor_id=1000)
+        
+        feature = Place.export_feature(place)
+        print feature
+        
+        self.assertEqual(1,1)
