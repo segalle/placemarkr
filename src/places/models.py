@@ -28,7 +28,7 @@ class Place(models.Model):
             feature_dic["type"] = "Feature"
             feature_dic["geometry"] = geometry_dic
 
-        return feature_dic
+            return feature_dic
 
     def get_leading_placemark(self):
         leading = None
@@ -51,7 +51,10 @@ class Place(models.Model):
                 if counter >= 0:
                     leading = p
                     maxscore = counter
-        print leading
+        if leading != None:
+            print "Leading placemark was found for location #%s" % self.id
+        else:
+            print "No leading location for location #%s" % self.id
         return leading
 
 
