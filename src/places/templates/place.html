@@ -19,7 +19,11 @@
 		Json content
 	</p>
 	<div id="jsoncontent" >
-		{{place.data}}
+		<ul>
+		{% for k, v in place.data_as_dict.items %}
+		<li><b>{{k}}:</b> {{v}}</li>
+		{% endfor %}
+		</ul>
 	</div>
 	<ul class="list-group" id="mainlist"></ul>
 	<div id="newaddress">

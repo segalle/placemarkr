@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 import datetime
+import json
 
 
 class Place(models.Model):
@@ -9,6 +10,10 @@ class Place(models.Model):
 
     def __unicode__(self):
         return self.data
+    
+    @property
+    def data_as_dict(self):
+        return json.loads(self.data)
 
 
 class Placemark(models.Model):
