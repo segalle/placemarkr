@@ -1,5 +1,5 @@
 from django.http import *
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from places.models import Place, Placemark, Vote
 import json
 from django.contrib.auth.decorators import login_required
@@ -36,8 +36,12 @@ def home(request):
 
 @login_required(login_url='/login/')
 def place(request, id):
+    
+    place = get_object_or_404(Place, id=int(id))
+    #place = Place.objects.get(id=int(id))
+    
     l = []
-    for pm in Placemark.objects.filter(place__id=int(id)):
+    for pm in place.placemarks.all():
         try:
             vote = Vote.objects.get(placemark=pm, user=request.user)
         except Vote.DoesNotExist:
@@ -53,6 +57,7 @@ def place(request, id):
              }
         )
     context = {
+               'place': place,
                'placemarks': json.dumps(l),
                'id': id,
                }

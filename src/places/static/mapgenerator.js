@@ -9,7 +9,6 @@ var ForeignPlacemarkr = {
 };
 
 function showInfoWindow(marker) {
-	console.log(marker.place)
 	marker.setAnimation(google.maps.Animation.none);
 
 	if (infowindow) {
@@ -63,9 +62,10 @@ function doMarker(place) {
 		clickable : true
 	});
 
-	var litem = $(Mustache.render('<li class="place"><a href="#">{{address}}, {{city}}</a></li>', place));
+	var litem = $(Mustache.render('<li class="place list-group-item"><a href="#">{{address}}, {{city}}</a></li>', place));
 	litem.data("marker", marker);
 	marker.place = place;
+	marker.litem = litem;
 	$("#mainlist").append(litem);
 	google.maps.event.addListener(marker, 'click', function() {
 		showInfoWindow(marker);
@@ -74,8 +74,7 @@ function doMarker(place) {
 	return marker;
 }
 
-function foreignInfoWindow(marker, fulladdress) {
-	console.log(marker)
+function foreignInfoWindow(marker, fulladdress, litem) {
 	marker.setAnimation(google.maps.Animation.none);
 	if (infowindow) {
 		infowindow.close();
@@ -114,29 +113,28 @@ function foreignInfoWindow(marker, fulladdress) {
 		var idx = ForeignPlacemarkr.markers.indexOf(marker);
 		console.log(idx);
 		ForeignPlacemarkr.markers.splice(idx,1);
-		console.log(ForeignPlacemarkr);
 		marker.setMap(null);
-		$('#foreignlist li').eq(idx).remove();
+		console.log(marker);
+		litem.detach();
 	});
 	
 	return marker;
 }
 
 function createForeignMarker(result, fulladdress) {
-	console.log('createForeignMarker')
 	var marker = new google.maps.Marker({
 		map : map,
 		position : result.geometry.location,
 		clickable : true
 	});
 
-	var litem = $(Mustache.render('<li class="foreignplace"><a href="#">{{address}}, {{city}}</a></li>', fulladdress));
+	var litem = $(Mustache.render('<li class="foreignplace list-group-item"><a href="#">{{address}}, {{city}}</a></li>', fulladdress));
 	litem.data("marker", marker);
-	litem.data("fulladdress", fulladdress)
+	litem.data("fulladdress", fulladdress);
 	marker.place = result;
 	$("#foreignlist").append(litem);
 	google.maps.event.addListener(marker, 'click', function() {
-		foreignInfoWindow(marker, fulladdress);
+		foreignInfoWindow(marker, fulladdress, litem);
 	});
 
 	return marker;
@@ -182,6 +180,7 @@ function initialize() {
 	}
 
 	$('#jsontitle').click(function() {
+		console.log("title");
 		$("#jsoncontent").toggle();
 	});
 
@@ -216,13 +215,12 @@ function initialize() {
 	$("body").on("click", "li.foreignplace", function() {
 		var marker = $(this).data("marker");
 		var fulladdress = $(this).data("fulladdress");
-		foreignInfoWindow(marker, fulladdress);
+		foreignInfoWindow(marker, fulladdress, $(this));
 	});
 
 	$("#search").click(function() {
 		console.log("search");
 		codeAddress();
-		console.log(ForeignPlacemarkr)
 	});
 
 }

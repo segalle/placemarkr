@@ -21,27 +21,22 @@
 		<td valign="top" align="right" width="200px">
 			<h3 id='title'></h3>
 			<p id="jsontitle">Json content</p>
-			<div id="jsoncontent" ><!-- {{place.data}} --></div>
-			<ul class="nav nav-pills nav-stacked" id="mainlist"></ul>
-			<ul class="nav nav-pills nav-stacked" id="foreignlist"></ul>
+			<div id="jsoncontent" >{{place.data}}</div>
+			<ul class="list-group" id="mainlist"></ul>
+			
 			<div id="newaddress">
 				מצא כתובת חדשה:
-				<form method="post">
-					<table>
-						<tr>
-							<td>כתובת:</td>
-							<td><input type="text" id="address" name="address"/></td>
-						</tr>
-						<tr>
-							<td>עיר:</td>
-							<td><input type="text" id="city" name="city" /><br></td>
-						</tr>
-						<tr><td align="center" colspan="2"><input type="button" id="search" value="חפש"/></td></tr>
-					</table>
-					
-					
+				<form class="form-inline"method="post">
+					<div class="form-group">
+					<input type="text" id="address" class="form-control" name="address" placeholder="כתובת"/>
+					</div>
+					<div class="form-group">
+					<input type="text" id="city" class="form-control" name="city" placeholder="עיר"/>
+					</div>
+					<input type="button" id="search" value="חפש" class="btn btn-default"/>
 				</form>
 			</div>
+			<ul class="list-group" id="foreignlist"></ul>
 		</td>
 		<td width="30px"></td>
 		<td valign="top" width="300px"><div id="map_canvas"></div></td>
