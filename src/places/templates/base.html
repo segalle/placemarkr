@@ -4,7 +4,11 @@
 		<title>Test Page</title>
 	</head>
 	<body>
-		<p>ברוך הבא, {{ user.username }}.<a href="/logout/">התנתק</a></p>
+		<div class="card" id="topbar">
+			<p>
+				ברוך הבא, {{ user.username }}.<a href="/logout/">התנתק</a>
+			</p>
+		</div>
 		{% block content %}
 		:)
 		{% endblock %}

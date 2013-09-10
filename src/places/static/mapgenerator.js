@@ -18,7 +18,7 @@ function showInfoWindow(marker) {
 
 	var s = Mustache.render("<div><p>{{address}}, {{city}}</p>" + "<button id='votefor' class='btn btn-default vote votefor' value='True'>נכון</button>" +
 	 "<button id='voteagainst' class='btn btn-default vote voteagainst' value='False'>לא נכון</button>"+
-	 "<span id='loading' class='hide'>Loading...</span></div>" 
+	 "<div id='loading' class='hide'>Loading...</div></div>" 
 	 , marker.place);
 	 
 	 var el = $(s);
@@ -36,18 +36,22 @@ function showInfoWindow(marker) {
 	};
 	el.find(".vote").on("click", function() {
 		$('#loading').removeClass('hide');
-		button = $(this).attr('id');
+		var button = $(this);
 		$.post('/vote/', {
 			id : marker.place.id,
 			positive : $(this).val()
 		}, function(resp) {
 			if (resp == "OK"){
-				console.log("OK");
+				console.log("OK", this);
 				$('#loading').text("Vote Recieved");
-				$("[id=button]").attr('disabled', 'disabled');   //ASK UDI!
+				$(button).attr('disabled', 'disabled');   
+				infowindow.close();
+				infowindow.open(map, marker);
 			}
 			else{
 				$('#loading').text("Updated");
+				infowindow.close();
+				infowindow.open(map, marker);
 			}
 		});
 	});

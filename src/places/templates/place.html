@@ -12,37 +12,35 @@
 	Placemarkr.placemarks = {{placemarks|safe}};
 	Placemarkr.id = {{id}};
 </script>
-<div align="center">
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Point Map View</div>
-<table width=100%>
-	<tr>
-		<td valign="top" align="right" width="200px">
-			<h3 id='title'></h3>
-			<p id="jsontitle">Json content</p>
-			<div id="jsoncontent" >{{place.data}}</div>
-			<ul class="list-group" id="mainlist"></ul>
-			
-			<div id="newaddress">
-				מצא כתובת חדשה:
-				<form class="form-inline"method="post">
-					<div class="form-group">
-					<input type="text" id="address" class="form-control" name="address" placeholder="כתובת"/>
-					</div>
-					<div class="form-group">
-					<input type="text" id="city" class="form-control" name="city" placeholder="עיר"/>
-					</div>
-					<input type="button" id="search" value="חפש" class="btn btn-default"/>
-				</form>
+<h3 id='title'></h3>
+
+<div class="card" id="sidebar">
+	<p id="jsontitle">
+		Json content
+	</p>
+	<div id="jsoncontent" >
+		{{place.data}}
+	</div>
+	<ul class="list-group" id="mainlist"></ul>
+	<div id="newaddress">
+		מצא כתובת חדשה:
+		<form class="form-inline"method="post">
+			<div class="form-group">
+				<input type="text" id="address" class="form-control" name="address" placeholder="כתובת"/>
 			</div>
-			<ul class="list-group" id="foreignlist"></ul>
-		</td>
-		<td width="30px"></td>
-		<td valign="top" width="300px"><div id="map_canvas"></div></td>
-	</tr>
-</table>
+			<div class="form-group">
+				<input type="text" id="city" class="form-control" name="city" placeholder="עיר"/>
+			</div>
+			<input type="button" id="search" value="חפש" class="btn btn-default"/>
+		</form>
+	</div>
+	<br>
+	<ul class="list-group" id="foreignlist"></ul>
+
 </div>
+
+<div class="card" id="map_canvas"></div>
+
 <link href="{% static "map.css" %}" rel="stylesheet" type="text/css"/>
 <script src="{% static "dist/js/bootstrap.min.js" %}"></script>
 {% endblock %}
