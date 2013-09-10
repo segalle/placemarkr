@@ -134,7 +134,7 @@ function createForeignMarker(result, fulladdress) {
 		icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+fulladdress['forcount']+'|006400|ffffff'
 	});
 
-	var litem = $(Mustache.render('<li class="foreignplace list-group-item"><a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', fulladdress));
+	var litem = $(Mustache.render('<li class="foreignplace list-group-item"><a href="#">{{forcount}}. {{address}}, {{locality}}</a></li>', fulladdress));
 	litem.data("marker", marker);
 	litem.data("fulladdress", fulladdress);
 	marker.place = result;
@@ -153,8 +153,9 @@ function codeAddress() {
 		locality : document.getElementById("city").value,
 	};
 
+	var a = fulladdress['address']+ " " + fulladdress['locality'];
 	geocoder.geocode({
-		'address' : fulladdress['address']
+		'address' : a,
 	}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			map.setCenter(results[0].geometry.location);
