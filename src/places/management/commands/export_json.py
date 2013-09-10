@@ -17,10 +17,12 @@ class Command(BaseCommand):
             raise CommandError("file %s doesn't exist" % args[0])
 
         fullgeojson = {"type": "FeatureCollection", "features": []}
-        fullgeojson["features"] = [Place.export_feature(p) for p in Place.objects.all()]
+
+        fullgeojson["features"] = [Place.export_feature(p) for p in Place.objects.all() if Place.export_feature(p) != None]
+#         fullgeojson["features"] = [Place.export_feature(p) for p in Place.export_feature(p) != None]
 
         fullpath = os.path.join(args[0], 'full.geojson')
-
+ 
         with open(fullpath, 'w') as f:
             json.dump(fullgeojson, f, indent=4)
 
