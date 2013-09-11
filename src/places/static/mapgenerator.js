@@ -12,6 +12,12 @@ var ForeignPlacemarkr = {
 	markers : []
 };
 
+function clear_foreign_markers(){
+	for (var p = 0; p < ForeignPlacemarkr['markers'].length; p++){
+				ForeignPlacemarkr['markers'][p].setMap(null);
+	}
+};
+
 function vote_buttons_enable_disable(marker, el){
 	if (marker.place.vote != null){
 		if (marker.place.vote == true){
@@ -157,18 +163,19 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 				$('#loading').text("Marker already exists");
 				return;
 			}
-			
 			$('#loading').text("Marker Created Successfuly");
 			$('button').addClass('hide');
 			$('#foreignlist').empty();
-			marker.setMap(null);
+			clear_foreign_markers();
+		});
+				
+			// marker.setMap(null);
 			place.id = Number(resp);
 			doMarker(place);
 
 			infowindow.close();
 			infowindow.open(map, marker);
 		});
-	});
 	
 	el.find('.remove').on("click",function(){
 		var idx = ForeignPlacemarkr.markers.indexOf(marker);
@@ -298,7 +305,8 @@ function initialize() {
 	});
 
 	$("#searchform").submit(function() {
-		console.log("search");
+		$('#foreignlist').empty();
+		clear_foreign_markers();
 		codeAddress();
 		return false;
 	});
