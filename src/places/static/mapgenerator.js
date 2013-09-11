@@ -10,6 +10,29 @@ var ForeignPlacemarkr = {
 	markers : []
 };
 
+function vote_buttons_enable_disable(marker, el){
+	if (marker.place.vote != null){
+		if (marker.place.vote == true){
+			el.find('.votefor').attr('disabled', 'disabled');
+			el.find('.voteagainst').removeAttr('disabled');
+		}
+		else{
+			el.find('.voteagainst').attr('disabled', 'disabled');
+			el.find('.votefor').removeAttr('disabled');
+		}
+	};
+}
+
+function voteIcon(marker){
+	console.log("markervote", marker.vote)
+	if (marker.vote != undefined) {
+		var s = marker.vote ? 'up' : 'down';
+				return '<span class="badge pull-left"><span class="glyphicon glyphicon-thumbs-'+ s +'"></span></span>';
+	} else {
+		return "";
+	};
+}
+
 function showInfoWindow(marker) {
 	marker.setAnimation(google.maps.Animation.none);
 
@@ -28,14 +51,8 @@ function showInfoWindow(marker) {
 	infowindow.setContent(el.get(0));
 	infowindow.open(map, marker);
 
-	if (marker.place.vote != null){
-		if (marker.place.vote == true){
-			el.find('.votefor').attr('disabled', 'disabled');
-		}
-		else{
-			el.find('.voteagainst').attr('disabled', 'disabled');
-		}
-	};
+	vote_buttons_enable_disable(marker, el);
+
 	el.find(".vote").on("click", function() {
 		$('#loading').removeClass('hide');
 		var button = $(this);
@@ -50,6 +67,13 @@ function showInfoWindow(marker) {
 			}
 			else{
 				$('#loading').text("Updated");
+				marker.place.vote = !marker.place.vote;
+				marker.thumbicon = voteIcon(marker.place);
+				console.log(marker.litem[0]);
+				marker.litem.find(".badge").replaceWith(marker.thumbicon);
+				console.log(marker);
+				vote_buttons_enable_disable(marker, el);
+  
 			}
 			infowindow.close();
 			infowindow.open(map, marker);
@@ -57,6 +81,8 @@ function showInfoWindow(marker) {
 	});
 	return marker;
 }
+
+
 
 function doMarker(place) {
 	
@@ -67,14 +93,9 @@ function doMarker(place) {
 		clickable : true,
 		icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+place['forcount']+'|FF0000|000000'
 	});
+	
+	place.icon = voteIcon(place);
 
-	if (place.vote != undefined) {
-		var s = place.vote ? 'up' : 'down';
-				place.icon = '<span class="badge pull-left"><span class="glyphicon glyphicon-thumbs-'+ s +'"></span></span>';
-	} else {
-		place.icon = "";
-	};
-	console.log(place)
 	var litem = $(Mustache.render('<li class="place list-group-item">'+place.icon+'<a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', place));
 	litem.data("marker", marker);
 	marker.place = place;
@@ -141,10 +162,8 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 	
 	el.find('.remove').on("click",function(){
 		var idx = ForeignPlacemarkr.markers.indexOf(marker);
-		console.log(idx);
 		ForeignPlacemarkr.markers.splice(idx,1);
 		marker.setMap(null);
-		console.log(marker);
 		litem.detach();
 	});
 	
@@ -213,7 +232,6 @@ function initialize() {
 	for (var i = 0; i < Placemarkr.placemarks.length; i++) {
 		forcount += 1;
 		places[i]['forcount'] = forcount;
-		console.log(places[i]);
 		var marker = doMarker(places[i]);
 		Placemarkr.markers.push(marker);
 		
