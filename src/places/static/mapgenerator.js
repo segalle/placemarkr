@@ -70,12 +70,18 @@ function doMarker(place) {
 
 	if (place.vote != 'null'){
 		console.log(place.vote);
-		if (place.vote == "true"){
-			place['icon'] = $('<span class="glyphicon glyphicon-search"></span>');
+		if (place.vote == true){
+			place.icon = '<span class="badge pull-left"><span class="glyphicon glyphicon-thumbs-up"></span></span>';
+		}
+		else if (place.vote == true){
+			place.icon = '<span class="badge pull-left"><span class="glyphicon glyphicon-thumbs-down"></span></span>';
+		}
+		else{
+			place.icon = "";
 		}
 	};
 	console.log(place)
-	var litem = $(Mustache.render('<li class="place list-group-item">{{icon}}<a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', place));
+	var litem = $(Mustache.render('<li class="place list-group-item">'+place.icon+'<a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', place));
 	litem.data("marker", marker);
 	marker.place = place;
 	marker.litem = litem;
@@ -117,11 +123,11 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 			forcount: forcount
 		};
 		$.post('/addplacemark/', {
-			place : Placemarkr.id,
-			city : fulladdress["locality"],
-			address : fulladdress["address"],
-			lat : marker.getPosition().lat(),
-			lng : marker.getPosition().lng()
+			place : place['id'],
+			city : place['city'],
+			address : place["address"],
+			lat : place['lat'],
+			lng : place['lng']
 		}, function(resp){  //if got response 200 from server
 			if (resp == "OK"){
 				$('#loading').text("Marker Created Successfuly");
