@@ -33,9 +33,18 @@ class Place(models.Model):
     def get_leading_placemark(self):
         leading = None
         maxscore = 0
+        #        self.placemarks.all()
         for p in Placemark.objects.filter(place=self):
+            
+            # can you utilize aggregate functions instead of this loop?
+            
             counter = 0
+            
+            #       p.votes.all()
             votes = Vote.objects.filter(placemark=p)
+
+
+            #
 
             for v in votes:
                 if v.positive == True:
