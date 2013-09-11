@@ -84,10 +84,13 @@ def vote(request):
 
 @login_required(login_url='/login/')
 def addplacemark(request):
+    
     if not request.method == 'POST':
-        return HttpResponse("Wrong request method")
+        return HttpResponseNotAllowed("Wrong request method")
+    
     if Placemark.objects.filter(place__id=request.POST['place'], address=request.POST['address'], city=request.POST['city'], lat=request.POST['lat'], lng=request.POST['lng']).exists():
         return HttpResponse("exists")
+    
     newplacemark = Placemark();
     newplacemark.place_id = int(request.POST['place'])
     newplacemark.city = request.POST['city']
@@ -102,4 +105,4 @@ def addplacemark(request):
     newvote.positive = 'True'
     newvote.save()
     
-    return HttpResponse("OK")
+    return HttpResponse(newplacemark.id)

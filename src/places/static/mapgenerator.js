@@ -68,17 +68,11 @@ function doMarker(place) {
 		icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+place['forcount']+'|FF0000|000000'
 	});
 
-	if (place.vote != 'null'){
-		console.log(place.vote);
-		if (place.vote == true){
-			place.icon = '<span class="badge pull-left"><span class="glyphicon glyphicon-thumbs-up"></span></span>';
-		}
-		else if (place.vote == true){
-			place.icon = '<span class="badge pull-left"><span class="glyphicon glyphicon-thumbs-down"></span></span>';
-		}
-		else{
-			place.icon = "";
-		}
+	if (place.vote != undefined) {
+		var s = place.vote ? 'up' : 'down';
+				place.icon = '<span class="badge pull-left"><span class="glyphicon glyphicon-thumbs-'+ s +'"></span></span>';
+	} else {
+		place.icon = "";
 	};
 	console.log(place)
 	var litem = $(Mustache.render('<li class="place list-group-item">'+place.icon+'<a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', place));
@@ -114,7 +108,6 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 		
 		forcount += 1;
 		var place = {
-			id: Placemarkr.id,
 			city: fulladdress["locality"],
 			address : fulladdress["address"],
 			lat : marker.getPosition().lat(),
@@ -123,22 +116,24 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 			forcount: forcount
 		};
 		$.post('/addplacemark/', {
-			place : place['id'],
+			place : Placemarkr.id,
 			city : place['city'],
 			address : place["address"],
 			lat : place['lat'],
 			lng : place['lng']
 		}, function(resp){  //if got response 200 from server
-			if (resp == "OK"){
-				$('#loading').text("Marker Created Successfuly");
-				$('button').addClass('hide');
-				$('#foreignlist').empty();
-				marker.setMap(null);
-				doMarker(place);
-			}
-			else {
+			if (resp == "exists"){
 				$('#loading').text("Marker already exists");
+				return;
 			}
+			
+			$('#loading').text("Marker Created Successfuly");
+			$('button').addClass('hide');
+			$('#foreignlist').empty();
+			marker.setMap(null);
+			place.id = Number(resp);
+			doMarker(place);
+
 			infowindow.close();
 			infowindow.open(map, marker);
 		});
