@@ -32,7 +32,6 @@ function vote_buttons_enable_disable(marker, el){
 }
 
 function voteIcon(marker){
-	console.log("markervote", marker.vote)
 	if (marker.vote != undefined) {
 		var s = marker.vote ? 'up' : 'down';
 				return '<span class="badge pull-left"><span class="glyphicon glyphicon-thumbs-'+ s +'"></span></span>';
@@ -49,11 +48,8 @@ function showInfoWindow(marker) {
 	}
 	infowindow = new google.maps.InfoWindow({});
 
-	var s = Mustache.render("<div><p>{{address}}, {{city}}</p>" + "<button id='votefor' class='btn btn-default vote votefor' value='True'>נכון</button>" +
-	 "<button id='voteagainst' class='btn btn-default vote voteagainst' value='False'>לא נכון</button>"+
-	 "<div id='loading' class='hide'>Loading...</div></div>" 
-	 , marker.place);
-	 
+	var s = ich.iw(marker.place)
+ 
 	 var el = $(s);
 
 	infowindow.setContent(el.get(0));
@@ -89,7 +85,6 @@ function showInfoWindow(marker) {
 	});
 	return marker;
 }
-
 
 
 function doMarker(place) {
@@ -131,10 +126,7 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 	}
 	infowindow = new google.maps.InfoWindow({});
 
-	var s = Mustache.render("<div><p>{{address}}, {{locality}}?</p>" + "<button class='btn btn-default vote' value='True'>נכון</button>" + 
-	"<button class='btn btn-default remove' value='False'>הסר</button>"+
-	"<span id='loading' class='hide'>Loading...</span></div>", fulladdress);
-
+	var s = ich.fiw(fulladdress);
 	var el = $(s);
 	
 	infowindow.setContent(el.get(0));
@@ -168,8 +160,6 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 			$('#foreignlist').empty();
 			clear_foreign_markers();
 		});
-				
-			// marker.setMap(null);
 			place.id = Number(resp);
 			doMarker(place);
 
@@ -195,7 +185,8 @@ function createForeignMarker(result, fulladdress) {
 		icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+fulladdress['forcount']+'|006400|ffffff'
 	});
 
-	var litem = $(Mustache.render('<li class="foreignplace list-group-item"><a href="#">{{forcount}}. {{address}}, {{locality}}</a></li>', fulladdress));
+	var litem = ich.cfm(fulladdress);
+	
 	litem.data("marker", marker);
 	litem.data("fulladdress", fulladdress);
 	marker.place = result;
@@ -226,12 +217,14 @@ function codeAddress() {
 		'address' : a,
 	}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
-			map.setCenter(results[0].geometry.location);
+			var latlngbounds = new google.maps.LatLngBounds();
 			var forcount = 1;
 			for (var i = 0; i < results.length; i++) {
 				fulladdress["forcount"] = forcount;
 				var marker = createForeignMarker(results[i], fulladdress);
+				latlngbounds.extend(marker.position);
 				ForeignPlacemarkr.markers.push(marker);
+				map.fitBounds(latlngbounds);
 				forcount += 1;
 			};
 		} else {
@@ -245,20 +238,19 @@ function initialize() {
 	var places = $(Placemarkr.placemarks);
 	var pageid = $(Placemarkr.id);
 	var mapOptions = {
-		zoom : 7,
-		center : new google.maps.LatLng(31.046051, 34.851612),
 		mapTypeId : google.maps.MapTypeId.ROADMAP
 	};
 
 	map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-
+	var latlngbounds = new google.maps.LatLngBounds();
 	
 	for (var i = 0; i < Placemarkr.placemarks.length; i++) {
 		forcount += 1;
 		places[i]['forcount'] = forcount;
 		var marker = doMarker(places[i]);
+		latlngbounds.extend(marker.position);	
 		Placemarkr.markers.push(marker);
-		
+		map.fitBounds(latlngbounds);
 	}
 
 	$('#jsontitle').click(function() {

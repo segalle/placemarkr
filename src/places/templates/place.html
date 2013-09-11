@@ -5,6 +5,7 @@
 <script src="{% static "jquery-1.10.2.js" %}"></script>
 <script src="{% static "csrf.js" %}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=visualization"></script>
+<script src="{% static "ICanHaz.min.js" %}"></script>
 <script src="{% static "mustache.js" %}"></script>
 <script src="{% static "mapgenerator.js" %}"></script>
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
@@ -47,5 +48,45 @@
 
 <link href="{% static "map.css" %}" rel="stylesheet" type="text/css"/>
 <script src="{% static "dist/js/bootstrap.min.js" %}"></script>
+
+{% verbatim %}
+<script type="text/html" id="iw">
+<div>
+	<p>
+		{{address}}, {{city}}
+	</p>
+	<button id='votefor' class='btn btn-default vote votefor' value='True'>
+		נכון
+	</button>
+	<button id='voteagainst' class='btn btn-default vote voteagainst' value='False'>
+		לא נכון
+	</button>
+	<div id='loading' class='hide'>
+		Loading...
+	</div>
+</div>
+</script>
+
+
+<script type="text/html" id="fiw">
+<div>
+	<p>
+		{{address}}, {{locality}}?
+	</p>
+	<button class='btn btn-default vote' value='True'>
+		נכון
+	</button>
+	<button class='btn btn-default remove' value='False'>
+		הסר
+	</button><span id='loading' class='hide'>Loading...</span>
+</div>
+</script>
+
+<script type="text/html" id="cfm">
+	<li class="foreignplace list-group-item"><a href="#">{{forcount}}. {{address}}, {{locality}}</a></li>
+</script>
+
+{% endverbatim %}
+
 {% endblock %}
 
