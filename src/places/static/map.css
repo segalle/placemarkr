@@ -40,3 +40,18 @@
 	display: none;
 }
 
+.markerlist{
+	background-color: #3366CC;
+}
+
+.markerlist a{
+	color: white;
+}
+
+.foreignmarkerlist{
+	background-color: #339933;
+}
+
+.foreignmarkerlist a{
+	color: white;
+}

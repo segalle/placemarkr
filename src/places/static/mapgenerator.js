@@ -1,3 +1,5 @@
+"use strict";
+
 var map, infowindow, geocoder;
 
 var forcount = 0;
@@ -104,6 +106,14 @@ function doMarker(place) {
 	google.maps.event.addListener(marker, 'click', function() {
 		showInfoWindow(marker);
 	});
+	
+	google.maps.event.addListener(marker, 'mouseover', function() {
+		litem.addClass('markerlist');
+	});
+	
+	google.maps.event.addListener(marker, 'mouseout', function() {
+		litem.removeClass('markerlist');
+	});
 
 	return marker;
 }
@@ -186,6 +196,13 @@ function createForeignMarker(result, fulladdress) {
 	google.maps.event.addListener(marker, 'click', function() {
 		foreignInfoWindow(marker, fulladdress, litem);
 	});
+	google.maps.event.addListener(marker, 'mouseover', function() {
+		litem.addClass('foreignmarkerlist');
+	});
+	
+	google.maps.event.addListener(marker, 'mouseout', function() {
+		litem.removeClass('foreignmarkerlist');
+	});
 
 	return marker;
 }
@@ -247,9 +264,11 @@ function initialize() {
 	$("li.place").hover(function() {
 		var marker = $(this).data("marker");
 		marker.setAnimation(google.maps.Animation.BOUNCE);
+		$(this).addClass('markerlist');
 	}, function() {
 		var marker = $(this).data("marker");
 		marker.setAnimation(google.maps.Animation.none);
+		$(this).removeClass('markerlist');
 	});
 
 	$("body").on("click", "li.place", function() {
@@ -263,10 +282,12 @@ function initialize() {
 		mouseenter : function() {
 			var marker = $(this).data("marker");
 			marker.setAnimation(google.maps.Animation.BOUNCE);
+			$(this).addClass('foreignmarkerlist');
 		},
 		mouseleave : function() {
 			var marker = $(this).data("marker");
 			marker.setAnimation(google.maps.Animation.none);
+			$(this).removeClass('foreignmarkerlist');
 		}
 	}, "li.foreignplace");
 
