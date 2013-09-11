@@ -1,5 +1,7 @@
 var map, infowindow, geocoder;
 
+var forcount = 0;
+
 var Placemarkr = {
 	markers : []
 };
@@ -57,6 +59,7 @@ function showInfoWindow(marker) {
 }
 
 function doMarker(place) {
+	
 	var inlatlng = new google.maps.LatLng(place['lat'], place['lng']);
 	var marker = new google.maps.Marker({
 		map : map,
@@ -65,7 +68,14 @@ function doMarker(place) {
 		icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+place['forcount']+'|FF0000|000000'
 	});
 
-	var litem = $(Mustache.render('<li class="place list-group-item"><a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', place));
+	if (place.vote != 'null'){
+		console.log(place.vote);
+		if (place.vote == "true"){
+			place['icon'] = $('<span class="glyphicon glyphicon-search"></span>');
+		}
+	};
+	console.log(place)
+	var litem = $(Mustache.render('<li class="place list-group-item">{{icon}}<a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', place));
 	litem.data("marker", marker);
 	marker.place = place;
 	marker.litem = litem;
@@ -95,6 +105,17 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 
 	el.find(".vote").on("click", function() {
 		$('#loading').removeClass('hide');
+		
+		forcount += 1;
+		var place = {
+			id: Placemarkr.id,
+			city: fulladdress["locality"],
+			address : fulladdress["address"],
+			lat : marker.getPosition().lat(),
+			lng : marker.getPosition().lng(),
+			vote: true,
+			forcount: forcount
+		};
 		$.post('/addplacemark/', {
 			place : Placemarkr.id,
 			city : fulladdress["locality"],
@@ -105,6 +126,9 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 			if (resp == "OK"){
 				$('#loading').text("Marker Created Successfuly");
 				$('button').addClass('hide');
+				$('#foreignlist').empty();
+				marker.setMap(null);
+				doMarker(place);
 			}
 			else {
 				$('#loading').text("Marker already exists");
@@ -184,12 +208,14 @@ function initialize() {
 
 	map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
-	var forcount = 1;
+	
 	for (var i = 0; i < Placemarkr.placemarks.length; i++) {
+		forcount += 1;
 		places[i]['forcount'] = forcount;
+		console.log(places[i]);
 		var marker = doMarker(places[i]);
 		Placemarkr.markers.push(marker);
-		forcount += 1;
+		
 	}
 
 	$('#jsontitle').click(function() {
