@@ -12,29 +12,44 @@ var ForeignPlacemarkr = {
 	markers : []
 };
 
-function clear_foreign_markers(){
-	for (var p = 0; p < ForeignPlacemarkr['markers'].length; p++){
-				ForeignPlacemarkr['markers'][p].setMap(null);
+function clear_foreign_markers() {
+	for (var p = 0; p < ForeignPlacemarkr['markers'].length; p++) {
+		ForeignPlacemarkr['markers'][p].setMap(null);
 	}
 };
 
-function vote_buttons_enable_disable(marker, el){
-	if (marker.place.vote != null){
-		if (marker.place.vote == true){
+function vote_buttons_enable_disable(marker, el) {
+	if (marker.place.vote != null) {
+		if (marker.place.vote == true) {
 			el.find('.votefor').attr('disabled', 'disabled');
 			el.find('.voteagainst').removeAttr('disabled');
-		}
-		else{
+		} else {
 			el.find('.voteagainst').attr('disabled', 'disabled');
 			el.find('.votefor').removeAttr('disabled');
 		}
 	};
 }
 
-function voteIcon(marker){
+function fitBounds(map, markers){
+		var latlngbounds = new google.maps.LatLngBounds();
+		
+		for (var i=0; i< markers.length; i++){
+			latlngbounds.extend(markers[i].position);
+		}
+		
+		map.fitBounds(latlngbounds);
+		var blistener = google.maps.event.addListener(map, 'bounds_changed', function(event) {
+		if (this.getZoom() > 15) {
+			this.setZoom(15);
+		}
+		google.maps.event.removeListener(blistener);
+	});
+}
+
+function voteIcon(marker) {
 	if (marker.vote != undefined) {
 		var s = marker.vote ? 'up' : 'down';
-				return '<span class="badge pull-left"><span class="glyphicon glyphicon-thumbs-'+ s +'"></span></span>';
+		return '<span class="badge pull-left"><span class="glyphicon glyphicon-thumbs-' + s + '"></span></span>';
 	} else {
 		return "";
 	};
@@ -49,8 +64,8 @@ function showInfoWindow(marker) {
 	infowindow = new google.maps.InfoWindow({});
 
 	var s = ich.iw(marker.place)
- 
-	 var el = $(s);
+
+	var el = $(s);
 
 	infowindow.setContent(el.get(0));
 	infowindow.open(map, marker);
@@ -64,12 +79,11 @@ function showInfoWindow(marker) {
 			id : marker.place.id,
 			positive : $(this).val()
 		}, function(resp) {
-			if (resp == "OK"){
+			if (resp == "OK") {
 				console.log("OK", this);
 				$('#loading').text("Vote Recieved");
-				$(button).attr('disabled', 'disabled');   
-			}
-			else{
+				$(button).attr('disabled', 'disabled');
+			} else {
 				$('#loading').text("Updated");
 				marker.place.vote = !marker.place.vote;
 				marker.thumbicon = voteIcon(marker.place);
@@ -77,7 +91,7 @@ function showInfoWindow(marker) {
 				marker.litem.find(".badge").replaceWith(marker.thumbicon);
 				console.log(marker);
 				vote_buttons_enable_disable(marker, el);
-  
+
 			}
 			infowindow.close();
 			infowindow.open(map, marker);
@@ -86,20 +100,19 @@ function showInfoWindow(marker) {
 	return marker;
 }
 
-
 function doMarker(place) {
-	
+
 	var inlatlng = new google.maps.LatLng(place['lat'], place['lng']);
 	var marker = new google.maps.Marker({
 		map : map,
 		position : inlatlng,
 		clickable : true,
-		icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+place['forcount']+'|FF0000|000000'
+		icon : 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + place['forcount'] + '|FF0000|000000'
 	});
-	
+
 	place.icon = voteIcon(place);
 
-	var litem = $(Mustache.render('<li class="place list-group-item">'+place.icon+'<a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', place));
+	var litem = $(Mustache.render('<li class="place list-group-item">' + place.icon + '<a href="#">{{forcount}}. {{address}}, {{city}}</a></li>', place));
 	litem.data("marker", marker);
 	marker.place = place;
 	marker.litem = litem;
@@ -107,11 +120,11 @@ function doMarker(place) {
 	google.maps.event.addListener(marker, 'click', function() {
 		showInfoWindow(marker);
 	});
-	
+
 	google.maps.event.addListener(marker, 'mouseover', function() {
 		litem.addClass('markerlist');
 	});
-	
+
 	google.maps.event.addListener(marker, 'mouseout', function() {
 		litem.removeClass('markerlist');
 	});
@@ -128,21 +141,21 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 
 	var s = ich.fiw(fulladdress);
 	var el = $(s);
-	
+
 	infowindow.setContent(el.get(0));
 	infowindow.open(map, marker);
 
 	el.find(".vote").on("click", function() {
 		$('#loading').removeClass('hide');
-		
+
 		forcount += 1;
 		var place = {
-			city: fulladdress["locality"],
+			city : fulladdress["locality"],
 			address : fulladdress["address"],
 			lat : marker.getPosition().lat(),
 			lng : marker.getPosition().lng(),
-			vote: true,
-			forcount: forcount
+			vote : true,
+			forcount : forcount
 		};
 		$.post('/addplacemark/', {
 			place : Placemarkr.id,
@@ -150,8 +163,8 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 			address : place["address"],
 			lat : place['lat'],
 			lng : place['lng']
-		}, function(resp){  //if got response 200 from server
-			if (resp == "exists"){
+		}, function(resp) {//if got response 200 from server
+			if (resp == "exists") {
 				$('#loading').text("Marker already exists");
 				return;
 			}
@@ -160,20 +173,20 @@ function foreignInfoWindow(marker, fulladdress, litem) {
 			$('#foreignlist').empty();
 			clear_foreign_markers();
 		});
-			place.id = Number(resp);
-			doMarker(place);
+		place.id = Number(resp);
+		doMarker(place);
 
-			infowindow.close();
-			infowindow.open(map, marker);
-		});
-	
-	el.find('.remove').on("click",function(){
+		infowindow.close();
+		infowindow.open(map, marker);
+	});
+
+	el.find('.remove').on("click", function() {
 		var idx = ForeignPlacemarkr.markers.indexOf(marker);
-		ForeignPlacemarkr.markers.splice(idx,1);
+		ForeignPlacemarkr.markers.splice(idx, 1);
 		marker.setMap(null);
 		litem.detach();
 	});
-	
+
 	return marker;
 }
 
@@ -182,11 +195,11 @@ function createForeignMarker(result, fulladdress) {
 		map : map,
 		position : result.geometry.location,
 		clickable : true,
-		icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+fulladdress['forcount']+'|006400|ffffff'
+		icon : 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + fulladdress['forcount'] + '|006400|ffffff'
 	});
 
 	var litem = ich.cfm(fulladdress);
-	
+
 	litem.data("marker", marker);
 	litem.data("fulladdress", fulladdress);
 	marker.place = result;
@@ -197,7 +210,7 @@ function createForeignMarker(result, fulladdress) {
 	google.maps.event.addListener(marker, 'mouseover', function() {
 		litem.addClass('foreignmarkerlist');
 	});
-	
+
 	google.maps.event.addListener(marker, 'mouseout', function() {
 		litem.removeClass('foreignmarkerlist');
 	});
@@ -212,21 +225,19 @@ function codeAddress() {
 		locality : document.getElementById("city").value,
 	};
 
-	var a = fulladdress['address']+ " " + fulladdress['locality'];
+	var a = fulladdress['address'] + " " + fulladdress['locality'];
 	geocoder.geocode({
 		'address' : a,
 	}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
-			var latlngbounds = new google.maps.LatLngBounds();
 			var forcount = 1;
 			for (var i = 0; i < results.length; i++) {
 				fulladdress["forcount"] = forcount;
 				var marker = createForeignMarker(results[i], fulladdress);
-				latlngbounds.extend(marker.position);
 				ForeignPlacemarkr.markers.push(marker);
-				map.fitBounds(latlngbounds);
 				forcount += 1;
 			};
+			fitBounds(map, ForeignPlacemarkr.markers);
 		} else {
 			alert("Geocode was not successful for the following reason: " + status);
 		}
@@ -242,16 +253,14 @@ function initialize() {
 	};
 
 	map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-	var latlngbounds = new google.maps.LatLngBounds();
-	
+
 	for (var i = 0; i < Placemarkr.placemarks.length; i++) {
 		forcount += 1;
 		places[i]['forcount'] = forcount;
 		var marker = doMarker(places[i]);
-		latlngbounds.extend(marker.position);	
 		Placemarkr.markers.push(marker);
-		map.fitBounds(latlngbounds);
 	}
+	fitBounds(map, Placemarkr.markers);
 
 	$('#jsontitle').click(function() {
 		console.log("title");
