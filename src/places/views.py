@@ -1,12 +1,15 @@
+# coding: utf-8
+
+from django import forms
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import *
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response, \
+    redirect
+from django.template import RequestContext
 from places.models import Place, Placemark, Vote
 import json
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.template import RequestContext
-
+from fileHandler import handleUploadedFile
 
 def login_user(request):
     logout(request)
@@ -106,3 +109,24 @@ def addplacemark(request):
     newvote.save()
     
     return HttpResponse(newplacemark.id)
+
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file  = forms.FileField()
+
+def upload(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            print form.cleaned_data['file']
+            print "bla"
+            print request.FILES['file']
+            handleUploadedFile(form.cleaned_data['file'])
+            return HttpResponseRedirect('/')
+    else:
+        form = UploadFileForm()
+        
+    return render(request, 'upload.html', {
+        'form': form,
+    })
+    #return render_to_response('upload.html', {'form': form})
