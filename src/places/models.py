@@ -4,8 +4,13 @@ import datetime
 import json
 
 
+class Dataset(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    owner = models.ForeignKey(User)
+
 class Place(models.Model):
     vendor_id = models.CharField(max_length=50, unique=True)
+    dataset = models.ForeignKey(Dataset, related_name="places")
     data = models.TextField()
 
     def __unicode__(self):
@@ -77,3 +82,4 @@ class Vote(models.Model):
 
     class Meta:
         unique_together = (('placemark', 'user'),)
+        
