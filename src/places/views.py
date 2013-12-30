@@ -121,8 +121,10 @@ def upload(request):
             print form.cleaned_data['file']
             print "bla"
             print request.FILES['file']
-            handleUploadedFile(form.cleaned_data['file'])
-            return HttpResponseRedirect('/')
+            # Opens the file and sends it
+            # TODO - handle UTF-8 BOM??
+            data = handleUploadedFile(request.FILES['file'].file)
+            return render(request, 'dataset.html', {'data' : data })
     else:
         form = UploadFileForm()
         

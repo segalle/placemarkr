@@ -1,10 +1,12 @@
-import csv
+# coding: utf-8
+
+import csv, json
 
 def handleUploadedFile(uploadedFile):
-    content = uploadedFile.read()
-    print content
     
-    #with open(uploadedFile, 'rb') as csvfile:
-    #    spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-    #    for row in spamreader:
-    #        print ', '.join(row)
+    reader = csv.DictReader(uploadedFile, delimiter=',')
+    data = []
+    for r in reader:
+        data.append(r)
+    return data
+    
