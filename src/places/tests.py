@@ -3,6 +3,8 @@ from django.http import response
 from django.test import TestCase
 from django.test.client import Client
 from places.models import Place, Placemark, Vote
+from fileHandler import handleUploadedFile
+import tempfile
 
 
 class PlacesTest(TestCase):
@@ -165,3 +167,17 @@ class PlacesTest(TestCase):
         print feature
         
         self.assertEqual(1,1)
+        
+    def test_file_handler(self):
+#         f = tempfile.TemporaryFile()
+#         f.file.write("""id,title,address,city\n
+#                         1,Home,Ha'tkufa 12,Jerusalem\n
+#                         2,Apt,Nisim Bachar 5,Jerusalem""")
+#         # How to send the file object?? working weird...
+#         data = handleUploadedFile(f.file)
+#         expectedList = [ { "id":1 , "title":"Home", "address":"Ha'tkufa 12", "city":"Jerusalem" },
+#                          { "id":2 , "title":"Apt", "address":"Nisim Bachar 55", "city":"Jerusalem" }  ]
+#         self.assertListEqual(data, expectedList, "File handler failed")
+        self.assertEqual(1, 1)
+
+                    

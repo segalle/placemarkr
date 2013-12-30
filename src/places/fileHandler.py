@@ -2,11 +2,17 @@
 
 import csv, json
 
-def handleUploadedFile(uploadedFile):
+def handleUploadedFile(uploadedFile, file_type):
     
-    reader = csv.DictReader(uploadedFile, delimiter=',')
     data = []
-    for r in reader:
-        data.append(r)
+    
+    if file_type == 'json':
+        data = json.load(uploadedFile.file)
+    
+    elif file_type == 'csv':
+        reader = csv.DictReader(uploadedFile, delimiter=',')
+        for r in reader:
+            data.append(r)
+    
     return data
     

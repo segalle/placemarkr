@@ -113,17 +113,28 @@ def addplacemark(request):
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
     file  = forms.FileField()
+    file_type = forms.ChoiceField(choices=(('csv','csv'),('json','json')), required=True, widget=forms.RadioSelect)
+    
+    def is_valid(self):
+        # run the parent validation first
+        
+        valid = super(UploadFileForm, self).is_valid()
+        
+        if not valid:
+            return valid
+        if not self.cleaned_data['file'].name.endswith(self.cleaned_data['file_type']):
+            self._errors['bad_file'] = "File does not match the chosen format"
+            return False
+        
+        return True
 
 def upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            print form.cleaned_data['file']
-            print "bla"
-            print request.FILES['file']
             # Opens the file and sends it
             # TODO - handle UTF-8 BOM??
-            data = handleUploadedFile(request.FILES['file'].file)
+            data = handleUploadedFile(request.FILES['file'], form.cleaned_data['file_type'])
             return render(request, 'dataset.html', {'data' : data })
     else:
         form = UploadFileForm()
