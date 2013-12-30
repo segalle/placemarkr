@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+{% load staticfiles %}
+{% for dict in data %}
+	<ul>
+	{% for key,value in dict.items %}
+		<li> {{ key }}: {{ value }} </li>
+	{% endfor %}
+	</ul>
+{% endfor %} 
+{% endblock %}
