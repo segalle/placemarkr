@@ -34,7 +34,9 @@ def logout_user(request):
 @login_required(login_url='/login/')
 def home(request):
     places = Place.objects.all()
-    context = {'places': places}
+    userDatasets = Dataset.objects.filter(owner = request.user)
+    context = {'places': places,
+               'userDatasets' : userDatasets}
     return render(request, 'home.html', context)
 
 
@@ -42,7 +44,7 @@ def home(request):
 def place(request, id):
     
     place = get_object_or_404(Place, id=int(id))
-    #place = Place.objects.get(id=int(id))
+    # place = Place.objects.get(id=int(id))
     
     l = []
     for pm in place.placemarks.all():
@@ -113,8 +115,8 @@ def addplacemark(request):
 
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
-    file  = forms.FileField()
-    file_type = forms.ChoiceField(choices=(('csv','csv'),('json','json')), required=True, widget=forms.RadioSelect)
+    file = forms.FileField()
+    file_type = forms.ChoiceField(choices=(('csv', 'csv'), ('json', 'json')), required=True, widget=forms.RadioSelect)
     
     def is_valid(self):
         # run the parent validation first
@@ -147,11 +149,11 @@ def upload(request):
                 ds = Dataset.objects.get(name=title)
                 places = ds.places.all()
                 counter = create_markers(places)
-            return render(request, 'dataset.html', {'data' : data })
+            return redirect('home')
     else:
         form = UploadFileForm()
         
     return render(request, 'upload.html', {
         'form': form,
     })
-    #return render_to_response('upload.html', {'form': form})
+    # return render_to_response('upload.html', {'form': form})
