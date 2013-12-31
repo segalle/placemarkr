@@ -7,9 +7,10 @@ from django.http import *
 from django.shortcuts import render, get_object_or_404, render_to_response, \
     redirect
 from django.template import RequestContext
-from places.models import Place, Placemark, Vote
+from places.models import Place, Placemark, Vote, Dataset
 import json
 from fileHandler import handleUploadedFile
+from controllers import create_dataset, create_markers
 
 def login_user(request):
     logout(request)
@@ -113,17 +114,39 @@ def addplacemark(request):
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
     file  = forms.FileField()
+    file_type = forms.ChoiceField(choices=(('csv','csv'),('json','json')), required=True, widget=forms.RadioSelect)
+    
+    def is_valid(self):
+        # run the parent validation first
+        
+        valid = super(UploadFileForm, self).is_valid()
+        
+        if not valid:
+            return valid
+        
+        if Dataset.objects.filter(name=self.cleaned_data['title']).count() != 0:
+            return False
+        
+        if not self.cleaned_data['file'].name.endswith(self.cleaned_data['file_type']):
+            self._errors['bad_file'] = "File does not match the chosen format"
+            return False
+        
+        return True
 
+@login_required(login_url='/login/')
 def upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            print form.cleaned_data['file']
-            print "bla"
-            print request.FILES['file']
             # Opens the file and sends it
             # TODO - handle UTF-8 BOM??
-            data = handleUploadedFile(request.FILES['file'].file)
+            data = handleUploadedFile(request.FILES['file'], form.cleaned_data['file_type'])
+            title = form.cleaned_data['title']
+            messages = create_dataset(title, data, request.user.id)
+            if messages:
+                ds = Dataset.objects.get(name=title)
+                places = ds.places.all()
+                counter = create_markers(places)
             return render(request, 'dataset.html', {'data' : data })
     else:
         form = UploadFileForm()

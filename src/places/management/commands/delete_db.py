@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from places.models import Place
+from places.models import Place, Dataset
 
 class Command(BaseCommand):
     args = ''
@@ -7,3 +7,5 @@ class Command(BaseCommand):
     
     def handle(self, *args, **options):
         Place.objects.all().delete()
+        Dataset.objects.all().delete()
+        
