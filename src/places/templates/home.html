@@ -3,7 +3,12 @@
 {% load staticfiles %}
 <script src="{% static "jquery-1.10.2.js" %}"></script>
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
-
+<div class="container">
+<div class="row">
+	<div class="col-md-12">
+	<p><h3>הדף של {{ urlUser }}</h3></p>
+	</div>
+</div>
 <div class="row">
 	<div class="col-md-8">
 		<h3>עדכונים</h3>
@@ -24,14 +29,16 @@
 			{% else %}
 	    		<p>לא נמצאו מאגרי מידע</p>
 			{% endif %}
+			{% if user == urlUser %}
 			<div style="margin:5px;">
 	    		<a href="{% url 'upload'%}" >הוסף מאגר חדש...</a>
 	    	</div>
+	    	{% endif %}
 	  </div>
 	</div>
 	</div>
 </div>
-
+</div>
 <div class="list-group" style="margin:30px;">
 	{% for p in places %}
 	<a href="{% url 'place' p.id%}" class="list-group-item">  	

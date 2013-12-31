@@ -1,5 +1,6 @@
 # coding: utf-8
 
+from controllers import create_dataset, create_markers
 from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -7,10 +8,10 @@ from django.http import *
 from django.shortcuts import render, get_object_or_404, render_to_response, \
     redirect
 from django.template import RequestContext
+from fileHandler import handleUploadedFile
 from places.models import Place, Placemark, Vote, Dataset
 import json
-from fileHandler import handleUploadedFile
-from controllers import create_dataset, create_markers
+from django.contrib.auth.models import User
 
 def login_user(request):
     logout(request)
@@ -22,7 +23,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/user/' + user.username)
     return render_to_response('login.html', context_instance=RequestContext(request))
 
 
@@ -69,6 +70,15 @@ def place(request, id):
                }
     return render(request, 'place.html', context)
 
+@login_required(login_url='/login/')
+def userHomepage(request, username):
+    urlUser = get_object_or_404(User, username = username)
+    places = Place.objects.all()
+    userDatasets = Dataset.objects.filter(owner = urlUser)
+    context = {'urlUser': urlUser,
+               'places': places,
+               'userDatasets' : userDatasets}
+    return render(request, 'home.html', context)
 
 @login_required(login_url='/login/')
 def vote(request):
