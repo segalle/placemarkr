@@ -21,7 +21,7 @@
 	  <div class="panel-body">
 	  		{% if userDatasets.count > 0 %}
 				{% for dataset in userDatasets %}
-				<a href="#" class="list-group-item">  	
+				<a href="{% url 'datasetDetails' urlUser.username dataset.slug %}" class="list-group-item">  	
 					<div>{{dataset.name}}   			
 			   		</div>
 			 	</a>
@@ -39,16 +39,7 @@
 	</div>
 </div>
 </div>
-<div class="list-group" style="margin:30px;">
-	{% for p in places %}
-	<a href="{% url 'place' p.id%}" class="list-group-item">  	
-		<div>{{p.vendor_id}}   			
-   				<div class="text-left"><span class="badge">{{p.placemarks.count}}</span></div>
-   		</div>
- 	</a>
- 	{% endfor %}
-</div>
 
-<script src="{% static "dist/js/bootstrap.min.js" %}"></script> -->
+<script src="{% static "dist/js/bootstrap.min.js" %}"></script>
 {% endblock %}
 

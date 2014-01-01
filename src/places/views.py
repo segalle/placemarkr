@@ -34,12 +34,8 @@ def logout_user(request):
 
 @login_required(login_url='/login/')
 def home(request):
-    places = Place.objects.all()
-    userDatasets = Dataset.objects.filter(owner = request.user)
-    context = {'places': places,
-               'userDatasets' : userDatasets}
-    return render(request, 'home.html', context)
-
+    username = request.user.username
+    return userHomepage(request, username)
 
 @login_required(login_url='/login/')
 def place(request, id):
@@ -79,6 +75,15 @@ def userHomepage(request, username):
                'places': places,
                'userDatasets' : userDatasets}
     return render(request, 'home.html', context)
+
+@login_required(login_url='/login/')
+def datasetDetails(request, username,datasetSlug):
+    urlUser = get_object_or_404(User, username = username)
+    dataset = get_object_or_404(Dataset, slug = datasetSlug)
+    context = {'urlUser': urlUser,
+               'places': Place.objects.all(), #dataset.places.all(),
+               'dataset' : dataset}
+    return render(request, 'userDataset.html', context)
 
 @login_required(login_url='/login/')
 def vote(request):
@@ -159,7 +164,7 @@ def upload(request):
                 ds = Dataset.objects.get(name=title)
                 places = ds.places.all()
                 counter = create_markers(places)
-            return redirect('home')
+            return redirect('userHomepage',username = request.user.username)
     else:
         form = UploadFileForm()
         

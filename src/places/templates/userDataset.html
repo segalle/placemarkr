@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+	{% for p in places %}
+	<a href="{% url 'place' p.id%}" class="list-group-item">  	
+		<div>{{p.vendor_id}}   			
+   				<div class="text-left"><span class="badge">{{p.placemarks.count}}</span></div>
+   		</div>
+ 	</a>
+ 	{% endfor %}
+{% endblock %}
