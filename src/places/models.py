@@ -2,11 +2,17 @@ from django.contrib.auth.models import User
 from django.db import models
 import datetime
 import json
-
+from django.template.defaultfilters import slugify
 
 class Dataset(models.Model):
     name = models.CharField(max_length=100, unique=True)
     owner = models.ForeignKey(User)
+    slug = models.SlugField()
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.name)
+        super(Dataset, self).save(*args, **kwargs)
 
 class Place(models.Model):
     vendor_id = models.CharField(max_length=50, unique=True)

@@ -4,15 +4,77 @@
 <script src="{% static "jquery-1.10.2.js" %}"></script>
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
 
-<ul class="list-group">
-	{% for p in places %}
-	<li class="list-group-item">  		
-   			<a href="{% url 'place' p.id%}">{{p.vendor_id}}</a>
-   			<span class="badge">{{p.placemarks.count}}</span>
- 	</li>
- 	{% endfor %}
-</ul>
+<div class="container">
+	<div class="page-header">
+		<h1>
+			{% if user != urlUser %}
+			<small><span id="star" class="glyphicon glyphicon-star-empty"> </span></small>
+			{% endif %}
+			 הדף של {{ urlUser }}</h1>
+	</div>
 
-<script src="{% static "dist/js/bootstrap.min.js" %}"></script> -->
+	<div class="row">
+		<div class="col-md-8">
+			<h3>עדכונים</h3>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">מאגרי מידע</h3>
+				</div>
+				<div class="panel-body">
+					{% if userDatasets.count > 0 %}
+					{% for dataset in userDatasets %}
+					<a href="{% url 'datasetDetails' urlUser.username dataset.slug %}" class="list-group-item">
+					<div>
+						{{dataset.name}}
+					</div> </a>
+					{% endfor %}
+					{% else %}
+					<p>
+						לא נמצאו מאגרי מידע
+					</p>
+					{% endif %}
+					{% if user == urlUser %}
+					<div style="margin:5px;">
+						<a href="{% url 'upload'%}" >הוסף מאגר חדש...</a>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			
+			{% if user == urlUser %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">משתמשים מועדפים</h3>
+				</div>
+				<div class="panel-body">
+					
+					<p>
+						לא נמצאו משתמשים
+					</p>
+
+				</div>
+			</div>
+			{% endif %}
+						
+		</div>
+	</div>
+</div>
+
+<script src="{% static "dist/js/bootstrap.min.js" %}"></script>
+<script>
+	$(function() {
+		$("#star").click(function() {
+			if ($("#star").hasClass("glyphicon-star-empty"))
+				$("#star").removeClass("glyphicon-star-empty").addClass("glyphicon-star");
+			else
+				$("#star").removeClass("glyphicon-star").addClass("glyphicon-star-empty");
+		});
+
+	});
+
+</script>
+
 {% endblock %}
 

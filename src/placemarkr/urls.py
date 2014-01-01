@@ -13,6 +13,10 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'places.views.logout_user', name='logout_user'),
     url(r'^vote/$', 'places.views.vote', name='vote'),
     url(r'^addplacemark/$', 'places.views.addplacemark', name='addplacemark'),
+    # ex: /user/itay
+    url(r'^user/(?P<username>\w+)/$', 'places.views.userHomepage', name='userHomepage'),
+    # ex: /user/itay/my-first-dataset
+    url(r'^user/(?P<username>\w+)/(?P<datasetSlug>[a-zA-Z0-9_\-]*)/$', 'places.views.datasetDetails', name='datasetDetails'),
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
