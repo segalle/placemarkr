@@ -5,7 +5,7 @@
 		<div class="col-md-12">
 		{% for p in places %}
 		<a href="{% url 'place' p.id%}" class="list-group-item">  	
-			<div>{{p.vendor_id}}			
+			<div>{{p.vendor_id}}, {{p.title}}			
 	   				<div class="text-left"><span class="badge">{{p.placemarks.count}}</span></div>
 	   		</div>
 	 	</a>

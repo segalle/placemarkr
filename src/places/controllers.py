@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from places.models import Place, Dataset
+from places.models import Place, Dataset, Placemark
 from django.contrib.auth.models import User
 from collections import Counter
 from geocoding.models import geo_code
@@ -20,6 +20,7 @@ def create_dataset(name, in_places, user_id):
     ds.owner = User.objects.get(id=user_id)
     ds.name = name
     ds.save()
+    
     for i in in_places:
         try:
             place = Place.objects.get(vendor_id=i['id'])
@@ -27,14 +28,18 @@ def create_dataset(name, in_places, user_id):
                 messages.append("place id #%s already exist... skipping" % i["id"])
             else:
                 place.data = json.dumps(i)
+                place.dataset = ds
                 place.save()
         except Place.DoesNotExist:
             place = Place()
             place.vendor_id = i["id"]
+            place.title = i["title"]
             place.data = json.dumps(i)
             place.dataset = ds
             place.save()
             messages.append("place id #%s added" % i["id"])
+    
+
     return messages
 
 def create_markers(places):
