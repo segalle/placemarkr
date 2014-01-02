@@ -6,11 +6,8 @@
 
 <div class="container">
 	<div class="page-header">
-		<h1>
-			{% if user != urlUser %}
-			<small><span id="star" class="glyphicon glyphicon-star-empty"> </span></small>
-			{% endif %}
-			 הדף של {{ urlUser }}</h1>
+		<h1> {% if user != urlUser %} <small><span id="star" class="glyphicon glyphicon-star-empty"> </span></small> {% endif %}
+		הדף של {{ urlUser }}</h1>
 	</div>
 
 	<div class="row">
@@ -37,19 +34,19 @@
 					{% endif %}
 					{% if user == urlUser %}
 					<div style="margin:5px;">
-						<a href="{% url 'upload'%}" >הוסף מאגר חדש...</a>
+						<a data-toggle="modal" href="#uploadModal">הוסף מאגר חדש...</a>
 					</div>
 					{% endif %}
 				</div>
 			</div>
-			
+
 			{% if user == urlUser %}
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">משתמשים מועדפים</h3>
 				</div>
 				<div class="panel-body">
-					
+
 					<p>
 						לא נמצאו משתמשים
 					</p>
@@ -57,10 +54,65 @@
 				</div>
 			</div>
 			{% endif %}
-						
+
 		</div>
 	</div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">הוספת מאגר חדש</h4>
+			</div>
+			<form id="id_addNewDatasetForm" enctype="multipart/form-data" method="post" action="{% url 'upload' %}">
+				<div class="modal-body">
+					{% csrf_token %}
+
+					<div class="form-group">
+						<label for="id_title">שם המאגר</label>
+						<input type="text" class="form-control" id="id_title" name="title" placeholder="הזן שם מאגר">
+					</div>
+
+					<label>סוג הקובץ</label>
+					<br>
+
+
+							<label for="id_file_type_0">
+								<input id="id_file_type_0" name="file_type" type="radio" value="csv">
+								csv</label>
+
+							<label for="id_file_type_1">
+								<input id="id_file_type_1" name="file_type" type="radio" value="json">
+								json</label>
+
+					<br>
+					<br>
+					<div class="form-group">
+						<label for="id_file">בחר קובץ</label>
+						<input type="file" id="id_file" name="file">
+						<p class="help-block">
+							גודל מקסימלי  10 מגה בייט
+						</p>
+					</div>
+
+					<div id="id_loadingNewDataset">
+						אנא המתן, יוצר מאגר נתונים <img src="{% static 'images/ajax-loader.gif' %}" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						ביטול
+					</button>
+					<button type="submit" id="id_addNewDataset" class="btn btn-primary">
+						הוסף מאגר
+					</button>
+				</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <script src="{% static "dist/js/bootstrap.min.js" %}"></script>
 <script>
@@ -72,8 +124,40 @@
 				$("#star").removeClass("glyphicon-star").addClass("glyphicon-star-empty");
 		});
 
-	});
+		$("#id_loadingNewDataset").hide();
 
+		$("#id_addNewDatasetForm").submit(function(event) {
+			$("#id_loadingNewDataset").show();
+			$("#id_addNewDataset").addClass("disabled");
+			//disable the default form submission
+			event.preventDefault();
+
+			//grab all form data
+			var formData = new FormData($(this)[0]);
+
+			$.ajax({
+				url : "{% url 'upload' %}",
+				type : 'POST',
+				data : formData,
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(returndata) {
+					$('#uploadModal').modal('hide');
+				},
+				error : function(returndata) {
+					alert("fail");
+				},
+				complete : function(returndata) {
+					$("#id_addNewDataset").removeClass("disabled");
+					$("#id_loadingNewDataset").hide();
+				}
+			});
+			return false;
+		});
+		
+	}); 
 </script>
 
 {% endblock %}

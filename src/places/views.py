@@ -139,7 +139,7 @@ class UploadFileForm(forms.Form):
         valid = super(UploadFileForm, self).is_valid()
         
         if not valid:
-            return valid
+            return False
         
         if Dataset.objects.filter(name=self.cleaned_data['title']).count() != 0:
             return False
