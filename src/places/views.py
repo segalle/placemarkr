@@ -81,7 +81,7 @@ def datasetDetails(request, username,datasetSlug):
     urlUser = get_object_or_404(User, username = username)
     dataset = get_object_or_404(Dataset, slug = datasetSlug)
     context = {'urlUser': urlUser,
-               'places': Place.objects.all(), #dataset.places.all(),
+               'places': dataset.places.all(),
                'dataset' : dataset}
     return render(request, 'userDataset.html', context)
 
