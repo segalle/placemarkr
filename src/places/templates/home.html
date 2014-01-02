@@ -22,10 +22,7 @@
 				<div class="panel-body">
 					{% if userDatasets.count > 0 %}
 					{% for dataset in userDatasets %}
-					<a href="{% url 'datasetDetails' urlUser.username dataset.slug %}" class="list-group-item">
-					<div>
-						{{dataset.name}}
-					</div> </a>
+					<a href="{% url 'datasetDetails' urlUser.username dataset.slug %}" class="list-group-item"> {{dataset.name}} <span class="badge">{{dataset.places.count}}</span> </a>
 					{% endfor %}
 					{% else %}
 					<p>
@@ -78,14 +75,13 @@
 					<label>סוג הקובץ</label>
 					<br>
 
+					<label for="id_file_type_0">
+						<input id="id_file_type_0" name="file_type" type="radio" value="csv">
+						csv</label>
 
-							<label for="id_file_type_0">
-								<input id="id_file_type_0" name="file_type" type="radio" value="csv">
-								csv</label>
-
-							<label for="id_file_type_1">
-								<input id="id_file_type_1" name="file_type" type="radio" value="json">
-								json</label>
+					<label for="id_file_type_1">
+						<input id="id_file_type_1" name="file_type" type="radio" value="json">
+						json</label>
 
 					<br>
 					<br>
@@ -156,7 +152,7 @@
 			});
 			return false;
 		});
-		
+
 	}); 
 </script>
 
