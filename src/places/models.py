@@ -15,7 +15,7 @@ class Dataset(models.Model):
         super(Dataset, self).save(*args, **kwargs)
 
 class Place(models.Model):
-    vendor_id = models.CharField(max_length=50, unique=True)
+    vendor_id = models.CharField(max_length=50)
     title = models.CharField(max_length=100)
     dataset = models.ForeignKey(Dataset, related_name="places")
     data = models.TextField()

@@ -6,14 +6,19 @@ from collections import Counter
 from geocoding.models import geo_code
 from django.db.utils import IntegrityError
 import json
+from django.contrib import messages
 
+def delete_dataset(ds):
+    for place in ds.places.all():
+        Place.delete(place)
+    Dataset.delete(ds)
 
-def create_dataset(name, in_places, user_id):
-    messages = []
+def create_dataset(request,name, in_places, user_id):
     try:
         # if the dataset already exists
         ds = Dataset.objects.get(name=name)
-        return messages
+        messages.error(request, "שם המאגר קיים במערכת")
+        return False
     except Dataset.DoesNotExist:
         pass
     ds = Dataset()
@@ -21,30 +26,24 @@ def create_dataset(name, in_places, user_id):
     ds.name = name
     ds.save()
     
-    for i in in_places:
+    for p in in_places:
+        place = Place()
+        place.vendor_id = p["id"]
         try:
-            place = Place.objects.get(vendor_id=i['id'])
-            if place.data == json.dumps(i):
-                messages.append("place id #%s already exist... skipping" % i["id"])
-            else:
-                place.data = json.dumps(i)
-                place.dataset = ds
-                place.save()
-        except Place.DoesNotExist:
-            place = Place()
-            place.vendor_id = i["id"]
-            place.title = i["title"]
-            place.data = json.dumps(i)
-            place.dataset = ds
-            place.save()
-            messages.append("place id #%s added" % i["id"])
-    
+            place.title = p["title"]
+        except KeyError:
+            delete_dataset(ds)
+            messages.error(request, "שדה ה-title חסר עבור id=" + str(place.vendor_id))
+            return False
+        place.data = json.dumps(p)
+        place.dataset = ds
+        place.save()
 
-    return messages
+    messages.success(request, "המאגר נוסף בהצלחה")
+    return True
 
 def create_markers(places):
     counter = Counter()
-    #places = dataset.places.objects.all()
    
     for place in places:
 

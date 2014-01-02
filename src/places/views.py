@@ -12,6 +12,8 @@ from fileHandler import handleUploadedFile
 from places.models import Place, Placemark, Vote, Dataset
 import json
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.messages import get_messages
 
 def login_user(request):
     logout(request)
@@ -68,18 +70,18 @@ def place(request, id):
 
 @login_required(login_url='/login/')
 def userHomepage(request, username):
-    urlUser = get_object_or_404(User, username = username)
+    urlUser = get_object_or_404(User, username=username)
     places = Place.objects.all()
-    userDatasets = Dataset.objects.filter(owner = urlUser)
+    userDatasets = Dataset.objects.filter(owner=urlUser)
     context = {'urlUser': urlUser,
                'places': places,
                'userDatasets' : userDatasets}
     return render(request, 'home.html', context)
 
 @login_required(login_url='/login/')
-def datasetDetails(request, username,datasetSlug):
-    urlUser = get_object_or_404(User, username = username)
-    dataset = get_object_or_404(Dataset, slug = datasetSlug)
+def datasetDetails(request, username, datasetSlug):
+    urlUser = get_object_or_404(User, username=username)
+    dataset = get_object_or_404(Dataset, slug=datasetSlug)
     context = {'urlUser': urlUser,
                'places': dataset.places.all(),
                'dataset' : dataset}
@@ -141,11 +143,9 @@ class UploadFileForm(forms.Form):
         if not valid:
             return False
         
-        if Dataset.objects.filter(name=self.cleaned_data['title']).count() != 0:
-            return False
-        
         if not self.cleaned_data['file'].name.endswith(self.cleaned_data['file_type']):
             self._errors['bad_file'] = "File does not match the chosen format"
+            #messages.error(request, "סיומת הקובץ לא תואמת לסוג הקובץ שנבחר")
             return False
         
         return True
@@ -159,16 +159,18 @@ def upload(request):
             # TODO - handle UTF-8 BOM??
             data = handleUploadedFile(request.FILES['file'], form.cleaned_data['file_type'])
             title = form.cleaned_data['title']
-            messages = create_dataset(title, data, request.user.id)
-            if messages:
+            if create_dataset(request, title, data, request.user.id):
                 ds = Dataset.objects.get(name=title)
                 places = ds.places.all()
                 counter = create_markers(places)
-            return redirect('userHomepage',username = request.user.username)
+            
     else:
         form = UploadFileForm()
-        
-    return render(request, 'upload.html', {
-        'form': form,
-    })
-    # return render_to_response('upload.html', {'form': form})
+    
+    messages = get_messages(request)
+    response_data = {}
+    for message in messages:
+        response_data['tags'] = message.tags
+        response_data['message'] = message.message
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
