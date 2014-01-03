@@ -26,4 +26,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     #url(r'', include(places.urls , namespace='places'))
     url(r'^upload/', views.upload, name='upload'),
+    url(r'^register/', views.register, name='register'),
 )
