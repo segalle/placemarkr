@@ -3,14 +3,42 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-		{% for p in places %}
-		<a href="{% url 'place' p.id%}" class="list-group-item">  	
-			<div>{{p.vendor_id}}, {{p.title}}			
-	   				<div class="text-left"><span class="badge">{{p.placemarks.count}}</span></div>
-	   		</div>
-	 	</a>
-	 	{% endfor %}
+	 	<table class="table table-hover">
+	 		<thead>
+	 		<tr>
+	 			<th class="text-right">#</th>
+	 			<th class="text-right">שם המקום</th>
+	 			<th class="text-right">כתובת</th>
+	 			<th class="text-right">עיר</th>
+	 			<th class="text-right"><center>סהכ מיקומים</center></th>
+	 			<th class="text-right"><center>סהכ הצבעות</center></th>
+	 		</tr>
+	 		</thead>
+	 		{% for p in places %}
+	 		<tr data-value="{% url 'place' p.id%}">
+	 			<td>{{p.vendor_id}}</td>
+	 			<td>{{p.title}}</td>
+	 			<td> </td>
+	 			<td> </td>
+	 			<td><center><span class="badge">{{p.placemarks.count}}</span></center></td>
+	 			<td><center><span class="badge">0</span></center></td>
+	 		</tr>
+	 		{% endfor %}
+	 	</table>
+	 	
+	 	
+	 	
  		</div>
  	</div>
  </div>
+ 
+ <script>
+ 	$(function() {
+ 		$("tr").click(function() {
+    		window.location = $(this).data('value');
+		});
+ 		
+ 	});
+ 	
+ </script>
 {% endblock %}
