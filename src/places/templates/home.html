@@ -19,22 +19,14 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">מאגרי מידע</h3>
 				</div>
-				<div class="panel-body">
-					{% if userDatasets.count > 0 %}
-					{% for dataset in userDatasets %}
-					<a href="{% url 'datasetDetails' urlUser.username dataset.slug %}" class="list-group-item"> {{dataset.name}} <span class="badge">{{dataset.places.count}}</span> </a>
-					{% endfor %}
-					{% else %}
-					<p>
-						לא נמצאו מאגרי מידע
-					</p>
-					{% endif %}
-					{% if user == urlUser %}
-					<div style="margin:5px;">
-						<a data-toggle="modal" href="#uploadModal">הוסף מאגר חדש...</a>
-					</div>
-					{% endif %}
+				<div id="datasetsList" class="panel-body">
+
 				</div>
+				{% if user == urlUser %}
+				<div style="margin-right:20px;margin-bottom: 10px;">
+					<a data-toggle="modal" href="#uploadModal">הוסף מאגר חדש...</a>
+				</div>
+				{% endif %}
 			</div>
 
 			{% if user == urlUser %}
@@ -98,7 +90,7 @@
 					</div>
 					<div id="id_errorBlock" style="color:#9b5659;">
 						שגיאה: <span id="id_errorMessage"></span>
-					</div>	
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
@@ -116,6 +108,8 @@
 <script src="{% static "dist/js/bootstrap.min.js" %}"></script>
 <script>
 	$(function() {
+		updateDatasetsList();
+
 		$("#star").click(function() {
 			if ($("#star").hasClass("glyphicon-star-empty"))
 				$("#star").removeClass("glyphicon-star-empty").addClass("glyphicon-star");
@@ -148,19 +142,17 @@
 					if (returndata.tags == "error") {
 						$("#id_errorMessage").text(returndata.message);
 						$("#id_errorBlock").show();
-					}
-					else if (returndata.tags == "success") {
+					} else if (returndata.tags == "success") {
 						$('#uploadModal').modal('hide');
-						alert(returndata.message + " זמנית: רענן את הדף על מנת לראות את השינוי");
-					}
-					else {
+						updateDatasetsList();
+					} else {
 						alert("unhandled state: " + returndata.message);
 					}
 					//$('#uploadModal').modal('hide');
 				},
 				error : function(returndata) {
 					alert(returndata);
-					
+
 					$("#id_errorBlock").show();
 				},
 				complete : function(returndata) {
@@ -172,7 +164,20 @@
 			return false;
 		});
 
-	}); 
+	});
+
+	function updateDatasetsList() {
+		$.get('datasetsList.json', function(data) {
+			$("#datasetsList").empty();
+			if (data.length == 0) {
+				$("#datasetsList").append("<p>לא נמצאו מאגרי מידע</p>");
+			}
+			for (var i = 0; i < data.length; i++) {
+				console.log(data[i]);
+				$("#datasetsList").append("<a href=\" " + data[i].slug + "\" class=\"list-group-item\">" + data[i].name + "<span class=\"badge\">" + data[i].numOfPlaces + "</span> </a>");
+			}
+		});
+	}
 </script>
 
 {% endblock %}

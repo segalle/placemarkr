@@ -81,6 +81,13 @@ def userHomepage(request, username):
     return render(request, 'home.html', context)
 
 @login_required(login_url='/login/')
+def datasetsList(request, username):
+    urlUser = get_object_or_404(User, username=username)
+    userDatasets = Dataset.objects.filter(owner=urlUser)
+    response_data = [dict([("name", dataset.name), ("slug", dataset.slug), ("numOfPlaces", dataset.places.count())]) for dataset in userDatasets]
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+@login_required(login_url='/login/')
 def datasetDetails(request, username, datasetSlug):
     urlUser = get_object_or_404(User, username=username)
     dataset = get_object_or_404(Dataset, slug=datasetSlug)
