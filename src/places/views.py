@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from controllers import create_dataset, create_markers
-from django import forms
+from places.forms import UploadFileForm, UserCreateForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import *
@@ -15,6 +15,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.messages import get_messages
 
+
 def login_user(request):
     logout(request)
     username = password = ''
@@ -26,7 +27,8 @@ def login_user(request):
             if user.is_active:
                 login(request, user)
                 return HttpResponseRedirect('/user/' + user.username)
-    return render_to_response('login.html', context_instance=RequestContext(request))
+    context = {'registration_form' : UserCreateForm() }
+    return render(request, 'login.html', context)
 
 
 def logout_user(request):
@@ -130,26 +132,6 @@ def addplacemark(request):
     
     return HttpResponse(newplacemark.id)
 
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
-    file_type = forms.ChoiceField(choices=(('csv', 'csv'), ('json', 'json')), required=True, widget=forms.RadioSelect)
-    
-    def is_valid(self):
-        # run the parent validation first
-        
-        valid = super(UploadFileForm, self).is_valid()
-        
-        if not valid:
-            return False
-        
-        if not self.cleaned_data['file'].name.endswith(self.cleaned_data['file_type']):
-            self._errors['bad_file'] = "File does not match the chosen format"
-            #messages.error(request, "סיומת הקובץ לא תואמת לסוג הקובץ שנבחר")
-            return False
-        
-        return True
-
 @login_required(login_url='/login/')
 def upload(request):
     if request.method == 'POST':
@@ -174,3 +156,15 @@ def upload(request):
         response_data['message'] = message.message
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
+def register(request):
+    if request.method == 'POST':
+        registration_form = UserCreateForm(request.POST)
+        if registration_form.is_valid():
+            new_user = registration_form.save()
+            new_user = authenticate(username=request.POST['username'],
+                                    password=request.POST['password1'])
+            login(request, new_user)
+            return HttpResponseRedirect('/user/' + new_user.username)
+    context = {'registration_form' : UserCreateForm() }
+    return render(request, 'login.html', context)
+     
