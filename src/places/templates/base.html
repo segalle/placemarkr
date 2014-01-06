@@ -6,6 +6,7 @@
 		<title>Placemarkr</title>
 	    <!-- Bootstrap core CSS -->
 	    <link href="{% static 'dist/css/bootstrap.css' %}" rel="stylesheet">
+	    <script src="{% static "jquery-1.10.2.js" %}"></script>
 	</head>
 	<body>
 		<!-- Static navbar -->
@@ -56,9 +57,13 @@
           	{% endif %}
           	<li><a href="#">שאלות/תשובות</a></li>
             <li><a href="#">משתמשים מובילים</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'userHomepage' user.username %}">דף הבית</a></li>
+            <li><a class="navbar-brand" href="{% url 'userHomepage' user.username %}">Placemarkr <span class="glyphicon glyphicon-map-marker"> </span></a></li>
+            {% else %}
             <li><a href="{% url 'home' %}">דף הבית</a></li>
             <li><a class="navbar-brand" href="{% url 'home' %}">Placemarkr <span class="glyphicon glyphicon-map-marker"> </span></a></li>
-            
+            {% endif %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>

@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^addplacemark/$', 'places.views.addplacemark', name='addplacemark'),
     # ex: /user/itay
     url(r'^user/(?P<username>\w+)/$', 'places.views.userHomepage', name='userHomepage'),
+    url(r'^user/(?P<username>\w+)/datasetsList.json/$', 'places.views.datasetsList', name='datasetsList'),
     # ex: /user/itay/my-first-dataset
     url(r'^user/(?P<username>\w+)/(?P<datasetSlug>[a-zA-Z0-9_\-]*)/$', 'places.views.datasetDetails', name='datasetDetails'),
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
