@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     url(r'^place/(?P<id>\d+)/$', 'places.views.place', name='place'),
     url(r'^login/$', 'places.views.login_user', name='login_user'),
     url(r'^logout/$', 'places.views.logout_user', name='logout_user'),
+    #(r'^accounts/logout/$', 'django.contrib.auth.views.logout',
+    # {'next_page': '/'}),
     url(r'^vote/$', 'places.views.vote', name='vote'),
     url(r'^addplacemark/$', 'places.views.addplacemark', name='addplacemark'),
     # ex: /user/itay
@@ -28,4 +30,5 @@ urlpatterns = patterns('',
     #url(r'', include(places.urls , namespace='places'))
     url(r'^upload/', views.upload, name='upload'),
     url(r'^register/', views.register, name='register'),
+    url(r'^accounts/', include('allauth.urls')),
 )
