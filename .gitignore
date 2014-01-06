@@ -8,3 +8,5 @@ venv/
 .gitignore~
 src/places.sqlite3
 src/places.sqlite3-journal
+Thumbs.db
+.settings
