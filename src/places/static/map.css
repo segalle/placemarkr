@@ -55,3 +55,7 @@
 .foreignmarkerlist a{
 	color: white;
 }
+
+.glyphicon {
+	font-family: 'Glyphicons Halflings' !important;
+}
