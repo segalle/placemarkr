@@ -29,6 +29,8 @@ def create_dataset(request,name, in_places, user_id):
     for p in in_places:
         place = Place()
         place.vendor_id = p["id"]
+        place.address = p["address"]
+        place.city = p["city"]
         try:
             place.title = p["title"]
         except KeyError:

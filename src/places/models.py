@@ -17,6 +17,8 @@ class Dataset(models.Model):
 class Place(models.Model):
     vendor_id = models.CharField(max_length=50)
     title = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
     dataset = models.ForeignKey(Dataset, related_name="places")
     data = models.TextField()
 

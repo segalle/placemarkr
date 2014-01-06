@@ -22,8 +22,8 @@
 	 		<tr data-value="{% url 'place' p.id%}">
 	 			<td>{{p.vendor_id}}</td>
 	 			<td>{{p.title}}</td>
-	 			<td> </td>
-	 			<td> </td>
+	 			<td>{{p.address}}</td>
+	 			<td>{{p.city}}</td>
 	 			<td><center><span class="badge">{{p.placemarks.count}}</span></center></td>
 	 			<td><center><span class="badge">0</span></center></td>
 	 		</tr>
