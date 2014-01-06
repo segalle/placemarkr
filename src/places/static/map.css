@@ -1,20 +1,28 @@
+footer {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+}
+
 .card {
     position: absolute;
     overflow: hidden;
+    padding: 10px;
 }
 
 #map_canvas { 
 	top: 50px;
-	bottom: 0;
+	bottom: 60px;
 	right: 470px;
 	left: 0;
+	margin: 10px;
 }
 
 #sidebar{
 	top: 50px;
 	right: 0;
 	width: 450px;
-	bottom: 0;
+	bottom: 60px;
 	overflow: auto;
 }
 
