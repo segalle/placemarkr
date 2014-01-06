@@ -6,8 +6,8 @@
 
 <div class="container">
 	<div class="page-header">
-		<h1> {% if user != urlUser %} <small><span id="star" class="glyphicon glyphicon-star-empty"> </span></small> {% endif %}
-		הדף של {{ urlUser }}</h1>
+		<span style="font-size: 32px;"> {% if user != urlUser %} <small><span id="star" class="glyphicon glyphicon-star-empty"> </span></small> {% endif %}
+		הדף של {{urlUser.first_name}} {{urlUser.last_name}} </span><span style="font-size: 20px;color:#97969c;">({{ urlUser }})</span>
 	</div>
 
 	<div class="row">
