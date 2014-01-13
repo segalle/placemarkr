@@ -1,1 +1,1 @@
-web: gunicorn src/placemarkr.wsgi
+web: cd src && gunicorn placemarkr.wsgi
