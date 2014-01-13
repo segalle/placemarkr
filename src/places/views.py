@@ -35,13 +35,25 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/')
 
+def register(request):
+    if request.method == 'POST':
+        registration_form = UserCreateForm(request.POST)
+        if registration_form.is_valid():
+            new_user = registration_form.save()
+            new_user = authenticate(username=request.POST['username'],
+                                    password=request.POST['password1'])
+            login(request, new_user)
+            return HttpResponseRedirect('/user/' + new_user.username)
+    context = {'registration_form' : UserCreateForm() }
+    return render(request, 'account\signup.html', context)
 
-@login_required(login_url='/login/')
+
+@login_required
 def home(request):
     username = request.user.username
     return userHomepage(request, username)
 
-@login_required(login_url='/login/')
+@login_required
 def place(request, id):
     
     place = get_object_or_404(Place, id=int(id))
@@ -70,7 +82,7 @@ def place(request, id):
                }
     return render(request, 'place.html', context)
 
-@login_required(login_url='/login/')
+@login_required
 def userHomepage(request, username):
     urlUser = get_object_or_404(User, username=username)
     places = Place.objects.all()
@@ -80,14 +92,14 @@ def userHomepage(request, username):
                'userDatasets' : userDatasets}
     return render(request, 'home.html', context)
 
-@login_required(login_url='/login/')
+@login_required
 def datasetsList(request, username):
     urlUser = get_object_or_404(User, username=username)
     userDatasets = Dataset.objects.filter(owner=urlUser)
     response_data = [dict([("name", dataset.name), ("slug", dataset.slug), ("numOfPlaces", dataset.places.count())]) for dataset in userDatasets]
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
-@login_required(login_url='/login/')
+@login_required
 def datasetDetails(request, username, datasetSlug):
     urlUser = get_object_or_404(User, username=username)
     dataset = get_object_or_404(Dataset, slug=datasetSlug)
@@ -96,7 +108,7 @@ def datasetDetails(request, username, datasetSlug):
                'dataset' : dataset}
     return render(request, 'userDataset.html', context)
 
-@login_required(login_url='/login/')
+@login_required
 def vote(request):
     if not request.method == 'POST':
         return HttpResponse("Wrong request method")
@@ -114,7 +126,7 @@ def vote(request):
     return HttpResponse("OK")
 
 
-@login_required(login_url='/login/')
+@login_required
 def addplacemark(request):
     
     if not request.method == 'POST':
@@ -139,7 +151,7 @@ def addplacemark(request):
     
     return HttpResponse(newplacemark.id)
 
-@login_required(login_url='/login/')
+@login_required
 def upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
@@ -163,15 +175,5 @@ def upload(request):
         response_data['message'] = message.message
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
-def register(request):
-    if request.method == 'POST':
-        registration_form = UserCreateForm(request.POST)
-        if registration_form.is_valid():
-            new_user = registration_form.save()
-            new_user = authenticate(username=request.POST['username'],
-                                    password=request.POST['password1'])
-            login(request, new_user)
-            return HttpResponseRedirect('/user/' + new_user.username)
-    context = {'registration_form' : UserCreateForm() }
-    return render(request, 'login.html', context)
+
      
