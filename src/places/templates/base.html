@@ -1,5 +1,5 @@
 {% load staticfiles %}
-
+{% load url from future %}
 <!DOCTYPE HTML>
 <html dir="rtl">
 	<head>
@@ -32,7 +32,9 @@
 		        <input type="password" id="password" name="password" class="form-control" placeholder="סיסמה">
 		      </div>
 		      <button type="submit" class="btn btn-success">כניסה</button>
+		      <a class="button secondaryAction" href="{% url 'account_reset_password' %}">שכחת סיסמה?</a>
 		    </form>
+
           	{% else %}
           	<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"> </span> {{user}} <b class="caret"> </b></a>

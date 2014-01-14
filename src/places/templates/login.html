@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+{% load account %}
+{% load url from future %}
 {% load staticfiles %}
+{% include "socialaccount/snippets/login_extra.html" %}
 <script src="{% static "jquery-1.10.2.js" %}"></script>
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
 <div class="container">
@@ -11,34 +14,13 @@
         <p>למערכת טיוב מידע גאוגרפי!</p>
         <p> עזרו לנו להנגיש את המידע לציבור</p>
         <p>
-          <a class="btn btn-lg btn-primary" data-toggle="modal" href="#registerModal">הרשם עכשיו &raquo;</a>
+          <a class="btn btn-lg btn-primary" href="{% url 'register' %}">הרשם עכשיו &raquo;</a>
         </p>
+        <p> או התחבר באמצעות: </p>
+        <a href="/account/google/login/?process=login"><img src="{% static "images/g.png" %}"></a>
+        <a href="javascript:allauth.facebook.login('', 'authenticate', 'login')"><img src="{% static "images/fb.png" %}"></a>
+
       </div>
-
-    <!-- Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">רישום משתמש חדש</h4>
-			</div>
-			<form id="id_addNewDatasetForm" method="post" action="{% url 'register' %}">
-				<div class="modal-body" align="right">
-					{% csrf_token %}
-					{{ registration_form.as_p }}
-
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-						ביטול
-					</button>
-					<button type="submit" id="register" class="btn btn-primary">
-						הירשם
-					</button>
-				</div>
-			</form>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 <script src="{% static "dist/js/bootstrap.min.js" %}"></script>
 
