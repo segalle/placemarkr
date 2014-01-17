@@ -15,6 +15,7 @@
 </script>
 
 <div class="card" id="sidebar">
+    <a href="{% url "datasetDetails" place.dataset.owner.username place.dataset.id %}"> חזור למאגר</a>
 	<h2>{{ place.title }}</h2>
 	<h4>{{ place.address }}</h4>
 	<p>

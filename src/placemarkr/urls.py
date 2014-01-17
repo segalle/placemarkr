@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^user/(?P<username>\w+)/datasetsList.json/$', 'places.views.datasetsList', name='datasetsList'),
     # ex: /user/itay/my-first-dataset
     url(r'^user/(?P<username>\w+)/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
+    #url(r'^datasets/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
