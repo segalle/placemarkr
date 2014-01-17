@@ -3,6 +3,8 @@
 <div class="container">
 	<div class="page-header">
 		<h1>{{ dataset.name }}</h1>
+        <a href="{% url 'exportDataset' dataset.id %}" class="btn btn-primary">CSV</a>
+        <a href="#" class="btn btn-primary" />GeoJSON</a>
 	</div>
 	
 	<div class="row">

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from controllers import create_dataset, create_markers
+from controllers import create_dataset, create_markers, UnicodeWriter
 from places.forms import UploadFileForm, UserCreateForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404, render_to_response, \
 from django.template import RequestContext
 from fileHandler import handleUploadedFile
 from places.models import Place, Placemark, Vote, Dataset
-import json
+import json, csv
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.messages import get_messages
@@ -107,6 +107,24 @@ def datasetDetails(request, username, id):
                'places': dataset.places.all(),
                'dataset' : dataset}
     return render(request, 'userDataset.html', context)
+
+@login_required
+def exportDataset(request, id):
+    response = HttpResponse(content_type='text/csv')
+    dataset = get_object_or_404(Dataset, id=id)
+    places = dataset.places.all()
+
+    response['Content-Disposition'] = 'attachment; filename="{0}.csv"'.format(dataset.name)
+
+    writer = UnicodeWriter(response)
+    writer.writerow(['id','title','address','city','lat','lng'])
+    for place in places:
+        ps = place.get_leading_placemark()
+        if ps:
+            writer.writerow([place.vendor_id, place.title, place.address, place.city, ps.lat, ps.lng])
+
+    return response
+
 
 @login_required
 def vote(request):
