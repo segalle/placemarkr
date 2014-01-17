@@ -9,6 +9,9 @@ class Dataset(models.Model):
     owner = models.ForeignKey(User)
     slug = models.SlugField()
     
+    def __unicode__(self):
+        return self.name
+    
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.name)
@@ -23,7 +26,7 @@ class Place(models.Model):
     data = models.TextField()
 
     def __unicode__(self):
-        return self.data
+        return self.title
 
     @property
     def data_as_dict(self):
@@ -82,6 +85,9 @@ class Placemark(models.Model):
 
     class Meta:
         unique_together = (("place", "city", "address", "lat", "lng"),)
+
+    def __unicode__(self):
+        return self.place.title
 
 class Vote(models.Model):
     placemark = models.ForeignKey(Placemark, related_name='votes')

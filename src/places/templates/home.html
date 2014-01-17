@@ -84,7 +84,6 @@
 							גודל מקסימלי  10 מגה בייט
 						</p>
 					</div>
-
 					<div id="id_loadingNewDataset">
 						אנא המתן, יוצר מאגר נתונים <img src="{% static 'images/ajax-loader.gif' %}" />
 					</div>
@@ -174,7 +173,7 @@
 			}
 			for (var i = 0; i < data.length; i++) {
 				console.log(data[i]);
-				$("#datasetsList").append("<a href=\" " + data[i].slug + "\" class=\"list-group-item\">" + data[i].name + "<span class=\"badge\">" + data[i].numOfPlaces + "</span> </a>");
+				$("#datasetsList").append("<a href=\" " + data[i].id + "\" class=\"list-group-item\">" + data[i].name + "<span class=\"badge\">" + data[i].numOfPlaces + "</span> </a>");
 			}
 		});
 	}
