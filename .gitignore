@@ -11,3 +11,4 @@ src/places.sqlite3-journal
 .idea
 Thumbs.db
 .settings
+*.orig
