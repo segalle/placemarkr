@@ -30,10 +30,10 @@ def create_dataset(request,name, in_places, user_id):
         place = Place()
 
         try:
-            place.vendor_id = p["id"]
-            place.address = p["address"]
-            place.city = p["city"]
-            #place.title = p["title"]
+            place.vendor_id = p["id"].strip()
+            place.address = p["address"].strip()
+            place.city = p["city"].strip()
+            place.title = p["title"].strip()
         except KeyError:
             delete_dataset(ds)
             messages.error(request, "אחד השדות הדרושים חסר. וודא כי כל הרשומות מכילות את השדות: id, address, city, title")

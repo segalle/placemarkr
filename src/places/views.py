@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404, render_to_response, \
 from django.template import RequestContext
 from fileHandler import handleUploadedFile
 from places.models import Place, Placemark, Vote, Dataset
-import json, csv
+import json
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.messages import get_messages
@@ -153,7 +153,7 @@ def addplacemark(request):
     if Placemark.objects.filter(place__id=request.POST['place'], address=request.POST['address'], city=request.POST['city'], lat=request.POST['lat'], lng=request.POST['lng']).exists():
         return HttpResponse("exists")
     
-    newplacemark = Placemark();
+    newplacemark = Placemark()
     newplacemark.place_id = int(request.POST['place'])
     newplacemark.city = request.POST['city']
     newplacemark.address = request.POST['address']
