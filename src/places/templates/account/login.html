@@ -3,15 +3,16 @@
 {% load i18n %}
 {% load account %}
 {% load url from future %}
+{% load staticfiles %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
 
 <h1>{% trans "Sign In" %}</h1>
-
+<div class="jumbotron">
 {% if socialaccount.providers  %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one aaaaaa
+<p>{% blocktrans with site.name as site_name %}Please sign in with one
 of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
 for a {{site_name}} account and sign in below:{% endblocktrans %}</p>
 
@@ -43,6 +44,7 @@ for a {{site_name}} account and sign in below:{% endblocktrans %}</p>
   <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
 </form>
 
-<a href="/accounts/facebook/login/"><div class="fb"></div></a>
-
+<a href="/account/google/login/?process=login"><img src="{% static "images/g.png" %}"></a>
+<a href="javascript:allauth.facebook.login('', 'authenticate', 'login')"><img src="{% static "images/fb.png" %}"></a>
+</div>
 {% endblock %}

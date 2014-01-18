@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from collections import Counter
 from geocoding.models import geo_code
 from django.db.utils import IntegrityError
-import json
+import json, csv, codecs, cStringIO
 from django.contrib import messages
 
 def delete_dataset(ds):
@@ -25,17 +25,18 @@ def create_dataset(request,name, in_places, user_id):
     ds.owner = User.objects.get(id=user_id)
     ds.name = name
     ds.save()
-    
+
     for p in in_places:
         place = Place()
-        place.vendor_id = p["id"]
-        place.address = p["address"]
-        place.city = p["city"]
+
         try:
-            place.title = p["title"]
+            place.vendor_id = p["id"].strip()
+            place.address = p["address"].strip()
+            place.city = p["city"].strip()
+            place.title = p["title"].strip()
         except KeyError:
             delete_dataset(ds)
-            messages.error(request, "שדה ה-title חסר עבור id=" + str(place.vendor_id))
+            messages.error(request, "אחד השדות הדרושים חסר. וודא כי כל הרשומות מכילות את השדות: id, address, city, title")
             return False
         place.data = json.dumps(p)
         place.dataset = ds
@@ -69,7 +70,36 @@ def create_markers(places):
                 counter["Newly added"] += 1
             except IntegrityError:
                 counter["Already exist"] += 1
+
     return counter
         
-        
+
+class UnicodeWriter:
+    """
+    A CSV writer which will write rows to CSV file "f",
+    which is encoded in the given encoding.
+    """
+
+    def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
+        # Redirect output to a queue
+        self.queue = cStringIO.StringIO()
+        self.writer = csv.writer(self.queue, dialect=dialect, **kwds)
+        self.stream = f
+        self.encoder = codecs.getincrementalencoder(encoding)()
+
+    def writerow(self, row):
+        self.writer.writerow([s.encode("utf-8") if isinstance(s, unicode) else s for s in row])
+        # Fetch UTF-8 output from the queue ...
+        data = self.queue.getvalue()
+        data = data.decode("utf-8")
+        # ... and reencode it into the target encoding
+        data = self.encoder.encode(data)
+        # write to the target stream
+        self.stream.write(data)
+        # empty queue
+        self.queue.truncate(0)
+
+    def writerows(self, rows):
+        for row in rows:
+            self.writerow(row)
     

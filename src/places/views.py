@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from controllers import create_dataset, create_markers
+from controllers import create_dataset, create_markers, UnicodeWriter
 from places.forms import UploadFileForm, UserCreateForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -109,6 +109,24 @@ def datasetDetails(request, username, id):
     return render(request, 'userDataset.html', context)
 
 @login_required
+def exportDataset(request, id):
+    response = HttpResponse(content_type='text/csv')
+    dataset = get_object_or_404(Dataset, id=id)
+    places = dataset.places.all()
+
+    response['Content-Disposition'] = 'attachment; filename="{0}.csv"'.format(dataset.name)
+
+    writer = UnicodeWriter(response)
+    writer.writerow(['id','title','address','city','lat','lng'])
+    for place in places:
+        ps = place.get_leading_placemark()
+        if ps:
+            writer.writerow([place.vendor_id, place.title, place.address, place.city, ps.lat, ps.lng])
+
+    return response
+
+
+@login_required
 def vote(request):
     if not request.method == 'POST':
         return HttpResponse("Wrong request method")
@@ -135,7 +153,7 @@ def addplacemark(request):
     if Placemark.objects.filter(place__id=request.POST['place'], address=request.POST['address'], city=request.POST['city'], lat=request.POST['lat'], lng=request.POST['lng']).exists():
         return HttpResponse("exists")
     
-    newplacemark = Placemark();
+    newplacemark = Placemark()
     newplacemark.place_id = int(request.POST['place'])
     newplacemark.city = request.POST['city']
     newplacemark.address = request.POST['address']

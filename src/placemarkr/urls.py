@@ -20,7 +20,10 @@ urlpatterns = patterns('',
     url(r'^user/(?P<username>\w+)/datasetsList.json/$', 'places.views.datasetsList', name='datasetsList'),
     # ex: /user/itay/my-first-dataset
     url(r'^user/(?P<username>\w+)/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
+    #url(r'^datasets/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
+
+    url(r'^dataset/export/(?P<id>\d+)/$', 'places.views.exportDataset', name='exportDataset'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
