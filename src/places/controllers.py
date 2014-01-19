@@ -47,22 +47,33 @@ def create_dataset(request,name, in_places, user_id):
 
 def create_markers(places):
     counter = Counter()
-   
+    blacklist = [u'מס.',u"מס'",u'א' ,u'ב' ,u'ג' ,u'ד']
+
     for place in places:
 
         data = json.loads(place.data)
-        geo_result = geo_code(data['address'], data['city'])
+
+        clean_address = ' '.join([x for x in data['address'].split() if x not in blacklist])
+        geo_result = geo_code(clean_address, data['city'])
+        city_result = geo_code(data['city'], data['city'])
+
+        if city_result["status"] == "OK":
+            city_location = city_result["results"][0]["geometry"]["location"]
 
         if geo_result["status"] != "OK":
             counter[geo_result["status"]] +=1
             continue
 
         for l in geo_result["results"]:
+            location = l["geometry"]["location"]
+            if location == city_location:
+                counter["Failed"] += 1
+                continue
             marker = Placemark()
             marker.place = place
             marker.city = data['city']
-            marker.address = data['address']
-            location = l["geometry"]["location"]
+            marker.address = clean_address
+
             marker.lat = location["lat"]
             marker.lng = location["lng"]
             try:
