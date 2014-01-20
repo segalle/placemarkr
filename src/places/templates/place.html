@@ -15,69 +15,76 @@
 </script>
 
 <div class="card" id="sidebar">
-    <a href="{% url "datasetDetails" place.dataset.owner.username place.dataset.id %}"> חזור למאגר</a>
-	<h2>{{ place.title }}</h2>
-	<h4>{{ place.address }}</h4>
-	<p>
-		{{ place.city }}
-	</p>
-	<p id="jsontitle">
-		Json content
-	</p>
-	<div id="jsoncontent" >
-		<ul>
-			{% for k, v in place.data_as_dict.items %}
-			<li>
-				<b>{{k}}:</b> {{v}}
-			</li>
-			{% endfor %}
-		</ul>
-	</div>
-	<ul class="list-group" id="mainlist"></ul>
-	<div id="newaddress">
-		מצא כתובת חדשה:
-		<form class="form-inline" id="searchform">
-			<div class="form-group">
-				<input type="text" id="address" class="form-control" name="address" placeholder="כתובת"/>
-			</div>
-			<div class="form-group">
-				<input type="text" id="city" class="form-control" name="city" placeholder="עיר"/>
-			</div>
-			<input type="submit" id="search" value="חפש" class="btn btn-default"/>
-		</form>
-	</div>
-	<br>
-	<ul class="list-group" id="foreignlist"></ul>
+    <div class="btn-group btn-group-lg">
+        <a class="btn btn-primary" href="#" >הבא <span class="glyphicon glyphicon-backward"/></a>
+        <a class="btn btn-primary" href="{% url "datasetDetails" place.dataset.id %}">חזור למאגר</a>
+        <a class="btn btn-primary" href="#" >הקודם<span class="glyphicon glyphicon-forward"/></a>
+    </div>
+    <h2>{{ place.title }}</h2>
+    <h4>{{ place.address }}</h4>
 
-	<div class="col-md-12">
+    <p>
+        {{ place.city }}
+    </p>
 
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">הצבעות אחרונות</h3>
-			</div>
-			<div class="panel-body">
+    <p id="jsontitle">
+        Json content
+    </p>
 
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th class="text-right">#</th>
-							<th class="text-right">שם</th>
-							<th class="text-right">תאריך</th>
-						</tr>
-					</thead>
-					{% for pm in place.placemarks.all %}
-					{% for v in pm.votes.all %}
-					<tr>
-						<td>{{ forloop.counter }}</td>
-						<td>{{v.user}}</td>
-						<td>{{v.created_on}}</td>
-					</tr>
-					{% endfor %}
-					{% endfor %}
-				</table>
-			</div>
-		</div>
-	</div>
+    <div id="jsoncontent">
+        <ul>
+            {% for k, v in place.data_as_dict.items %}
+            <li>
+                <b>{{k}}:</b> {{v}}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <ul class="list-group" id="mainlist"></ul>
+    <div id="newaddress">
+        מצא כתובת חדשה:
+        <form class="form-inline" id="searchform">
+            <div class="form-group">
+                <input type="text" id="address" class="form-control" name="address" placeholder="כתובת"/>
+            </div>
+            <div class="form-group">
+                <input type="text" id="city" class="form-control" name="city" placeholder="עיר"/>
+            </div>
+            <input type="submit" id="search" value="חפש" class="btn btn-default"/>
+        </form>
+    </div>
+    <br>
+    <ul class="list-group" id="foreignlist"></ul>
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">הצבעות אחרונות</h3>
+            </div>
+            <div class="panel-body">
+
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th class="text-right">שם</th>
+                        <th class="text-right">תאריך</th>
+                    </tr>
+                    </thead>
+                    {% for pm in place.placemarks.all %}
+                    {% for v in pm.votes.all %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{v.user}}</td>
+                        <td>{{v.created_on}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="card" id="map_canvas"></div>
@@ -107,21 +114,22 @@
 </script>
 
 <script type="text/html" id="fiw">
-	<div>
-	<p>
-	{{address}}, {{locality}}?
-	</p>
-	<button class='btn btn-default vote' value='True'>
-	נכון
-	</button>
-	<button class='btn btn-default remove' value='False'>
-	הסר
-	</button><span id='loading' class='hide'>Loading...</span>
-	</div>
+    <div>
+        <p>
+            {{address}}, {{locality}}?
+        </p>
+        <button class='btn btn-default vote' value='True'>
+            נכון
+        </button>
+        <button class='btn btn-default remove' value='False'>
+            הסר
+        </button>
+        <span id='loading' class='hide'>Loading...</span>
+    </div>
 </script>
 
 <script type="text/html" id="cfm">
-	<li class="foreignplace list-group-item"><a href="#">{{forcount}}. {{address}}, {{locality}}</a></li>
+    <li class="foreignplace list-group-item"><a href="#">{{forcount}}. {{address}}, {{locality}}</a></li>
 </script>
 
 {% endverbatim %}
