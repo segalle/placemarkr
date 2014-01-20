@@ -14,7 +14,8 @@ import json
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.messages import get_messages
-
+# import code for encoding urls and generating md5 hashes
+import urllib, hashlib
 
 def login_user(request):
     logout(request)
@@ -86,9 +87,20 @@ def userHomepage(request, username):
     urlUser = get_object_or_404(User, username=username)
     places = Place.objects.all()
     userDatasets = Dataset.objects.filter(owner=urlUser)
+    
+    # Set your variables here
+    default = "http://www.example.com/default.jpg"
+    size = 100
+     
+    # construct the url
+    gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(urlUser.email.lower()).hexdigest() + "?"
+    gravatar_url += urllib.urlencode({'d':default, 's':str(size)})
+    
     context = {'urlUser': urlUser,
                'places': places,
-               'userDatasets' : userDatasets}
+               'userDatasets' : userDatasets,
+                'gravatar_url' : gravatar_url,
+                }
     return render(request, 'userHomepage.html', context)
 
 @login_required

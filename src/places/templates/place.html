@@ -76,8 +76,8 @@
                     {% for v in pm.votes.all %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{v.user}}</td>
-                        <td>{{v.created_on}}</td>
+						<td><a href="{% url 'userHomepage' v.user %}">{{v.user.first_name}} {{v.user.last_name}} ({{v.user}})</a></td>
+						<td>לפני {{v.created_on|timesince}}</td>
                     </tr>
                     {% endfor %}
                     {% endfor %}
