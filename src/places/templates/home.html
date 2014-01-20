@@ -3,9 +3,13 @@
 {% load staticfiles %}
 <script src="{% static "jquery-1.10.2.js" %}"></script>
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
+<link href="{% static "placemarkr.css" %}" rel="stylesheet" media="screen">
 
 <div class="container">
-	<div class="page-header">
+	<div class="profilePicture col-md-2">
+		<img class="img-circle" src="{{ gravatar_url }}" />
+	</div>
+	<div class="page-header col-md-10">
 		<span style="font-size: 32px;"> {% if user != urlUser %} <small><span id="star" class="glyphicon glyphicon-star-empty"> </span></small> {% endif %}
 		הדף של {{urlUser.first_name}} {{urlUser.last_name}} </span><span style="font-size: 20px;color:#97969c;">({{ urlUser }})</span>
 	</div>
