@@ -66,11 +66,11 @@
 						</tr>
 					</thead>
 					{% for pm in place.placemarks.all %}
-					{% for v in pm.votes.all %}
+					{% for v in pm.votes.all|dictsortreversed:"created_on" %}
 					<tr>
 						<td>{{ forloop.counter }}</td>
-						<td>{{v.user}}</td>
-						<td>{{v.created_on}}</td>
+						<td><a href="{% url 'userHomepage' v.user %}">{{v.user.first_name}} {{v.user.last_name}} ({{v.user}})</a></td>
+						<td>לפני {{v.created_on|timesince}}</td>
 					</tr>
 					{% endfor %}
 					{% endfor %}
