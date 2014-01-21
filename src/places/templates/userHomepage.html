@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load staticfiles %}
-<script src="{% static "jquery-1.10.2.js" %}"></script>
+
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
 <link href="{% static "placemarkr.css" %}" rel="stylesheet" media="screen">
 
@@ -9,7 +9,7 @@
     <div class="profilePicture col-md-2">
                 <img class="img-circle" src="{{ gravatar_url }}" />
     </div>
-	<div class="page-header">
+	<div class="page-header col-md-10">
 		<span style="font-size: 32px;"> {% if user != urlUser %} <small><span id="star" class="glyphicon glyphicon-star-empty"> </span></small> {% endif %}
 		הדף של {{urlUser.first_name}} {{urlUser.last_name}} </span><span style="font-size: 20px;color:#97969c;">({{ urlUser }})</span>
 	</div>
@@ -176,7 +176,6 @@
 				$("#datasetsList").append("<p>לא נמצאו מאגרי מידע</p>");
 			}
 			for (var i = 0; i < data.length; i++) {
-				console.log(data[i]);
 				$("#datasetsList").append("<a href=\"../../dataset/" + data[i].id + "\" class=\"list-group-item\">" + data[i].name + "<span class=\"badge\">" + data[i].numOfPlaces + "</span> </a>");
 			}
 		});

@@ -125,6 +125,7 @@ def search(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 @login_required
+def datasetDetails(request, id):
     dataset = get_object_or_404(Dataset, id=id)
     context = {'urlUser': request.user,
                'places': dataset.places.all(),
