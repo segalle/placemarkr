@@ -1,3 +1,4 @@
+
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from places import views
@@ -21,7 +22,8 @@ urlpatterns = patterns('',
     url(r'^search.json', 'places.views.search', name='search'),
     # ex: /user/itay/my-first-dataset
     url(r'^user/(?P<username>\w+)/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
-    #url(r'^datasets/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
+    url(r'^datasets/$', 'places.views.getDatasets', name='getDatasets'),
+    url(r'^dataset/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
 
     url(r'^dataset/export/(?P<id>\d+)/$', 'places.views.exportDataset', name='exportDataset'),

@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block content %}
+{% load staticfiles %}
+<script src="{% static "jquery-1.10.2.js" %}"></script>
+<link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
+<link href="{% static "placemarkr.css" %}" rel="stylesheet" media="screen">
+
+<div class="container">
+    <div class="profilePicture col-md-2">
+                <img class="img-circle" src="{{ gravatar_url }}" />
+    </div>
+	<div class="page-header">
+		<span style="font-size: 32px;"> {% if user != urlUser %} <small><span id="star" class="glyphicon glyphicon-star-empty"> </span></small> {% endif %}
+		הדף של {{urlUser.first_name}} {{urlUser.last_name}} </span><span style="font-size: 20px;color:#97969c;">({{ urlUser }})</span>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8">
+			<h3>עדכונים</h3>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">מאגרי מידע</h3>
+				</div>
+				<div id="datasetsList" class="panel-body">
+                    <p><img src="{% static "images/ajax-loader.gif" %}" /> טוען מאגרי מידע... </p>
+				</div>
+				{% if user == urlUser %}
+				<div style="margin-right:20px;margin-bottom: 10px;">
+					<a data-toggle="modal" href="#uploadModal">הוסף מאגר חדש...</a>
+				</div>
+				{% endif %}
+			</div>
+
+			{% if user == urlUser %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">משתמשים מועדפים</h3>
+				</div>
+				<div class="panel-body">
+
+					<p>
+						לא נמצאו משתמשים
+					</p>
+
+				</div>
+			</div>
+			{% endif %}
+
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">הוספת מאגר חדש</h4>
+			</div>
+			<form id="id_addNewDatasetForm" enctype="multipart/form-data" method="post" action="{% url 'upload' %}">
+				<div class="modal-body">
+					{% csrf_token %}
+
+					<div class="form-group">
+						<label for="id_title">שם המאגר</label>
+						<input type="text" class="form-control" id="id_title" name="title" placeholder="הזן שם מאגר">
+					</div>
+
+					<label>סוג הקובץ</label>
+					<br>
+
+					<label for="id_file_type_0">
+						<input id="id_file_type_0" name="file_type" type="radio" value="csv">
+						csv</label>
+
+					<label for="id_file_type_1">
+						<input id="id_file_type_1" name="file_type" type="radio" value="json">
+						json</label>
+
+					<br>
+					<br>
+					<div class="form-group">
+						<label for="id_file">בחר קובץ</label>
+						<input type="file" id="id_file" name="file">
+						<p class="help-block">
+							גודל מקסימלי  10 מגה בייט
+						</p>
+					</div>
+					<div id="id_loadingNewDataset">
+						אנא המתן, יוצר מאגר נתונים <img src="{% static 'images/ajax-loader.gif' %}" />
+					</div>
+					<div id="id_errorBlock" style="color:#9b5659;">
+						שגיאה: <span id="id_errorMessage"></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						ביטול
+					</button>
+					<button type="submit" id="id_addNewDataset" class="btn btn-primary">
+						הוסף מאגר
+					</button>
+				</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script src="{% static "dist/js/bootstrap.min.js" %}"></script>
+<script>
+	$(function() {
+		updateDatasetsList();
+
+		$("#star").click(function() {
+			if ($("#star").hasClass("glyphicon-star-empty"))
+				$("#star").removeClass("glyphicon-star-empty").addClass("glyphicon-star");
+			else
+				$("#star").removeClass("glyphicon-star").addClass("glyphicon-star-empty");
+		});
+
+		$("#id_loadingNewDataset").hide();
+		$("#id_errorBlock").hide();
+
+		$("#id_addNewDatasetForm").submit(function(event) {
+			$("#id_errorBlock").hide();
+			$("#id_loadingNewDataset").show();
+			$("#id_addNewDataset").addClass("disabled");
+			//disable the default form submission
+			event.preventDefault();
+
+			//grab all form data
+			var formData = new FormData($(this)[0]);
+
+			$.ajax({
+				url : "{% url 'upload' %}",
+				type : 'POST',
+				data : formData,
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(returndata) {
+					if (returndata.tags == "error") {
+						$("#id_errorMessage").text(returndata.message);
+						$("#id_errorBlock").show();
+					} else if (returndata.tags == "success") {
+						$('#uploadModal').modal('hide');
+						updateDatasetsList();
+					} else {
+						alert("unhandled state: " + returndata.message);
+					}
+					//$('#uploadModal').modal('hide');
+				},
+				error : function(returndata) {
+					alert(returndata);
+
+					$("#id_errorBlock").show();
+				},
+				complete : function(returndata) {
+					$("#id_addNewDataset").removeClass("disabled");
+					$("#id_loadingNewDataset").hide();
+					//$("#id_errorMessage").hide();
+				}
+			});
+			return false;
+		});
+
+	});
+
+	function updateDatasetsList() {
+		$.get('datasetsList.json', function(data) {
+			$("#datasetsList").empty();
+			if (data.length == 0) {
+				$("#datasetsList").append("<p>לא נמצאו מאגרי מידע</p>");
+			}
+			for (var i = 0; i < data.length; i++) {
+				console.log(data[i]);
+				$("#datasetsList").append("<a href=\"../../dataset/" + data[i].id + "\" class=\"list-group-item\">" + data[i].name + "<span class=\"badge\">" + data[i].numOfPlaces + "</span> </a>");
+			}
+		});
+	}
+</script>
+
+{% endblock %}
+

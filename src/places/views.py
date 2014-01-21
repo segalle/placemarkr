@@ -51,8 +51,7 @@ def register(request):
 
 @login_required
 def home(request):
-    username = request.user.username
-    return userHomepage(request, username)
+    return render(request, 'home.html')
 
 @login_required
 def place(request, id):
@@ -100,8 +99,9 @@ def userHomepage(request, username):
     context = {'urlUser': urlUser,
                'places': places,
                'userDatasets' : userDatasets,
-               'gravatar_url' : gravatar_url}
-    return render(request, 'home.html', context)
+                'gravatar_url' : gravatar_url,
+                }
+    return render(request, 'userHomepage.html', context)
 
 @login_required
 def datasetsList(request, username):
@@ -109,6 +109,13 @@ def datasetsList(request, username):
     userDatasets = Dataset.objects.filter(owner=urlUser)
     response_data = [dict([("name", dataset.name), ("id", dataset.id), ("numOfPlaces", dataset.places.count())]) for dataset in userDatasets]
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+@login_required # maybe not?
+def getDatasets(request):
+    allDatasets = Dataset.objects.all()
+    response_data = [dict([("name", dataset.name), ("id", dataset.id), ("owner",dataset.owner.username), ("numOfPlaces", dataset.places.count())]) for dataset in allDatasets]
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
 
 @login_required
 def search(request):
@@ -118,10 +125,8 @@ def search(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 @login_required
-def datasetDetails(request, username, id):
-    urlUser = get_object_or_404(User, username=username)
     dataset = get_object_or_404(Dataset, id=id)
-    context = {'urlUser': urlUser,
+    context = {'urlUser': request.user,
                'places': dataset.places.all(),
                'dataset' : dataset}
     return render(request, 'userDataset.html', context)
