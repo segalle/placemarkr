@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load staticfiles %}
-<script src="{% static "jquery-1.10.2.js" %}"></script>
+
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
 <link href="{% static "placemarkr.css" %}" rel="stylesheet" media="screen">
 
@@ -176,7 +176,6 @@
 				$("#datasetsList").append("<p>לא נמצאו מאגרי מידע</p>");
 			}
 			for (var i = 0; i < data.length; i++) {
-				console.log(data[i]);
 				$("#datasetsList").append("<a href=\" " + data[i].id + "\" class=\"list-group-item\">" + data[i].name + "<span class=\"badge\">" + data[i].numOfPlaces + "</span> </a>");
 			}
 		});

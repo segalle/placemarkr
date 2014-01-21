@@ -111,6 +111,13 @@ def datasetsList(request, username):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 @login_required
+def search(request):
+#     urlUser = get_object_or_404(User, username=username)
+#     userDatasets = Dataset.objects.filter(owner=urlUser)
+    response_data = [dict([("name", dataset.name), ("value", dataset.id), ("numOfPlaces", dataset.places.count()),("tokens",[dataset.name])]) for dataset in Dataset.objects.all()]
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+@login_required
 def datasetDetails(request, username, id):
     urlUser = get_object_or_404(User, username=username)
     dataset = get_object_or_404(Dataset, id=id)
