@@ -60,12 +60,9 @@
           	<li><a href="#">שאלות/תשובות</a></li>
             <li><a href="#">משתמשים מובילים</a></li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'userHomepage' user.username %}">דף הבית</a></li>
-            <li><a class="navbar-brand" href="{% url 'userHomepage' user.username %}">Placemarkr <span class="glyphicon glyphicon-map-marker"> </span></a></li>
-            {% else %}
-            <li><a href="{% url 'home' %}">דף הבית</a></li>
-            <li><a class="navbar-brand" href="{% url 'home' %}">Placemarkr <span class="glyphicon glyphicon-map-marker"> </span></a></li>
+            <li><a href="{% url 'userHomepage' user.username %} "> הדף שלי </a></li>
             {% endif %}
+            <li><a class="navbar-brand" href="{% url 'home' %}">Placemarkr <span class="glyphicon glyphicon-map-marker"> </span></a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -81,3 +78,4 @@
       
 	</body>
 </html>
+<script src="{% static "dist/js/bootstrap.min.js" %}"></script>

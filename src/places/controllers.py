@@ -47,7 +47,7 @@ def create_dataset(request,name, in_places, user_id):
 
 def create_markers(places):
     counter = Counter()
-    blacklist = [u'מס.',u"מס'",u'א' ,u'ב' ,u'ג' ,u'ד']
+    blacklist = [u'מס.',u"מס'",u'א' ,u'ב' ,u'ג' ,u'ד',u"א'"]
 
     for place in places:
 
