@@ -92,10 +92,10 @@
 		  template: [
 		  	'<div class="search-option">',
 		  	'	<span style="text-align: right;">',
-		    '		<span class="search-type">מאגר</span>',
+		    '		<span class="search-type">{{type}}</span>',
 		    '		<span class="search-name">{{name}}</span>',
 		    '	</span>',
-		    '	<div class="search-description">מכיל {{numOfPlaces}} רשומות</div>',
+		    '	<div class="search-description">{{description}}</div>',
 		    '</div>'
 		  ].join(''),
 		  engine: Hogan
@@ -104,7 +104,7 @@
 		$('#search').on('typeahead:selected', function (object, datum) {
 		    // Example: {value: "@JakeHarding", tokens: ['Jake', 'Harding'], name: "Jake Harding", profileImageUrl: "https://twitter.com/JakeHaridng/profile_img"}
 		    console.log(datum);
-		    window.location.replace("/dataset/" + datum.id);
+		    window.location.replace(datum.url);
 		});
 	});	
 {% endverbatim %}

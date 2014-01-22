@@ -1,21 +1,23 @@
 # coding: utf-8
 
 from controllers import create_dataset, create_markers, UnicodeWriter
-from places.forms import UploadFileForm, UserCreateForm
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
+from django.core.urlresolvers import reverse
 from django.http import *
 from django.shortcuts import render, get_object_or_404, render_to_response, \
     redirect
 from django.template import RequestContext
 from fileHandler import handleUploadedFile
+from places.forms import UploadFileForm, UserCreateForm
 from places.models import Place, Placemark, Vote, Dataset
+import hashlib
 import json
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.contrib.messages import get_messages
+import urllib
 # import code for encoding urls and generating md5 hashes
-import urllib, hashlib
 
 def login_user(request):
     logout(request)
@@ -119,8 +121,20 @@ def getDatasets(request):
 
 @login_required
 def search(request):
-    response_data = [dict([("name", dataset.name), ("value", dataset.name), ("id", dataset.id), ("numOfPlaces", dataset.places.count()),("tokens",[dataset.name])]) for dataset in Dataset.objects.all()]
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+    datasetsSearch = [dict([("url", reverse('datasetDetails', args=(dataset.id,))),
+                            ("name", dataset.name),
+                            ("value", dataset.name),
+                            ("type", "מאגר"),
+                            ("description","מכיל " + str(dataset.places.count()) + " רשומות"),
+                            ("tokens",[dataset.name])]) for dataset in Dataset.objects.all()]
+    usersSearch = [dict([("url", reverse('userHomepage', args=(user.username,))),
+                         ("name", user.first_name + " " + user.last_name),
+                         ("value", user.first_name + " " + user.last_name),
+                         ("type", "משתמש"), 
+                         ("description",user.username),
+                         ("tokens",[user.first_name,user.last_name, user.username])]) for user in User.objects.all()]
+    searchResults = datasetsSearch + usersSearch
+    return HttpResponse(json.dumps(searchResults), content_type="application/json")
 
 @login_required
 def datasetDetails(request, id):
