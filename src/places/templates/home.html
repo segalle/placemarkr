@@ -30,7 +30,7 @@
 <script>
     $('#datasets').collapse('hide');
     $('#datasets').one('show.bs.collapse', function () {
-      $.get('datasets', function(data) {
+      $.get('datasets.json', function(data) {
 			$("#datasetBody").empty();
 			if (data.length == 0) {
 				$("#datasetBody").append("<p>לא נמצאו מאגרי מידע</p>");

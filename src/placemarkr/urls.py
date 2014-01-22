@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     url(r'^search.json', 'places.views.search', name='search'),
     # ex: /user/itay/my-first-dataset
     url(r'^user/(?P<username>\w+)/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
-    url(r'^datasets/$', 'places.views.getDatasets', name='getDatasets'),
+    url(r'^datasets.json/$', 'places.views.getDatasets', name='getDatasets'),
     url(r'^dataset/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
 
