@@ -6,6 +6,7 @@
 		<title>Placemarkr</title>
 	    <!-- Bootstrap core CSS -->
 	    <link href="{% static 'dist/css/bootstrap.css' %}" rel="stylesheet">
+	    <link href="{% static "placemarkr.css" %}" rel="stylesheet" media="screen">
 	    <script src="{% static "jquery-1.10.2.js" %}"></script>
 	    <script src="{% static "dist/js/bootstrap.min.js" %}"></script>
 	    <script src="{% static "hogan-2.0.0.js" %}"></script>
@@ -54,9 +55,8 @@
           	<li>
 		    	<form class="navbar-form navbar-left" role="search">
 			      <div class="form-group">
-			        <input type="text" id="search" class="typeahead form-control input-sm" data-provied="typehead" style="width:200px;" placeholder="חפש אנשים, מקומות או מאגרי מידע">
+			        <input type="text" id="search" class="typeahead form-control input-sm" data-provied="typehead" style="width:300px;" placeholder="חפש אנשים, מקומות או מאגרי מידע">
 			      </div>
-			      <button type="submit" class="btn btn-default input-sm"><span class="glyphicon glyphicon-search"> </span></button>
 		    	</form>
           	</li>
           	{% endif %}
@@ -82,6 +82,7 @@
 	</body>
 
 	<script>
+	
 {% verbatim %}
 	$(function() {
 		$('#search').typeahead({
@@ -103,11 +104,10 @@
 		$('#search').on('typeahead:selected', function (object, datum) {
 		    // Example: {value: "@JakeHarding", tokens: ['Jake', 'Harding'], name: "Jake Harding", profileImageUrl: "https://twitter.com/JakeHaridng/profile_img"}
 		    console.log(datum);
-		    //window.location.replace("");
+		    window.location.replace("/dataset/" + datum.id);
 		});
 	});	
 {% endverbatim %}
 	</script>
 	
 </html>
-<script src="{% static "dist/js/bootstrap.min.js" %}"></script>
