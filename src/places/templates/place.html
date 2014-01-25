@@ -15,10 +15,10 @@
 </script>
 
 <div class="card" id="sidebar">
-    <div class="btn-group btn-group-lg">
-        <a class="btn btn-primary" href="#" >הבא <span class="glyphicon glyphicon-backward"/></a>
-        <a class="btn btn-primary" href="{% url "datasetDetails" place.dataset.id %}">חזור למאגר</a>
-        <a class="btn btn-primary" href="#" >הקודם<span class="glyphicon glyphicon-forward"/></a>
+    <div class="btn-group btn-group-md">
+        <a class="btn btn-primary" href="{% url "place" next_place %}" {% if next_place == 0 %} disabled {% endif %} >הבא <span class="glyphicon glyphicon-backward"/></a>
+        <a class="btn btn-primary" href="{% url "datasetDetails" place.dataset.id %}">חזור למאגר <span class="glyphicon glyphicon-list"/></a>
+        <a class="btn btn-primary" href="{% url "place" prev_place %}" {% if prev_place == 0 %} disabled {% endif %} >הקודם<span class="glyphicon glyphicon-forward"/></a>
     </div>
     <h2>{{ place.title }}</h2>
     <h4>{{ place.address }}</h4>
@@ -27,14 +27,14 @@
         {{ place.city }}
     </p>
 
-    <p id="jsontitle">
-        Json content
-    </p>
+    <span class="label label-info" id="jsontitle">
+        תוכן מקורי&raquo;
+    </span>
 
     <div id="jsoncontent">
-        <ul>
+        <ul class="list-group">
             {% for k, v in place.data_as_dict.items %}
-            <li>
+            <li class="list-group-item">
                 <b>{{k}}:</b> {{v}}
             </li>
             {% endfor %}
