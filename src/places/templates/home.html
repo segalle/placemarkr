@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load staticfiles %}
-<script src="{% static "jquery-1.10.2.js" %}"></script>
+
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
 
 <div class="container">
@@ -25,12 +25,11 @@
         </div>
       </div>
     </div>
-</div>
 
 <script>
     $('#datasets').collapse('hide');
     $('#datasets').one('show.bs.collapse', function () {
-      $.get('datasets', function(data) {
+      $.get('datasets.json', function(data) {
 			$("#datasetBody").empty();
 			if (data.length == 0) {
 				$("#datasetBody").append("<p>לא נמצאו מאגרי מידע</p>");
@@ -48,7 +47,7 @@
 			}
 
 		});
-    })
+    });
 
 </script>
 

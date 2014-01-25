@@ -6,7 +6,11 @@
 		<title>Placemarkr</title>
 	    <!-- Bootstrap core CSS -->
 	    <link href="{% static 'dist/css/bootstrap.css' %}" rel="stylesheet">
+	    <link href="{% static "placemarkr.css" %}" rel="stylesheet" media="screen">
 	    <script src="{% static "jquery-1.10.2.js" %}"></script>
+	    <script src="{% static "dist/js/bootstrap.min.js" %}"></script>
+	    <script src="{% static "hogan-2.0.0.js" %}"></script>
+		<script src="{% static "typeahead.js/typeahead.js" %}"></script>
 	</head>
 	<body>
 		<!-- Static navbar -->
@@ -51,9 +55,8 @@
           	<li>
 		    	<form class="navbar-form navbar-left" role="search">
 			      <div class="form-group">
-			        <input type="text" class="form-control input-sm" style="width:200px;" placeholder="חפש אנשים, מקומות או מאגרי מידע">
+			        <input type="text" id="search" class="typeahead form-control input-sm" data-provied="typehead" style="width:300px;" placeholder="חפש אנשים, מקומות או מאגרי מידע">
 			      </div>
-			      <button type="submit" class="btn btn-default input-sm"><span class="glyphicon glyphicon-search"> </span></button>
 		    	</form>
           	</li>
           	{% endif %}
@@ -77,5 +80,34 @@
       </footer>
       
 	</body>
+
+	<script>
+	
+{% verbatim %}
+	$(function() {
+		$('#search').typeahead({
+		  name: 'twitter-oss',
+		  prefetch: {url: '../../search.json',
+		  			ttl: 0.1},
+		  template: [
+		  	'<div class="search-option">',
+		  	'	<span style="text-align: right;">',
+		    '		<span class="search-type">{{type}}</span>',
+		    '		<span class="search-name">{{name}}</span>',
+		    '	</span>',
+		    '	<div class="search-description">{{description}}</div>',
+		    '</div>'
+		  ].join(''),
+		  engine: Hogan
+		});
+		
+		$('#search').on('typeahead:selected', function (object, datum) {
+		    // Example: {value: "@JakeHarding", tokens: ['Jake', 'Harding'], name: "Jake Harding", profileImageUrl: "https://twitter.com/JakeHaridng/profile_img"}
+		    console.log(datum);
+		    window.location.replace(datum.url);
+		});
+	});	
+{% endverbatim %}
+	</script>
+	
 </html>
-<script src="{% static "dist/js/bootstrap.min.js" %}"></script>
