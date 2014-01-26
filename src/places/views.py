@@ -59,8 +59,20 @@ def home(request):
 def place(request, id):
     
     place = get_object_or_404(Place, id=int(id))
-    # place = Place.objects.get(id=int(id))
-    
+    dataset = get_object_or_404(Dataset, id=place.dataset.id)
+
+    ids = [k['id'] for k in dataset.places.values('id')]
+
+    try:
+        nextPlaceId = ids[ids.index(place.id) + 1]
+    except IndexError:
+        nextPlaceId = 0
+
+    try:
+        prevPlaceId = ids[ids.index(place.id) - 1]
+    except IndexError:
+        prevPlaceId = 0
+
     l = []
     for pm in place.placemarks.all():
         try:
@@ -78,6 +90,8 @@ def place(request, id):
              }
         )
     context = {
+                'next_place' : nextPlaceId,
+                'prev_place' : prevPlaceId,
                'place': place,
                'placemarks': json.dumps(l),
                'id': id,

@@ -18,7 +18,7 @@
             </a>
           </h4>
         </div>
-        <div id="datasets" class="panel-collapse collapse in">
+        <div id="datasets" class="panel-collapse collapse">
           <div class="panel-body" id="datasetBody">
             <p><img src="{% static "images/ajax-loader.gif" %}" /> טוען מאגרי מידע... </p>
           </div>
@@ -37,7 +37,7 @@
 			else
 			{
 			    $("#datasetBody").append("<div class=\"row\"><div class=\"col-md-12\"><table class=\"table table-striped\" id=\"datasets-table\"></table>");
-			    $("#datasets-table").append("<thead><tr><th>שם</th><th>משתמש</th><th>מספר מקומות</th></tr></thead>");
+			    $("#datasets-table").append("<thead><tr><th class=\"text-right\">שם</th><th class=\"text-right\">משתמש</th><th class=\"text-right\">מספר מקומות</th></tr></thead>");
 			    content = "";
                 for (var i = 0; i < data.length; i++) {
                     content += "<tr><td><a href=\"dataset/" + data[i].id + "\">" + data[i].name + "</a></td><td>" + data[i].owner + "</td><td><span class=\"badge\">" + data[i].numOfPlaces + "</span></td></tr>";
