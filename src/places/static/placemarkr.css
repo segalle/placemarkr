@@ -2,6 +2,11 @@
 	text-align: center;
 }
 
+.datasetListDescription {
+	color: #97969c;
+	font-size: 11px;	
+}
+
 #search {
 	text-align: right;
 }

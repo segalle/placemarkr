@@ -179,7 +179,8 @@
 				$("#datasetsList").append("<p>לא נמצאו מאגרי מידע</p>");
 			}
 			for (var i = 0; i < data.length; i++) {
-				$("#datasetsList").append("<a href=\"../../dataset/" + data[i].id + "\" class=\"list-group-item\">" + data[i].name + "<span class=\"badge\">" + data[i].numOfPlaces + "</span> </a>");
+				$("#datasetsList").append("<a href=\"../../dataset/" + data[i].id + "\" class=\"list-group-item\">" + 
+											data[i].name + "<span class=\"badge\">" + data[i].numOfPlaces + "</span> <br><span class=\"datasetListDescription\">" + data[i].description +"</span></a>");
 			}
 		});
 	}

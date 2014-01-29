@@ -123,7 +123,7 @@ def userHomepage(request, username):
 def datasetsList(request, username):
     urlUser = get_object_or_404(User, username=username)
     userDatasets = Dataset.objects.filter(owner=urlUser)
-    response_data = [dict([("name", dataset.name), ("id", dataset.id), ("numOfPlaces", dataset.places.count())]) for dataset in userDatasets]
+    response_data = [dict([("name", dataset.name), ("description", dataset.description), ("id", dataset.id), ("numOfPlaces", dataset.places.count())]) for dataset in userDatasets]
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 @login_required # maybe not?
