@@ -156,7 +156,7 @@ def datasetDetails(request, id):
     context = {'urlUser': request.user,
                'places': dataset.places.all(),
                'dataset' : dataset}
-    return render(request, 'userDataset.html', context)
+    return render(request, 'datasetList.html', context)
 
 @login_required
 def exportDataset(request, id):
