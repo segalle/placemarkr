@@ -3,6 +3,7 @@
 <div class="container">
 	<div class="page-header">
 		<h1>{{ dataset.name }}</h1>
+		<h5>{{ dataset.description }}</h5>
         <a href="{% url 'exportDataset' dataset.id %}" class="btn btn-primary">
             CSV <span class="glyphicon glyphicon-export"></span>
         </a>
