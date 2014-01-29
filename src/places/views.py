@@ -228,7 +228,8 @@ def upload(request):
             # TODO - handle UTF-8 BOM??
             data = handleUploadedFile(request.FILES['file'], form.cleaned_data['file_type'])
             title = form.cleaned_data['title']
-            if create_dataset(request, title, data, request.user.id):
+            description = form.cleaned_data['description']
+            if create_dataset(request, title, description, data, request.user.id):
                 ds = Dataset.objects.get(name=title)
                 places = ds.places.all()
                 counter = create_markers(places)

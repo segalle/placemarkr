@@ -7,6 +7,7 @@ from django.template.defaultfilters import slugify
 class Dataset(models.Model):
     name = models.CharField(max_length=100, unique=True)
     owner = models.ForeignKey(User)
+    description = models.CharField(max_length=100)
     slug = models.SlugField()
     
     def __unicode__(self):
