@@ -1,0 +1,18 @@
+<div class="row">
+	{% for p in places %}
+	<div class="col-sm-6 col-md-3">
+		<div class="thumbnail">
+			<img src="" height="240" width="240" alt="StreetView image">
+			<div class="caption">
+				<h3>{{p.title}}</h3>
+				<p>
+					{{p.address}}
+				</p>
+				<p>
+					{{p.city}}
+				</p>	
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
