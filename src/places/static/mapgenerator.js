@@ -218,6 +218,19 @@ function createForeignMarker(result, fulladdress) {
 	return marker;
 }
 
+function updateStreetView(marker) {
+	
+	var panoramaOptions = {
+	    position: marker.getPosition(),
+	    pov: {
+	      heading: 94,
+	      pitch: 10
+	    }
+  	};
+	var panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'),panoramaOptions);
+	map.setStreetView(panorama);
+}
+
 function codeAddress() {
 	geocoder = new google.maps.Geocoder();
 	var fulladdress = {
@@ -235,11 +248,14 @@ function codeAddress() {
 				fulladdress["forcount"] = forcount;
 				var marker = createForeignMarker(results[i], fulladdress);
 				ForeignPlacemarkr.markers.push(marker);
-				forcount += 1;
+				forcount += 1;	
+				if (i == 0)
+					updateStreetView(marker);
 			};
+			
 			fitBounds(map, ForeignPlacemarkr.markers);
 		} else {
-			alert("Geocode was not successful for the following reason: " + status);
+			alert("לא נמצא מיקום עבור הכתובת והעיר. שגיאה: " + status);
 		}
 	});
 }
@@ -249,7 +265,8 @@ function initialize() {
 	var places = $(Placemarkr.placemarks);
 	var pageid = $(Placemarkr.id);
 	var mapOptions = {
-		mapTypeId : google.maps.MapTypeId.ROADMAP
+		mapTypeId : google.maps.MapTypeId.ROADMAP,
+		streetViewControl: false
 	};
 
 	map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
@@ -271,6 +288,7 @@ function initialize() {
 
 	$("li.place").hover(function() {
 		var marker = $(this).data("marker");
+		updateStreetView(marker);
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 		$(this).addClass('markerlist');
 	}, function() {
@@ -289,6 +307,7 @@ function initialize() {
 	$("body").on({
 		mouseenter : function() {
 			var marker = $(this).data("marker");
+			updateStreetView(marker);
 			marker.setAnimation(google.maps.Animation.BOUNCE);
 			$(this).addClass('foreignmarkerlist');
 		},
@@ -311,7 +330,21 @@ function initialize() {
 		codeAddress();
 		return false;
 	});
-
+	
+	var fenway = new google.maps.LatLng(0,0);
+	
+	if (Placemarkr.markers[0])
+		fenway = Placemarkr.markers[0].getPosition();
+	
+	var panoramaOptions = {
+	    position: fenway,
+	    pov: {
+	      heading: 94,
+	      pitch: 10
+	    }
+  	};
+	var panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'),panoramaOptions);
+	map.setStreetView(panorama);
 }
 
 $(initialize);
