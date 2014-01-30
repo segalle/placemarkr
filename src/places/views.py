@@ -159,6 +159,17 @@ def datasetDetails(request, id):
     return render(request, 'datasetList.html', context)
 
 @login_required
+def datasetJson(request, id):
+    dataset = get_object_or_404(Dataset, id=id)
+    places = [dict([("vendor_id", place.vendor_id),
+                            ("title", place.title),
+                            ("address", place.address),
+                            ("city", place.city),
+                            ("numberOfPlacemarks",place.placemarks.count()),
+                            ("numberOfVotes",sum([pm.votes.count() for pm in place.placemarks.all()]))]) for place in dataset.places.all()]
+    return HttpResponse(json.dumps(places), content_type="application/json")
+
+@login_required
 def exportDataset(request, id):
     response = HttpResponse(content_type='text/csv')
     dataset = get_object_or_404(Dataset, id=id)
