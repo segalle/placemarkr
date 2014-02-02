@@ -5,20 +5,26 @@ var dataset_data;
 
 $(function() {
 	$.get('dataset.json', function(data) {
-			dataset_data = data;
-		});
+		dataset_data = data;
+	});
 
 	$("#map-view-button").click(function() {
 		$.get('datasetMap.html', function(data) {
 			$("#dataset-content").empty().html(data);
 			initMap();
 			addMarkers(dataset_map);
-			fitBounds(dataset_map,dataset_data);
+			fitBounds(dataset_map, dataset_data);
 		});
 	});
 	$("#list-view-button").click(function() {
 		$.get('datasetList.html', function(data) {
 			$("#dataset-content").empty().html(data);
+			$( "tr" ).css("cursor","pointer");
+			$(function() {
+				$("tr").click(function() {
+					window.location = $(this).data('value');
+				});
+			});
 		});
 	});
 	$("#album-view-button").click(function() {
@@ -50,7 +56,7 @@ function initMap() {
 }
 
 function addMarkers(map) {
-	for(var i=0 ; i < dataset_data.length ; i++) {
+	for (var i = 0; i < dataset_data.length; i++) {
 		var place = dataset_data[i];
 		if (!place.lat || !place.lng)
 			continue;
@@ -64,15 +70,15 @@ function addMarkers(map) {
 	}
 }
 
-function fitBounds(map,dataset){
-		var latlngbounds = new google.maps.LatLngBounds();
-		
-		for (var i=0; i< dataset.length; i++){
-			latlngbounds.extend(dataset[i].marker.position);
-		}
-		
-		map.fitBounds(latlngbounds);
-		var blistener = google.maps.event.addListener(map, 'bounds_changed', function(event) {
+function fitBounds(map, dataset) {
+	var latlngbounds = new google.maps.LatLngBounds();
+
+	for (var i = 0; i < dataset.length; i++) {
+		latlngbounds.extend(dataset[i].marker.position);
+	}
+
+	map.fitBounds(latlngbounds);
+	var blistener = google.maps.event.addListener(map, 'bounds_changed', function(event) {
 		if (this.getZoom() > 15) {
 			this.setZoom(15);
 		}
