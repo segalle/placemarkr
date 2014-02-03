@@ -203,7 +203,7 @@ def exportDataset(request, id):
     dataset = get_object_or_404(Dataset, id=id)
     places = dataset.places.all()
 
-    response['Content-Disposition'] = 'attachment; filename="{0}.csv"'.format(dataset.name)
+    response['Content-Disposition'] = 'attachment; filename="{0}.csv"'.format(dataset.name.encode('utf-8'))
 
     writer = UnicodeWriter(response)
     writer.writerow(['id','title','address','city','lat','lng'])
