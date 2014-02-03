@@ -13,7 +13,7 @@ def delete_dataset(ds):
         Place.delete(place)
     Dataset.delete(ds)
 
-def create_dataset(request,name, in_places, user_id):
+def create_dataset(request, name, description, in_places, user_id):
     try:
         # if the dataset already exists
         ds = Dataset.objects.get(name=name)
@@ -24,6 +24,7 @@ def create_dataset(request,name, in_places, user_id):
     ds = Dataset()
     ds.owner = User.objects.get(id=user_id)
     ds.name = name
+    ds.description = description
     ds.save()
 
     for p in in_places:

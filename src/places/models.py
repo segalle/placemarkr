@@ -7,6 +7,7 @@ from django.template.defaultfilters import slugify
 class Dataset(models.Model):
     name = models.CharField(max_length=100, unique=True)
     owner = models.ForeignKey(User)
+    description = models.CharField(max_length=100)
     slug = models.SlugField()
     
     def __unicode__(self):
@@ -73,7 +74,32 @@ class Place(models.Model):
         else:
             print "No leading location for location #%s" % self.id
         return leading
-
+    
+    def lat(self):
+        placemark = self.get_leading_placemark()
+        if placemark:
+            return placemark.lat
+        return None
+        
+    def lng(self):
+        placemark = self.get_leading_placemark()
+        if placemark:
+            return placemark.lng
+        return None
+        
+    def serialize_place(self):
+        res = dict(vendor_id=self.vendor_id, 
+                   title=self.title, 
+                   address=self.address, 
+                   city=self.city,
+                   numberOfPlacemarks=self.placemarks.count(),
+                   numberOfVotes=sum([pm.votes.count() for pm in self.placemarks.all()]))
+        lat, lng = self.lat(), self.lng()
+        if lat is not None:
+            res['lat'] = lat
+        if lng is not None:
+            res['lng'] = lng
+        return res
 
 class Placemark(models.Model):
     place = models.ForeignKey(Place, related_name='placemarks')

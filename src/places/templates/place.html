@@ -2,7 +2,6 @@
 {% block content %}
 {% load staticfiles %}
 
-<script src="{% static "jquery-1.10.2.js" %}"></script>
 <script src="{% static "csrf.js" %}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=visualization"></script>
 <script src="{% static "ICanHaz.min.js" %}"></script>
@@ -88,6 +87,7 @@
 </div>
 
 <div class="card" id="map_canvas"></div>
+<div id="pano"></div>
 
 <link href="{% static "map.css" %}" rel="stylesheet" type="text/css"/>
 <script src="{% static "dist/js/bootstrap.min.js" %}"></script>

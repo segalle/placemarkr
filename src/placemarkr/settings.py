@@ -189,7 +189,9 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-if os.environ.get('DATABASE_URL'):
+DEBUG_TOOLBAR_PATCH_SETTINGS = False # issue 521
+
+if os.environ.get('DATABASE_URL'): # Heroku
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
 
@@ -200,7 +202,6 @@ if os.environ.get('DATABASE_URL'):
     ALLOWED_HOSTS = ['*']
     
     # Static asset configuration
-    import os
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     STATIC_ROOT = 'staticfiles'
     STATIC_URL = '/static/'
@@ -208,3 +209,4 @@ if os.environ.get('DATABASE_URL'):
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
     )
+    

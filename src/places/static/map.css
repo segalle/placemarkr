@@ -67,3 +67,12 @@ footer {
 .glyphicon {
 	font-family: 'Glyphicons Halflings' !important;
 }
+
+#pano {
+	background-color: blue;
+	position: absolute;
+	width: 370px;
+	height: 270px;
+	bottom: 70px;
+	right: 480px;
+}

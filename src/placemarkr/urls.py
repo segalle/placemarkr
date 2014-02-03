@@ -24,6 +24,10 @@ urlpatterns = patterns('',
     url(r'^user/(?P<username>\w+)/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
     url(r'^datasets.json/$', 'places.views.getDatasets', name='getDatasets'),
     url(r'^dataset/(?P<id>\d+)/$', 'places.views.datasetDetails', name='datasetDetails'),
+    url(r'^dataset/(?P<id>\d+)/datasetList.html$', 'places.views.datasetList', name='datasetList'),
+    url(r'^dataset/(?P<id>\d+)/datasetAlbum.html$', 'places.views.datasetAlbum', name='datasetAlbum'),
+    url(r'^dataset/(?P<id>\d+)/datasetMap.html$', 'places.views.datasetMap', name='datasetMap'),
+    url(r'^dataset/(?P<id>\d+)/dataset.json$', 'places.views.datasetJson', name='datasetJson'), #might change to GeoJSON later on..
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
 
     url(r'^dataset/export/(?P<id>\d+)/$', 'places.views.exportDataset', name='exportDataset'),

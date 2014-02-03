@@ -67,6 +67,11 @@
 						<input type="text" class="form-control" id="id_title" name="title" placeholder="הזן שם מאגר">
 					</div>
 
+					<div class="form-group">
+						<label for="id_description">תיאור המאגר</label>
+						<input type="text" class="form-control" id="id_description" name="description" placeholder="הזן תיאור מאגר">
+					</div>
+					
 					<label>סוג הקובץ</label>
 					<br>
 
@@ -174,7 +179,8 @@
 				$("#datasetsList").append("<p>לא נמצאו מאגרי מידע</p>");
 			}
 			for (var i = 0; i < data.length; i++) {
-				$("#datasetsList").append("<a href=\"../../dataset/" + data[i].id + "\" class=\"list-group-item\">" + data[i].name + "<span class=\"badge\">" + data[i].numOfPlaces + "</span> </a>");
+				$("#datasetsList").append("<a href=\"../../dataset/" + data[i].id + "\" class=\"list-group-item\">" + 
+											data[i].name + "<span class=\"badge\">" + data[i].numOfPlaces + "</span> <br><span class=\"datasetListDescription\">" + data[i].description +"</span></a>");
 			}
 		});
 	}

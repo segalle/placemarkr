@@ -123,7 +123,7 @@ def userHomepage(request, username):
 def datasetsList(request, username):
     urlUser = get_object_or_404(User, username=username)
     userDatasets = Dataset.objects.filter(owner=urlUser)
-    response_data = [dict([("name", dataset.name), ("id", dataset.id), ("numOfPlaces", dataset.places.count())]) for dataset in userDatasets]
+    response_data = [dict([("name", dataset.name), ("description", dataset.description), ("id", dataset.id), ("numOfPlaces", dataset.places.count())]) for dataset in userDatasets]
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 @login_required # maybe not?
@@ -157,6 +157,45 @@ def datasetDetails(request, id):
                'places': dataset.places.all(),
                'dataset' : dataset}
     return render(request, 'userDataset.html', context)
+
+@login_required
+def datasetList(request, id):
+    dataset = get_object_or_404(Dataset, id=id)
+    context = {'urlUser': request.user,
+               'places': dataset.places.all(),
+               'dataset' : dataset}
+    return render(request, 'datasetList.html', context)
+
+@login_required
+def datasetAlbum(request, id):
+    dataset = get_object_or_404(Dataset, id=id)
+    context = {'urlUser': request.user,
+               'places': dataset.places.all(),
+               'dataset' : dataset}
+    return render(request, 'datasetAlbum.html', context)
+
+@login_required
+def datasetMap(request, id):
+    dataset = get_object_or_404(Dataset, id=id)
+    context = {'urlUser': request.user,
+               'places': dataset.places.all(),
+               'dataset' : dataset}
+    return render(request, 'datasetMap.html', context)
+
+@login_required
+def datasetJson(request, id):
+    dataset = get_object_or_404(Dataset, id=id)
+#     places = [dict([("vendor_id", place.vendor_id),
+#                             ("title", place.title),
+#                             ("address", place.address),
+#                             ("city", place.city),
+#                             ("lat",place.lat()),
+#                             ("lng",place.lng()),
+#                             ("numberOfPlacemarks",place.placemarks.count()),
+#                             ("numberOfVotes",sum([pm.votes.count() for pm in place.placemarks.all()]))]) for place in dataset.places.all()]
+    places = [place.serialize_place() for place in dataset.places.all()]
+    
+    return HttpResponse(json.dumps(places), content_type="application/json")
 
 @login_required
 def exportDataset(request, id):
@@ -228,7 +267,8 @@ def upload(request):
             # TODO - handle UTF-8 BOM??
             data = handleUploadedFile(request.FILES['file'], form.cleaned_data['file_type'])
             title = form.cleaned_data['title']
-            if create_dataset(request, title, data, request.user.id):
+            description = form.cleaned_data['description']
+            if create_dataset(request, title, description, data, request.user.id):
                 ds = Dataset.objects.get(name=title)
                 places = ds.places.all()
                 counter = create_markers(places)

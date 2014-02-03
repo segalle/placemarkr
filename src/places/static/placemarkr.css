@@ -2,6 +2,11 @@
 	text-align: center;
 }
 
+.datasetListDescription {
+	color: #97969c;
+	font-size: 11px;
+}
+
 #search {
 	text-align: right;
 }
@@ -19,6 +24,13 @@
 .search-description {
 	font-size: 12px;
 }
+
+#dataset_map {
+	height: 550px;
+	margin: 0px;
+	padding: 0px
+}
+
 /*
  * typehead.js-bootstrap3.less 0.1.4
  * https://github.com/hyspace/typehead.js-bootstrap3.less
