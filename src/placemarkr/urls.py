@@ -30,7 +30,7 @@ urlpatterns = patterns('',
     url(r'^dataset/(?P<id>\d+)/dataset.json$', 'places.views.datasetJson', name='datasetJson'), #might change to GeoJSON later on..
     # url(r'^placemarkr/', include('placemarkr.foo.urls')),
 
-    url(r'^dataset/export/(?P<id>\d+)/$', 'places.views.exportDataset', name='exportDataset'),
+    url(r'^dataset/export/(?P<id>\d+)/(?P<type>\w+)/$', 'places.views.exportDataset', name='exportDataset'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

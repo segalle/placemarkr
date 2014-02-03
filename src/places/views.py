@@ -1,16 +1,13 @@
 # coding: utf-8
 
 from controllers import create_dataset, create_markers, UnicodeWriter
-from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.core.urlresolvers import reverse
 from django.http import *
-from django.shortcuts import render, get_object_or_404, render_to_response, \
-    redirect
-from django.template import RequestContext
+from django.shortcuts import render, get_object_or_404
 from fileHandler import handleUploadedFile
 from places.forms import UploadFileForm, UserCreateForm
 from places.models import Place, Placemark, Vote, Dataset
@@ -198,20 +195,43 @@ def datasetJson(request, id):
     return HttpResponse(json.dumps(places), content_type="application/json")
 
 @login_required
-def exportDataset(request, id):
-    response = HttpResponse(content_type='text/csv')
+def exportDataset(request, id, type):
     dataset = get_object_or_404(Dataset, id=id)
     places = dataset.places.all()
+    if type == "csv":
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="{0}.csv"'.format(dataset.name.encode('utf-8'))
 
-    response['Content-Disposition'] = 'attachment; filename="{0}.csv"'.format(dataset.name.encode('utf-8'))
+        writer = UnicodeWriter(response)
+        writer.writerow(['id','title','address','city','lat','lng'])
+        for place in places:
+            ps = place.get_leading_placemark()
+            if ps:
+                writer.writerow([place.vendor_id, place.title, place.address, place.city, ps.lat, ps.lng])
+    elif type == "geojson":
+        response = HttpResponse(content_type='application/json')
+        response['Content-Disposition'] = 'attachment; filename="{0}.json"'.format(dataset.name.encode('utf-8'))
 
-    writer = UnicodeWriter(response)
-    writer.writerow(['id','title','address','city','lat','lng'])
-    for place in places:
-        ps = place.get_leading_placemark()
-        if ps:
-            writer.writerow([place.vendor_id, place.title, place.address, place.city, ps.lat, ps.lng])
+        geo_json = { "type": "FeatureCollection",
+                     "features": []}
 
+        for place in places:
+            ps = place.get_leading_placemark()
+            if ps:
+                geo_json["features"].append(
+                    {"type": "Feature",
+                    "properties": {
+                        "id":  place.vendor_id,
+                        "title" : place.title,
+                        "address" : place.address,
+                        "city" : place.city,
+                        },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [ps.lng,ps.lat] }})
+        response.write(unicode(json.dumps(geo_json, ensure_ascii=False)))
+    else:
+        return datasetDetails(request, id)
     return response
 
 
