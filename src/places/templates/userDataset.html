@@ -43,8 +43,8 @@
 			      &nbsp;<span class="caret"></span>
 			    </button>
 			    <ul class="dropdown-menu">
-			      <li><a href="{% url 'exportDataset' dataset.id %}">CSV</a></li>
-			      <li><a href="#">GeoJSON</a></li>
+			      <li><a href="{% url 'exportDataset' dataset.id 'csv' %}">CSV</a></li>
+			      <li><a href="{% url 'exportDataset' dataset.id 'geojson' %}">GeoJSON</a></li>
 			    </ul>
 			</div>
   
