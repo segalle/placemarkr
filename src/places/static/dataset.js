@@ -30,6 +30,12 @@ $(function() {
 	$("#album-view-button").click(function() {
 		$.get('datasetAlbum.html', function(data) {
 			$("#dataset-content").empty().html(data);
+			$(".thumbnail" ).css("cursor","pointer");
+			$(function() {
+				$(".thumbnail").click(function() {
+					window.location = $(this).data('value');
+				});
+			});			
 		});
 	});
 

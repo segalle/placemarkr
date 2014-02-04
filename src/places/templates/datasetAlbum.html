@@ -1,10 +1,10 @@
 <div class="row">
 	{% for p in places %}
 	<div class="col-sm-6 col-md-3">
-		<div class="thumbnail">
-			<img src="" height="240" width="240" alt="StreetView image">
+		<div class="thumbnail" data-value="{% url 'place' p.id%}">
+			<img src="../../{{p.get_leading_placemark.image.url}}" height="240" width="240" alt="StreetView image">
 			<div class="caption">
-				<h3>{{p.title}}</h3>
+				<h3 style=" margin-top: 0px;">{{p.title}}</h3>
 				<p>
 					{{p.address}}
 				</p>

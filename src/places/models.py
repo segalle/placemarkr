@@ -108,6 +108,7 @@ class Placemark(models.Model):
     lat = models.FloatField()
     lng = models.FloatField()
     user = models.ForeignKey(User, null=True, blank=True)
+    image = models.ImageField(upload_to='streetview', blank=True)
 
     class Meta:
         unique_together = (("place", "city", "address", "lat", "lng"),)
