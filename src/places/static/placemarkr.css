@@ -35,6 +35,10 @@
 	cursor: pointer;
 }
 
+#infoWindowContent {
+	overflow: hidden;
+	white-space:nowrap;
+}
 /*
  * typehead.js-bootstrap3.less 0.1.4
  * https://github.com/hyspace/typehead.js-bootstrap3.less

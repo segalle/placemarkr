@@ -3,6 +3,7 @@ from django.db import models
 import datetime
 import json
 from django.template.defaultfilters import slugify
+from django.core.urlresolvers import reverse
 
 class Dataset(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -93,7 +94,11 @@ class Place(models.Model):
                    address=self.address, 
                    city=self.city,
                    numberOfPlacemarks=self.placemarks.count(),
+                   url=reverse('place', args=(self.id,)),
                    numberOfVotes=sum([pm.votes.count() for pm in self.placemarks.all()]))
+        placemark = self.get_leading_placemark()
+        if placemark is not None:
+            res['imageUrl'] = "../../" + placemark.image.url
         lat, lng = self.lat(), self.lng()
         if lat is not None:
             res['lat'] = lat
