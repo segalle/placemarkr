@@ -7,7 +7,6 @@ $(function() {
 	$.get('dataset.json', function(data) {
 		dataset_data = data;
 	});
-
 	$("#map-view-button").click(function() {
 		$.get('datasetMap.html', function(data) {
 			$("#dataset-content").empty().html(data);
@@ -35,9 +34,11 @@ $(function() {
 				$(".thumbnail").click(function() {
 					window.location = $(this).data('value');
 				});
-			});			
+			});
 		});
 	});
+
+	$("#list-view-button").click();
 
 	//$("#list-view-button").addClass("active");
 	//$("#map-view-button").removeClass("active");
