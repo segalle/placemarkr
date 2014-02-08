@@ -280,7 +280,6 @@ function initialize() {
 	fitBounds(map, Placemarkr.markers);
 
 	$('#jsontitle').click(function() {
-		console.log("title");
 		$("#jsoncontent").toggle();
 	});
 

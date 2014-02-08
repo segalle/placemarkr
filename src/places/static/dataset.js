@@ -30,6 +30,12 @@ $(function() {
 	$("#album-view-button").click(function() {
 		$.get('datasetAlbum.html', function(data) {
 			$("#dataset-content").empty().html(data);
+			$(".thumbnail" ).css("cursor","pointer");
+			$(function() {
+				$(".thumbnail").click(function() {
+					window.location = $(this).data('value');
+				});
+			});			
 		});
 	});
 
@@ -56,6 +62,9 @@ function initMap() {
 }
 
 function addMarkers(map) {
+	var infowindow = new google.maps.InfoWindow({});
+	
+	
 	for (var i = 0; i < dataset_data.length; i++) {
 		var place = dataset_data[i];
 		if (!place.lat || !place.lng)
@@ -65,16 +74,44 @@ function addMarkers(map) {
 			map : map,
 			position : inlatlng,
 			clickable : true,
-			icon : 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + i + '|FF0000|000000'
+			title: dataset_data[i].title,
+			icon : 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + dataset_data[i].vendor_id + '|FF0000|000000'
+		});
+		
+		dataset_data[i].marker.data = dataset_data[i];
+		
+		google.maps.event.addListener(dataset_data[i].marker, 'click', function() {
+			var content = getInfoWindowContent($(this)[0].data);
+			infowindow.setContent(content);
+		    infowindow.open(map,$(this)[0]);
 		});
 	}
+}
+
+function getInfoWindowContent(data) {
+	var content = "<div id=\"infoWindowContent\" class=\"media\">";
+	content += "<a class=\"pull-right\" href=\"" + data.url + "\">";
+    content += "<img class=\"media-object\" src=\"" + data.imageUrl + "\" alt=\"Missing image\" width=\"70\" height=\"70\" >";
+  	content += "</a>";
+  	content += "<div class=\"media-body\">";
+	content += "<h4 class=\"media-heading\" style=\"margin-top: 0px;\">" + data.title + "</h4>";
+	content += "<h5>" + data.address + ", " + data.city + "</h5>";
+	content += "<span style=\"font-size: 11px; margin-left: 5px;\">סה\"כ מיקומים <span class=\"badge\" style=\"font-size: 11px;\">" + data.numberOfPlacemarks + "</span></span>";
+	content += "<span style=\"font-size: 11px;\">סה\"כ הצבעות <span class=\"badge\" style=\"font-size: 11px;\">" + data.numberOfVotes + "</span></span>";
+	content += "</div>";
+	//content += "<a href=\"#\" class=\"btn btn-primary\" role=\"button\">לפרטים</a>";
+	content += "</div>";
+	return content;
 }
 
 function fitBounds(map, dataset) {
 	var latlngbounds = new google.maps.LatLngBounds();
 
 	for (var i = 0; i < dataset.length; i++) {
-		latlngbounds.extend(dataset[i].marker.position);
+		if (dataset[i].marker)
+			latlngbounds.extend(dataset[i].marker.position);
+		else
+			console.log("marker " + i + " is not defined.");
 	}
 
 	map.fitBounds(latlngbounds);

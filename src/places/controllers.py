@@ -7,6 +7,10 @@ from geocoding.models import geo_code
 from django.db.utils import IntegrityError
 import json, csv, codecs, cStringIO
 from django.contrib import messages
+import requests
+from StringIO import StringIO
+from PIL import Image
+from django.core.files.base import ContentFile
 
 def delete_dataset(ds):
     for place in ds.places.all():
@@ -31,11 +35,13 @@ def create_dataset(request, name, description, in_places, user_id):
         place = Place()
 
         try:
-            place.vendor_id = p["id"].strip()
+            place.vendor_id = p["id"]
+        
             place.address = p["address"].strip()
             place.city = p["city"].strip()
             place.title = p["title"].strip()
-        except KeyError:
+        except KeyError, ex:
+            print ex
             delete_dataset(ds)
             messages.error(request, "אחד השדות הדרושים חסר. וודא כי כל הרשומות מכילות את השדות: id, address, city, title")
             return False
@@ -64,6 +70,7 @@ def create_markers(places):
 
         if geo_result["status"] != "OK":
             counter[geo_result["status"]] +=1
+            print "geo_result status of place id " + str(place.id) + "was " + geo_result["status"]
             continue
 
         for l in geo_result["results"]:
@@ -78,9 +85,21 @@ def create_markers(places):
 
             marker.lat = location["lat"]
             marker.lng = location["lng"]
+            
+            payload = {"size": "240x240", "location": clean_address + " " + data['city'], "sensor": "false"}
+            print payload
+            r = requests.get("http://maps.googleapis.com/maps/api/streetview", params=payload)
+            print r.url
+            input_file = StringIO(r.content)
+            output_file = StringIO()
+            img = Image.open(input_file)
+            if img.mode != "RGB":
+                img = img.convert("RGB")
+            img.save(output_file, "JPEG")
             try:
                 marker.save()
                 counter["Newly added"] += 1
+                marker.image.save(str(marker.id) + ".jpg", ContentFile(output_file.getvalue()), save=True)
             except IntegrityError:
                 counter["Already exist"] += 1
 

@@ -12,3 +12,4 @@ src/places.sqlite3-journal
 Thumbs.db
 .settings
 *.orig
+src/streetview/*.jpg
