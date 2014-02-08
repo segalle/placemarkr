@@ -88,6 +88,9 @@ class Place(models.Model):
             return placemark.lng
         return None
         
+    def number_of_votes(self):
+        return sum([pm.votes.count() for pm in self.placemarks.all()])
+    
     def serialize_place(self):
         res = dict(vendor_id=self.vendor_id, 
                    title=self.title, 
@@ -95,7 +98,7 @@ class Place(models.Model):
                    city=self.city,
                    numberOfPlacemarks=self.placemarks.count(),
                    url=reverse('place', args=(self.id,)),
-                   numberOfVotes=sum([pm.votes.count() for pm in self.placemarks.all()]))
+                   numberOfVotes=self.number_of_votes())
         placemark = self.get_leading_placemark()
         if placemark is not None:
             res['imageUrl'] = "../../" + placemark.image.url
