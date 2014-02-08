@@ -60,15 +60,14 @@ def place(request, id):
 
     ids = [k['id'] for k in dataset.places.values('id')]
 
+    currIndex = ids.index(place.id)
     try:
-        nextPlaceId = ids[ids.index(place.id) + 1]
+        nextPlaceId = ids[currIndex + 1]
     except IndexError:
         nextPlaceId = 0
 
-    try:
-        prevPlaceId = ids[ids.index(place.id) - 1]
-    except IndexError:
-        prevPlaceId = 0
+    prevPlaceId = 0 if currIndex == 0 else ids[currIndex - 1]
+
 
     l = []
     for pm in place.placemarks.all():
