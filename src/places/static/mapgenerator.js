@@ -371,23 +371,23 @@ function generateTableContent(data) {
 $(function() {
 	initialize();
 
-	$('#example').data("visible",false);
+	$('#votingTableButton').data("visible",false);
 	
-	$('#example').click(function() {	
-		if ($('#example').data("visible")) {
-			$('#example').popover("hide");
-			$('#example').data("visible",false);			
+	$('#votingTableButton').click(function() {	
+		if ($('#votingTableButton').data("visible")) {
+			$('#votingTableButton').popover("hide");
+			$('#votingTableButton').data("visible",false);			
 		}
 		else {
 	       	$.get('votingTable.json', function(data) {
 				var content = generateTableContent(data);
-				$('#example').popover('destroy');
-				$('#example').popover({title: 'הצבעות אחרונות', 
+				$('#votingTableButton').popover('destroy');
+				$('#votingTableButton').popover({title: 'הצבעות אחרונות', 
 										content: content, 
 									  	trigger: 'manual',
 									  	html:true});
-				$('#example').popover("show");
-				$('#example').data("visible",true);	
+				$('#votingTableButton').popover("show");
+				$('#votingTableButton').data("visible",true);	
 			});	
 		}
 	 });
