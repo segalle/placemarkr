@@ -81,10 +81,10 @@ function showInfoWindow(marker) {
 		}, function(resp) {
 			if (resp == "OK") {
 				console.log("OK", this);
-				$('#loading').text("Vote Recieved");
+				$('#loading').text("הצבעתך התקבלה");
 				$(button).attr('disabled', 'disabled');
 			} else {
-				$('#loading').text("Updated");
+				$('#loading').text("עודכן בהצלחה");
 				marker.place.vote = !marker.place.vote;
 				marker.thumbicon = voteIcon(marker.place);
 				console.log(marker.litem[0]);
