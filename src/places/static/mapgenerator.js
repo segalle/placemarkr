@@ -385,6 +385,7 @@ $(function() {
 				$('#votingTableButton').popover({title: 'הצבעות אחרונות', 
 										content: content, 
 									  	trigger: 'manual',
+									  	template: '<div class="popover popover-customization"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>',
 									  	html:true});
 				$('#votingTableButton').popover("show");
 				$('#votingTableButton').data("visible",true);	
