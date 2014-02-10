@@ -68,6 +68,10 @@ footer {
 	font-family: 'Glyphicons Halflings' !important;
 }
 
+.popover-title {
+	text-align: right;	
+}
+
 #pano {
 	position: absolute;
 	width: 370px;

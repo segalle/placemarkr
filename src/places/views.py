@@ -14,6 +14,7 @@ from places.models import Place, Placemark, Vote, Dataset
 import hashlib
 import json
 import urllib
+from django.utils.timesince import timesince
 # import code for encoding urls and generating md5 hashes
 
 def login_user(request):
@@ -93,6 +94,15 @@ def place(request, id):
                'id': id,
                }
     return render(request, 'place.html', context)
+
+@login_required
+def placeVotingTable(request, id):
+    place = get_object_or_404(Place, id=int(id))
+    datasetsSearch = [dict([("username", vote.user.username),
+                            ("first_name", vote.user.first_name),
+                            ("last_name", vote.user.last_name),
+                            ("date", timesince(vote.created_on))]) for pm in place.placemarks.all() for vote in pm.votes.all()]
+    return HttpResponse(json.dumps(datasetsSearch), content_type="application/json")
 
 @login_required
 def userHomepage(request, username):

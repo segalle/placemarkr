@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'places.views.home', name='home'),
     url(r'^place/(?P<id>\d+)/$', 'places.views.place', name='place'),
+    url(r'^place/(?P<id>\d+)/votingTable.json$', 'places.views.placeVotingTable', name='placeVotingTable'),
     url(r'^login/$', 'places.views.login_user', name='login_user'),
     url(r'^logout/$', 'places.views.logout_user', name='logout_user'),
     #(r'^account/logout/$', 'django.contrib.auth.views.logout',

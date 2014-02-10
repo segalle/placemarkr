@@ -346,4 +346,49 @@ function initialize() {
 	map.setStreetView(panorama);
 }
 
-$(initialize);
+function generateTableContent(data) {
+	if (!data.length)
+		return "<p>לא נמצאו הצבעות</p>";	
+	
+	var content = "<table class=\"table\"><thead><tr>";
+	content += "<th class=\"text-right\">#</th>";
+	content += "<th class=\"text-right\">שם</th>";
+	content += "<th class=\"text-right\">תאריך</th>";
+	content += "</tr></thead>";
+
+	for (var i=0; i < data.length ; i++) {
+    	content += "<tr>";
+        content += "<td>" + i + "</td>";
+		content += "<td><a href=\"" + data[i].url + "\">" + data[i].first_name + " " + data[i].last_name + " (" + data[i].username + ")</a></td>";
+		content += "<td>לפני " + data[i].date + "</td>";
+    	content += "</tr>";
+	}
+	
+	content += "</table>";
+	return content;
+}
+
+$(function() {
+	initialize();
+
+	$('#example').data("visible",false);
+	
+	$('#example').click(function() {	
+		if ($('#example').data("visible")) {
+			$('#example').popover("hide");
+			$('#example').data("visible",false);			
+		}
+		else {
+	       	$.get('votingTable.json', function(data) {
+				var content = generateTableContent(data);
+				$('#example').popover('destroy');
+				$('#example').popover({title: 'הצבעות אחרונות', 
+										content: content, 
+									  	trigger: 'manual',
+									  	html:true});
+				$('#example').popover("show");
+				$('#example').data("visible",true);	
+			});	
+		}
+	 });
+});
