@@ -81,10 +81,10 @@ function showInfoWindow(marker) {
 		}, function(resp) {
 			if (resp == "OK") {
 				console.log("OK", this);
-				$('#loading').text("Vote Recieved");
+				$('#loading').text("הצבעתך התקבלה");
 				$(button).attr('disabled', 'disabled');
 			} else {
-				$('#loading').text("Updated");
+				$('#loading').text("עודכן בהצלחה");
 				marker.place.vote = !marker.place.vote;
 				marker.thumbicon = voteIcon(marker.place);
 				console.log(marker.litem[0]);
@@ -346,4 +346,50 @@ function initialize() {
 	map.setStreetView(panorama);
 }
 
-$(initialize);
+function generateTableContent(data) {
+	if (!data.length)
+		return "<p>לא נמצאו הצבעות</p>";	
+	
+	var content = "<table class=\"table\"><thead><tr>";
+	content += "<th class=\"text-right\">#</th>";
+	content += "<th class=\"text-right\">שם</th>";
+	content += "<th class=\"text-right\">תאריך</th>";
+	content += "</tr></thead>";
+
+	for (var i=0; i < data.length ; i++) {
+    	content += "<tr>";
+        content += "<td>" + i + "</td>";
+		content += "<td><a href=\"" + data[i].url + "\">" + data[i].first_name + " " + data[i].last_name + " (" + data[i].username + ")</a></td>";
+		content += "<td>לפני " + data[i].date + "</td>";
+    	content += "</tr>";
+	}
+	
+	content += "</table>";
+	return content;
+}
+
+$(function() {
+	initialize();
+
+	$('#votingTableButton').data("visible",false);
+	
+	$('#votingTableButton').click(function() {	
+		if ($('#votingTableButton').data("visible")) {
+			$('#votingTableButton').popover("hide");
+			$('#votingTableButton').data("visible",false);			
+		}
+		else {
+	       	$.get('votingTable.json', function(data) {
+				var content = generateTableContent(data);
+				$('#votingTableButton').popover('destroy');
+				$('#votingTableButton').popover({title: 'הצבעות אחרונות', 
+										content: content, 
+									  	trigger: 'manual',
+									  	template: '<div class="popover popover-customization"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>',
+									  	html:true});
+				$('#votingTableButton').popover("show");
+				$('#votingTableButton').data("visible",true);	
+			});	
+		}
+	 });
+});

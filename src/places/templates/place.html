@@ -18,15 +18,26 @@
         <a class="btn btn-primary" href="{% url "datasetDetails" place.dataset.id %}">חזור למאגר <span class="glyphicon glyphicon-list"/></a>
         <a class="btn btn-primary" href="{% url "place" prev_place %}" {% if prev_place == 0 %} disabled {% endif %} >הקודם<span class="glyphicon glyphicon-forward"/></a>
     </div>
-    <h2>{{ place.title }}</h2>
-    <h4>{{ place.address }}</h4>
 
-    <p>
-        {{ place.city }}
-    </p>
+	<div>
+		<div style="float: left;">
+			<button type="button" id="votingTableButton" class="btn btn-info btn-xs" data-container="body" data-toggle="popover" data-placement="left" >
+			  הצבעות אחרונות&nbsp;&raquo;
+			</button>
+		</div>   
+
+	    <div>
+		    <h2>{{ place.title }}</h2>
+		    <h4>{{ place.address }}</h4>
+		
+		    <p>
+		        {{ place.city }}
+		    </p>
+		</div>
+	</div>
 
     <span class="label label-info" id="jsontitle">
-        תוכן מקורי&raquo;
+        תוכן מקורי&nbsp;&raquo;
     </span>
 
     <div id="jsoncontent">
@@ -38,6 +49,9 @@
             {% endfor %}
         </ul>
     </div>
+
+
+
     <ul class="list-group" id="mainlist"></ul>
     <div id="newaddress">
         מצא כתובת חדשה:
@@ -54,35 +68,6 @@
     <br>
     <ul class="list-group" id="foreignlist"></ul>
 
-    <div class="col-md-12">
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">הצבעות אחרונות</h3>
-            </div>
-            <div class="panel-body">
-
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th class="text-right">#</th>
-                        <th class="text-right">שם</th>
-                        <th class="text-right">תאריך</th>
-                    </tr>
-                    </thead>
-                    {% for pm in place.placemarks.all %}
-                    {% for v in pm.votes.all %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-						<td><a href="{% url 'userHomepage' v.user %}">{{v.user.first_name}} {{v.user.last_name}} ({{v.user}})</a></td>
-						<td>לפני {{v.created_on|timesince}}</td>
-                    </tr>
-                    {% endfor %}
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div class="card" id="map_canvas"></div>
@@ -107,7 +92,7 @@
 	לא נכון
 	</button>
 	<div id='loading' class='hide'>
-	Loading...
+	טוען...
 	</div>
 	</div>
 </script>
