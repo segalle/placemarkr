@@ -7,6 +7,10 @@
 	font-size: 11px;
 }
 
+.list-group-item>.badge {
+    float: left !important;
+}
+
 #search {
 	text-align: right;
 }
