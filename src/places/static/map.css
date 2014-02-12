@@ -78,8 +78,7 @@ footer {
 
 #pano {
 	position: absolute;
-	width: 430px;
+	width: 400px;
 	height: 300px;
-	bottom: 70px;
 	right: 20px;
 }

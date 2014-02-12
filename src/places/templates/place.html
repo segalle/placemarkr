@@ -39,7 +39,7 @@
     <span class="label label-info" id="jsontitle">
         תוכן מקורי&nbsp;&raquo;
     </span>
-
+    <br>
     <div id="jsoncontent">
         <ul class="list-group">
             {% for k, v in place.data_as_dict.items %}
@@ -49,7 +49,7 @@
             {% endfor %}
         </ul>
     </div>
-
+    <br>
 
 
     <ul class="list-group" id="mainlist"></ul>
@@ -67,11 +67,12 @@
     </div>
     <br>
     <ul class="list-group" id="foreignlist"></ul>
+    <div id="pano"></div>
 
 </div>
 
 <div class="card" id="map_canvas"></div>
-<div id="pano"></div>
+
 
 <link href="{% static "map.css" %}" rel="stylesheet" type="text/css"/>
 <script src="{% static "dist/js/bootstrap.min.js" %}"></script>
