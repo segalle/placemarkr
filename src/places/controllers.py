@@ -11,6 +11,7 @@ import requests
 from StringIO import StringIO
 from PIL import Image
 from django.core.files.base import ContentFile
+import re
 
 def delete_dataset(ds):
     for place in ds.places.all():
@@ -55,13 +56,16 @@ def create_dataset(request, name, description, in_places, user_id):
 def create_markers(places):
     counter = Counter()
     # TODO - change to regex
-    blacklist = [u'מס.',u"מס'",u'א' ,u'ב' ,u'ג' ,u'ד',u"א'",u"ב'",u"ג'",u"ה'"]
+
+    blacklist = [u'מס.',u"מס'",u'א' ,u'ב' ,u'ג' ,u'ד',u"א'",u"ב'",u"ג'",u"ד'",u"ה'",u"רח'",u"רח"]
 
     for place in places:
 
         data = json.loads(place.data)
 
-        clean_address = ' '.join([x for x in data['address'].split() if x not in blacklist])
+        address = re.sub('([\d]+)([\S]*)','\g<1>',data['address'])
+
+        clean_address = ' '.join([x for x in address.split() if x not in blacklist])
         geo_result = geo_code(clean_address, data['city'])
         city_result = geo_code(data['city'], data['city'])
 
