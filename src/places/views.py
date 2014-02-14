@@ -168,7 +168,7 @@ def datasetDetails(request, id):
 def datasetList(request, id):
     dataset = get_object_or_404(Dataset, id=id)
     context = {'urlUser': request.user,
-               'places': dataset.places.all(),
+               'places': dataset.places.extra(select={'int_vendor_id': 'CAST(vendor_id AS INTEGER)'},order_by=['int_vendor_id']),
                'dataset' : dataset}
     return render(request, 'datasetList.html', context)
 
@@ -176,7 +176,7 @@ def datasetList(request, id):
 def datasetAlbum(request, id):
     dataset = get_object_or_404(Dataset, id=id)
     context = {'urlUser': request.user,
-               'places': dataset.places.all(),
+               'places': dataset.places.extra(select={'int_vendor_id': 'CAST(vendor_id AS INTEGER)'},order_by=['int_vendor_id']),
                'dataset' : dataset}
     return render(request, 'datasetAlbum.html', context)
 
