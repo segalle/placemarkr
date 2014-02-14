@@ -56,9 +56,11 @@
 		<h5>{{ dataset.description }}</h5>
 	</div>
 
-	<div id="dataset-content" style="text-align: center;">
+	<div id="dataset-content">
 	{% block dataset-content %}
-	 <img src="{% static "images/ajax-loader.gif" %}" /> טוען נתונים
+		<div style="text-align: center;">
+		 <img src="{% static "images/ajax-loader.gif" %}" /> טוען נתונים
+		</div>
 	{% endblock %}
 	</div>
 	
