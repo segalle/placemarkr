@@ -7,7 +7,8 @@ $(function() {
 	$.get('dataset.json', function(data) {
 		dataset_data = data;
 	});
-	$("#map-view-button").click(function() {
+	$("#map-view-button").click(function(event) {
+		selectViewOptions(event.target);
 		$.get('datasetMap.html', function(data) {
 			$("#dataset-content").empty().html(data);
 			initMap();
@@ -15,7 +16,8 @@ $(function() {
 			fitBounds(dataset_map, dataset_data);
 		});
 	});
-	$("#list-view-button").click(function() {
+	$("#list-view-button").click(function(event) {
+		selectViewOptions(event.target);
 		$.get('datasetList.html', function(data) {
 			$("#dataset-content").empty().html(data);
 			$( "tr" ).css("cursor","pointer");
@@ -26,7 +28,8 @@ $(function() {
 			});
 		});
 	});
-	$("#album-view-button").click(function() {
+	$("#album-view-button").click(function(event) {
+		selectViewOptions(event.target);
 		$.get('datasetAlbum.html', function(data) {
 			$("#dataset-content").empty().html(data);
 			$(".thumbnail" ).css("cursor","pointer");
@@ -39,18 +42,18 @@ $(function() {
 	});
 
 	$("#list-view-button").click();
-
-	//$("#list-view-button").addClass("active");
-	//$("#map-view-button").removeClass("active");
-
-	//$("#list-view-button").button('toggle');
-	//$("#list-view-button").button('toggle');
-
-	//$(".btn-group > .btn").click(function() {
-	//	$(".btn-group > .btn").removeClass("active");
-	//	$(this).addClass("active");
-	//});
 });
+
+function selectViewOptions(optionElement) {
+	if (optionElement.id != "#map-view-button")
+		$("#map-view-button").removeClass("active");
+	if (optionElement.id != "#album-view-button")
+		$("#album-view-button").removeClass("active");
+	if (optionElement.id != "#list-view-button")	
+		$("#list-view-button").removeClass("active");
+	
+	$(optionElement).addClass("active");
+}
 
 function initMap() {
 	var mapOptions = {
