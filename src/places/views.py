@@ -135,7 +135,13 @@ def datasetsList(request, username):
 @login_required # maybe not?
 def getDatasets(request):
     allDatasets = Dataset.objects.all()
-    response_data = [dict([("name", dataset.name), ("id", dataset.id), ("owner",dataset.owner.username), ("numOfPlaces", dataset.places.count())]) for dataset in allDatasets]
+    response_data = [dict([("name", dataset.name), 
+                           ("id", dataset.id), 
+                           ("username",dataset.owner.username),
+                           ("first_name",dataset.owner.first_name),
+                           ("last_name",dataset.owner.last_name),
+                           ("user_url",reverse('userHomepage', args=(dataset.owner.username,))),
+                           ("numOfPlaces", dataset.places.count())]) for dataset in allDatasets]
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
