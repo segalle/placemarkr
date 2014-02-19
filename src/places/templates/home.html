@@ -40,7 +40,7 @@
 			    $("#datasets-table").append("<thead><tr><th class=\"text-right\">שם</th><th class=\"text-right\">משתמש</th><th class=\"text-right\">מספר מקומות</th></tr></thead>");
 			    content = "";
                 for (var i = 0; i < data.length; i++) {
-                    content += "<tr><td><a href=\"dataset/" + data[i].id + "\">" + data[i].name + "</a></td><td>" + data[i].owner + "</td><td><span class=\"badge\">" + data[i].numOfPlaces + "</span></td></tr>";
+                    content += "<tr><td><a href=\"dataset/" + data[i].id + "\">" + data[i].name + "</a></td><td><a href=\"" + data[i].user_url + "\">" + data[i].first_name + " " + data[i].last_name + " (" + data[i].username + ")</a></td><td><span class=\"badge\">" + data[i].numOfPlaces + "</span></td></tr>";
                 }
                 content += "</table></div></div>";
                 $("#datasets-table").append(content);
