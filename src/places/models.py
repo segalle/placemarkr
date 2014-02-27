@@ -4,6 +4,7 @@ import datetime
 import json
 from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 class Dataset(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -116,7 +117,7 @@ class Placemark(models.Model):
     lat = models.FloatField()
     lng = models.FloatField()
     user = models.ForeignKey(User, null=True, blank=True)
-    image = models.ImageField(upload_to='streetview', blank=True)
+    image = models.ImageField(upload_to='streetview', blank=True, default=settings.MEDIA_URL + 'streetview/default.png')
 
     class Meta:
         unique_together = (("place", "city", "address", "lat", "lng"),)
