@@ -1,18 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
 {% load staticfiles %}
-<script src="{% static "jquery-1.10.2.js" %}"></script>
+
 <link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
 
-<ul class="list-group">
-	{% for p in places %}
-	<li class="list-group-item">  		
-   			<a href="{% url 'place' p.id%}">{{p.vendor_id}}</a>
-   			<span class="badge">{{p.placemarks.count}}</span>
- 	</li>
- 	{% endfor %}
-</ul>
+<div class="container">
+	<div class="page-header">
+		<h3>מאגרי מידע</h3>
+	</div>
 
-<script src="{% static "dist/js/bootstrap.min.js" %}"></script> -->
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-target="#datasets">
+                מאגרי מידע אחרונים
+            </a>
+          </h4>
+        </div>
+        <div id="datasets" class="panel-collapse collapse">
+          <div class="panel-body" id="datasetBody">
+            <p><img src="{% static "images/ajax-loader.gif" %}" /> טוען מאגרי מידע... </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script>
+    $('#datasets').collapse('hide');
+    $('#datasets').one('show.bs.collapse', function () {
+      $.get('datasets.json', function(data) {
+			$("#datasetBody").empty();
+			if (data.length == 0) {
+				$("#datasetBody").append("<p>לא נמצאו מאגרי מידע</p>");
+			}
+			else
+			{
+			    $("#datasetBody").append("<div class=\"row\"><div class=\"col-md-12\"><table class=\"table table-striped\" id=\"datasets-table\"></table>");
+			    $("#datasets-table").append("<thead><tr><th class=\"text-right\">שם</th><th class=\"text-right\">משתמש</th><th class=\"text-right\">מספר מקומות</th></tr></thead>");
+			    content = "";
+                for (var i = 0; i < data.length; i++) {
+                    content += "<tr><td><a href=\"dataset/" + data[i].id + "\">" + data[i].name + "</a></td><td><a href=\"" + data[i].user_url + "\">" + data[i].first_name + " " + data[i].last_name + " (" + data[i].username + ")</a></td><td><span class=\"badge\">" + data[i].numOfPlaces + "</span></td></tr>";
+                }
+                content += "</table></div></div>";
+                $("#datasets-table").append(content);
+			}
+
+		});
+    });
+
+</script>
+
 {% endblock %}
 

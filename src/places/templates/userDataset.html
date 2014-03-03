@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+	
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<label for="page-numbers">עמוד</label>
+			<span id="page-numbers">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default">7 </button>	
+				</div>
+				
+				<div class="btn-group">
+				  <button type="button" class="btn btn-default active">1 </button>
+				  <button type="button" class="btn btn-default">2 </button>
+				  <button type="button" class="btn btn-default">3 </button>
+				</div>
+			</span>
+		</div>
+		
+		<div class="col-md-9">
+			<label for="view-options">תצוגה</label>
+			<div id="view-options" class="btn-group">
+			  <button type="radio" id="map-view-button" class="btn btn-default">מפה <span class="glyphicon glyphicon-globe"></span></button>
+			  <button type="radio" id="album-view-button" class="btn btn-default">אלבום <span class="glyphicon glyphicon-th"></span></button>
+			  <button type="radio" id="list-view-button" class="btn btn-default" checked>רשימה <span class="glyphicon glyphicon-list"></span></button>
+			</div>
+			
+			<label for="sort-options" style="margin-right: 10px;">מיון ע"פ</label>
+			<div id="sort-options" class="btn-group">
+			  <button type="button" class="btn btn-default">מס' הצבעות <span class="glyphicon glyphicon-thumbs-up"></span></button>
+			  <button type="button" class="btn btn-default active">מס' מיקומים <span class="glyphicon glyphicon-map-marker"></span></button>
+			</div>
+
+
+			<button type="button" class="btn btn-default">סדר עולה <span class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+
+			<div class="btn-group" style="margin-right: 15px;">
+			    <button type="button" class="btn btn-default dropdown-toggle btn-primary" data-toggle="dropdown">
+			        ייצא לקובץ <span class="glyphicon glyphicon-export"></span>
+			      &nbsp;<span class="caret"></span>
+			    </button>
+			    <ul class="dropdown-menu">
+			      <li><a href="{% url 'exportDataset' dataset.id 'csv' %}">CSV</a></li>
+			      <li><a href="{% url 'exportDataset' dataset.id 'geojson' %}">GeoJSON</a></li>
+			    </ul>
+			</div>
+  
+		</div>
+	</div>
+
+	<div class="page-header" style="margin-top: 0px;">
+		<h1 >{{ dataset.name }}</h1>
+		<h5>{{ dataset.description }}</h5>
+	</div>
+
+	<div id="dataset-content">
+	{% block dataset-content %}
+		<div style="text-align: center;">
+		 <img src="{% static "images/ajax-loader.gif" %}" /> טוען נתונים
+		</div>
+	{% endblock %}
+	</div>
+	
+ </div>
+ 
+ <script src="{% static "dataset.js" %}"></script>
+{% endblock %}

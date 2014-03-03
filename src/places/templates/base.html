@@ -1,16 +1,121 @@
+{% load staticfiles %}
+{% load url from future %}
 <!DOCTYPE HTML>
 <html dir="rtl">
 	<head>
-		<title>Test Page</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Social network for databases sharing.">
+		<meta name="author" content="The Public Knowledge Workshop">
+		<link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+		<title>Placemarkr</title>
+	    <!-- Bootstrap core CSS -->
+	    <link href="{% static 'dist/css/bootstrap.css' %}" rel="stylesheet">
+	    <link href="{% static "placemarkr.css" %}" rel="stylesheet" media="screen">
+	    <script src="{% static "jquery-1.10.2.js" %}"></script>
+	    <script src="{% static "dist/js/bootstrap.min.js" %}"></script>
+	    <script src="{% static "hogan-2.0.0.js" %}"></script>
+		<script src="{% static "typeahead.js/typeahead.js" %}"></script>
+		<script src="{% static "csrf.js" %}"></script>
+ 		<script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=visualization&language=he"></script>
 	</head>
 	<body>
-		<div class="card" id="topbar">
-			<p>
-				ברוך הבא, {{ user.username }}.<a href="/logout/">התנתק</a>
-			</p>
-		</div>
+		<!-- Static navbar -->
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+          	{% if not user.is_authenticated %}
+          	<form class="navbar-form navbar-left" name="LoginForm" action="/login/" method="post">
+          		{% csrf_token %}
+		      <div class="form-group">
+		        <input type="text" id="username" name="username" class="form-control" placeholder="שם משתמש">
+		      </div>
+		      <div class="form-group">
+		        <input type="password" id="password" name="password" class="form-control" placeholder="סיסמה">
+		      </div>
+		      <button type="submit" class="btn btn-success">כניסה</button>
+		      <a class="button secondaryAction" href="{% url 'account_reset_password' %}">שכחת סיסמה?</a>
+		    </form>
+
+          	{% else %}
+          	<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"> </span> {{user}} <b class="caret"> </b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#"><span class="glyphicon glyphicon-cog"> </span> הגדרות</a></li>
+                <li class="divider"></li>
+                <li><a href="{% url 'logout_user' %}"><span class="glyphicon glyphicon-off"> </span> התנתק</a></li>
+              </ul>
+            </li>
+            {% endif %}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+          	{% if user.is_authenticated %}
+          	<li>
+		    	<form class="navbar-form navbar-left" role="search">
+			      <div class="form-group">
+			        <input type="text" id="search" class="typeahead form-control input-sm" data-provied="typehead" style="width:300px;" placeholder="חפש אנשים, מקומות או מאגרי מידע">
+			      </div>
+		    	</form>
+          	</li>
+          	{% endif %}
+          	<li><a href="#">שאלות/תשובות</a></li>
+            <li><a href="#">משתמשים מובילים</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'userHomepage' user.username %} "> הדף שלי </a></li>
+            {% endif %}
+            <li><a class="navbar-brand" href="{% url 'home' %}">Placemarkr <span class="glyphicon glyphicon-map-marker"> </span></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
 		{% block content %}
 		:)
 		{% endblock %}
+	    
+      <footer>
+        <hr>
+        <p>&nbsp;&copy; 2013 אתר זה נבנה במסגרת <a href="http://hackita.hasadna.org.il/">הכיתה</a> עבור <a href="http://www.hasadna.org.il/">הסדנא לידע ציבורי</a></p>
+      </footer>
+      
 	</body>
+
+	<script>
+	
+{% verbatim %}
+	$(function() {
+		$('#search').typeahead({
+		  name: 'twitter-oss',
+		  prefetch: {url: '../../search.json',
+		  			ttl: 0.1},
+		  template: [
+		  	'<div class="search-option">',
+		  	'	<span style="text-align: right;">',
+		    '		<span class="search-type">{{type}}</span>',
+		    '		<span class="search-name">{{name}}</span>',
+		    '	</span>',
+		    '	<div class="search-description">{{description}}</div>',
+		    '</div>'
+		  ].join(''),
+		  engine: Hogan
+		});
+		
+		$('#search').on('typeahead:selected', function (object, datum) {
+		    // Example: {value: "@JakeHarding", tokens: ['Jake', 'Harding'], name: "Jake Harding", profileImageUrl: "https://twitter.com/JakeHaridng/profile_img"}
+		    console.log(datum);
+		    window.location.replace(datum.url);
+		});
+	});	
+{% endverbatim %}
+	</script>
+	
 </html>

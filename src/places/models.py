@@ -2,14 +2,34 @@ from django.contrib.auth.models import User
 from django.db import models
 import datetime
 import json
+from django.template.defaultfilters import slugify
+from django.core.urlresolvers import reverse
+from django.conf import settings
 
+class Dataset(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    owner = models.ForeignKey(User)
+    description = models.CharField(max_length=100)
+    slug = models.SlugField()
+    
+    def __unicode__(self):
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.name)
+        super(Dataset, self).save(*args, **kwargs)
 
 class Place(models.Model):
-    vendor_id = models.CharField(max_length=50, unique=True)
+    vendor_id = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    dataset = models.ForeignKey(Dataset, related_name="places")
     data = models.TextField()
 
     def __unicode__(self):
-        return self.data
+        return self.title
 
     @property
     def data_as_dict(self):
@@ -56,7 +76,39 @@ class Place(models.Model):
         else:
             print "No leading location for location #%s" % self.id
         return leading
-
+    
+    def lat(self):
+        placemark = self.get_leading_placemark()
+        if placemark:
+            return placemark.lat
+        return None
+        
+    def lng(self):
+        placemark = self.get_leading_placemark()
+        if placemark:
+            return placemark.lng
+        return None
+        
+    def number_of_votes(self):
+        return sum([pm.votes.count() for pm in self.placemarks.all()])
+    
+    def serialize_place(self):
+        res = dict(vendor_id=self.vendor_id, 
+                   title=self.title, 
+                   address=self.address, 
+                   city=self.city,
+                   numberOfPlacemarks=self.placemarks.count(),
+                   url=reverse('place', args=(self.id,)),
+                   numberOfVotes=self.number_of_votes())
+        placemark = self.get_leading_placemark()
+        if placemark is not None:
+            res['imageUrl'] = "../../" + placemark.image.url
+        lat, lng = self.lat(), self.lng()
+        if lat is not None:
+            res['lat'] = lat
+        if lng is not None:
+            res['lng'] = lng
+        return res
 
 class Placemark(models.Model):
     place = models.ForeignKey(Place, related_name='placemarks')
@@ -65,9 +117,13 @@ class Placemark(models.Model):
     lat = models.FloatField()
     lng = models.FloatField()
     user = models.ForeignKey(User, null=True, blank=True)
+    image = models.ImageField(upload_to='streetview', blank=True, default=settings.MEDIA_URL + 'streetview/default.png')
 
     class Meta:
         unique_together = (("place", "city", "address", "lat", "lng"),)
+
+    def __unicode__(self):
+        return self.place.title
 
 class Vote(models.Model):
     placemark = models.ForeignKey(Placemark, related_name='votes')
@@ -77,3 +133,4 @@ class Vote(models.Model):
 
     class Meta:
         unique_together = (('placemark', 'user'),)
+        

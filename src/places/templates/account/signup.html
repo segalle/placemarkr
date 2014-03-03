@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+{% load staticfiles %}
+<script src="{% static " jquery-1.10.2.js" %}"></script>
+<link href="{% static "dist/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
+<div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+<h1>הרשמה</h1>
+<form id="id_addNewDatasetForm" method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        {{ registration_form.as_p }}
+
+        <a class="btn btn-default" href="/">ביטול</a>
+        <button type="submit" id="register" class="btn btn-primary">
+            הירשם
+        </button>
+</form>
+
+<script src="{% static "dist/js/bootstrap.min.js" %}"></script>
+
+</div> <!-- /container -->
+
+
+{% endblock %}

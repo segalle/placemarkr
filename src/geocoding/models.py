@@ -15,7 +15,7 @@ def geo_code(address, locality):
     try:
         return json.loads(CacheItem.objects.get(address=address, locality=locality).result)
     except CacheItem.DoesNotExist:
-        payload = {"components": u"locality:{0}".format(locality), "address": address, "sensor": "false"}
+        payload = {"address": address, "components": u"locality:{0}".format(locality), "sensor": "false"}
         r = requests.get("http://maps.googleapis.com/maps/api/geocode/json", params=payload)
         print "geocoding"
         if r.status_code != 200:

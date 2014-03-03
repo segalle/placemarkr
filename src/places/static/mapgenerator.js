@@ -81,10 +81,10 @@ function showInfoWindow(marker) {
 		}, function(resp) {
 			if (resp == "OK") {
 				console.log("OK", this);
-				$('#loading').text("Vote Recieved");
+				$('#loading').text("הצבעתך התקבלה");
 				$(button).attr('disabled', 'disabled');
 			} else {
-				$('#loading').text("Updated");
+				$('#loading').text("עודכן בהצלחה");
 				marker.place.vote = !marker.place.vote;
 				marker.thumbicon = voteIcon(marker.place);
 				console.log(marker.litem[0]);
@@ -218,6 +218,19 @@ function createForeignMarker(result, fulladdress) {
 	return marker;
 }
 
+function updateStreetView(marker) {
+	
+	var panoramaOptions = {
+	    position: marker.getPosition(),
+	    pov: {
+	      heading: 94,
+	      pitch: 10
+	    }
+  	};
+	var panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'),panoramaOptions);
+	map.setStreetView(panorama);
+}
+
 function codeAddress() {
 	geocoder = new google.maps.Geocoder();
 	var fulladdress = {
@@ -235,11 +248,14 @@ function codeAddress() {
 				fulladdress["forcount"] = forcount;
 				var marker = createForeignMarker(results[i], fulladdress);
 				ForeignPlacemarkr.markers.push(marker);
-				forcount += 1;
+				forcount += 1;	
+				if (i == 0)
+					updateStreetView(marker);
 			};
+			
 			fitBounds(map, ForeignPlacemarkr.markers);
 		} else {
-			alert("Geocode was not successful for the following reason: " + status);
+			alert("לא נמצא מיקום עבור הכתובת והעיר. שגיאה: " + status);
 		}
 	});
 }
@@ -249,7 +265,8 @@ function initialize() {
 	var places = $(Placemarkr.placemarks);
 	var pageid = $(Placemarkr.id);
 	var mapOptions = {
-		mapTypeId : google.maps.MapTypeId.ROADMAP
+		mapTypeId : google.maps.MapTypeId.ROADMAP,
+		streetViewControl: false
 	};
 
 	map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
@@ -263,7 +280,6 @@ function initialize() {
 	fitBounds(map, Placemarkr.markers);
 
 	$('#jsontitle').click(function() {
-		console.log("title");
 		$("#jsoncontent").toggle();
 	});
 
@@ -271,6 +287,7 @@ function initialize() {
 
 	$("li.place").hover(function() {
 		var marker = $(this).data("marker");
+		updateStreetView(marker);
 		marker.setAnimation(google.maps.Animation.BOUNCE);
 		$(this).addClass('markerlist');
 	}, function() {
@@ -289,6 +306,7 @@ function initialize() {
 	$("body").on({
 		mouseenter : function() {
 			var marker = $(this).data("marker");
+			updateStreetView(marker);
 			marker.setAnimation(google.maps.Animation.BOUNCE);
 			$(this).addClass('foreignmarkerlist');
 		},
@@ -311,7 +329,67 @@ function initialize() {
 		codeAddress();
 		return false;
 	});
-
+	
+	var fenway = new google.maps.LatLng(0,0);
+	
+	if (Placemarkr.markers[0])
+		fenway = Placemarkr.markers[0].getPosition();
+	
+	var panoramaOptions = {
+	    position: fenway,
+	    pov: {
+	      heading: 94,
+	      pitch: 10
+	    }
+  	};
+	var panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'),panoramaOptions);
+	map.setStreetView(panorama);
 }
 
-$(initialize);
+function generateTableContent(data) {
+	if (!data.length)
+		return "<p>לא נמצאו הצבעות</p>";	
+	
+	var content = "<table class=\"table\"><thead><tr>";
+	content += "<th class=\"text-right\">#</th>";
+	content += "<th class=\"text-right\">שם</th>";
+	content += "<th class=\"text-right\">תאריך</th>";
+	content += "</tr></thead>";
+
+	for (var i=0; i < data.length ; i++) {
+    	content += "<tr>";
+        content += "<td>" + i + "</td>";
+		content += "<td><a href=\"" + data[i].url + "\">" + data[i].first_name + " " + data[i].last_name + " (" + data[i].username + ")</a></td>";
+		content += "<td>לפני " + data[i].date + "</td>";
+    	content += "</tr>";
+	}
+	
+	content += "</table>";
+	return content;
+}
+
+$(function() {
+	initialize();
+
+	$('#votingTableButton').data("visible",false);
+	
+	$('#votingTableButton').click(function() {	
+		if ($('#votingTableButton').data("visible")) {
+			$('#votingTableButton').popover("hide");
+			$('#votingTableButton').data("visible",false);			
+		}
+		else {
+	       	$.get('votingTable.json', function(data) {
+				var content = generateTableContent(data);
+				$('#votingTableButton').popover('destroy');
+				$('#votingTableButton').popover({title: 'הצבעות אחרונות', 
+										content: content, 
+									  	trigger: 'manual',
+									  	template: '<div class="popover popover-customization"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>',
+									  	html:true});
+				$('#votingTableButton').popover("show");
+				$('#votingTableButton').data("visible",true);	
+			});	
+		}
+	 });
+});
